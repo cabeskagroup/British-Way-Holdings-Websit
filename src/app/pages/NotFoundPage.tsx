@@ -1,69 +1,52 @@
+import { useRef } from "react";
 import { useNavigate } from "react-router";
-import { motion } from "motion/react";
-import { Home, ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
+import { gsap, useGSAP, prefersReducedMotion } from "@/app/lib/gsap";
+import { LuxeButton } from "../components/ui-luxe/LuxeButton";
 
 export function NotFoundPage() {
   const navigate = useNavigate();
+  const root = useRef<HTMLElement>(null);
+
+  useGSAP(
+    (_, contextSafe) => {
+      if (prefersReducedMotion() || !contextSafe) return;
+      gsap.from(".nf-digit", { yPercent: 120, rotationX: -90, opacity: 0, stagger: 0.12, duration: 1.4, ease: "expo.out", transformPerspective: 800 });
+      gsap.from(".nf-fade", { y: 30, opacity: 0, stagger: 0.1, delay: 0.5, duration: 1, ease: "expo.out" });
+      const rx = gsap.quickTo(".nf-digits", "rotationY", { duration: 1, ease: "power3.out" });
+      const ry = gsap.quickTo(".nf-digits", "rotationX", { duration: 1, ease: "power3.out" });
+      const move = contextSafe((e: PointerEvent) => {
+        rx((e.clientX / window.innerWidth - 0.5) * 30);
+        ry((0.5 - e.clientY / window.innerHeight) * 20);
+      });
+      window.addEventListener("pointermove", move);
+      return () => window.removeEventListener("pointermove", move);
+    },
+    { scope: root },
+  );
 
   return (
-    <div
-      className="min-h-[70vh] flex items-center justify-center px-6 pt-32 pb-20"
-      style={{ fontFamily: "'Poppins', sans-serif", background: "#f5f9ff" }}
-    >
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-center max-w-md"
-      >
-        <div
-          style={{
-            fontWeight: 800,
-            fontSize: "6rem",
-            lineHeight: 1,
-            background: "linear-gradient(135deg, #4a80b4, #2a5a94)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            marginBottom: "16px",
-          }}
-        >
-          404
+    <section ref={root} className="relative flex min-h-[100svh] items-center justify-center overflow-hidden px-6 py-32">
+      <div className="grid-lines absolute inset-0" />
+      <div className="orb left-1/4 top-1/4 h-[420px] w-[420px] bg-[#1b3f8f]/40" />
+      <div className="orb bottom-1/4 right-1/4 h-[320px] w-[320px] bg-[#d7263d]/20" />
+      <div className="relative flex flex-col items-center text-center" style={{ perspective: 900 }}>
+        <div className="nf-digits flex gap-2 font-display text-[clamp(7rem,26vw,18rem)] font-extrabold leading-none tracking-[-0.06em]" style={{ transformStyle: "preserve-3d" }}>
+          {["4", "0", "4"].map((d, i) => (
+            <span key={i} className={`nf-digit inline-block ${i === 1 ? "gold-text font-serif-luxe italic" : "text-white"}`} style={{ textShadow: i === 1 ? "none" : "0 30px 80px rgba(61,123,224,0.35)" }}>
+              {d}
+            </span>
+          ))}
         </div>
-        <h1 style={{ fontWeight: 700, fontSize: "1.6rem", color: "#1a2f4a", marginBottom: "12px" }}>
-          Page Not Found
-        </h1>
-        <p
-          style={{
-            fontFamily: "'Open Sans', sans-serif",
-            fontSize: "0.95rem",
-            color: "#5a7898",
-            lineHeight: 1.75,
-            marginBottom: "28px",
-          }}
-        >
-          The page you're looking for doesn't exist or may have been moved. Return to the homepage or explore our group companies.
-        </p>
-        <div className="flex flex-wrap justify-center gap-3">
-          <button
-            onClick={() => navigate("/")}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl font-semibold text-[14px] text-white transition-all hover:scale-[1.03]"
-            style={{ background: "linear-gradient(135deg, #4a80b4, #2a5a94)", fontFamily: "'Poppins', sans-serif" }}
-          >
-            <Home size={15} /> Go Home
-          </button>
-          <button
-            onClick={() => navigate(-1)}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl font-semibold text-[14px] transition-all hover:scale-[1.03]"
-            style={{
-              background: "white",
-              color: "#2a5a94",
-              border: "2px solid rgba(74,128,180,0.25)",
-              fontFamily: "'Poppins', sans-serif",
-            }}
-          >
-            <ArrowLeft size={15} /> Go Back
+        <h1 className="nf-fade mt-4 font-display text-3xl font-semibold text-white md:text-4xl">This page has wandered off.</h1>
+        <p className="nf-fade mt-4 max-w-md text-mist">The page you're looking for doesn't exist or may have been moved. Head home or explore our group companies.</p>
+        <div className="nf-fade mt-10 flex flex-wrap justify-center gap-4">
+          <LuxeButton to="/">Back to home</LuxeButton>
+          <button onClick={() => navigate(-1)} className="btn-ghost">
+            <ArrowLeft size={16} /> Go back
           </button>
         </div>
-      </motion.div>
-    </div>
+      </div>
+    </section>
   );
 }

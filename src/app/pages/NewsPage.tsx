@@ -1,165 +1,144 @@
-import { useState } from "react";
-import { motion } from "motion/react";
-import { Calendar, Tag, ArrowRight, Search } from "lucide-react";
+import { useRef, useState } from "react";
+import { ArrowUpRight, Calendar, Search } from "lucide-react";
 import { newsItems as news, newsCategories as categories } from "@/data/news";
-import { ImageWithFallback } from "../components/figma/ImageWithFallback";
+import { gsap, useGSAP, prefersReducedMotion } from "@/app/lib/gsap";
+import { PageHero } from "../components/ui-luxe/PageHero";
+import { SmartImage } from "../components/ui-luxe/SmartImage";
+import { TiltCard } from "../components/fx/TiltCard";
 
 const categoryColors: Record<string, string> = {
-  Achievement: "#1a6b3a",
-  Event: "#4a1a7a",
-  Award: "#7a5a1e",
-  Partnership: "#2a5a94",
-  Programme: "#7a1a1a",
-  Announcement: "#1a4a6b",
+  Achievement: "#2fbf71",
+  Event: "#b04ad8",
+  Award: "#d8b36a",
+  Partnership: "#3d7be0",
+  Programme: "#e0553d",
+  Announcement: "#4ac0d8",
 };
 
-function SectionLabel({ children }: { children: string }) {
-  return (
-    <span className="inline-block px-4 py-1.5 rounded-full text-[11px] font-semibold tracking-widest mb-4"
-      style={{ background: "rgba(74,128,180,0.1)", color: "#2a5a94", fontFamily: "'Poppins', sans-serif" }}>
-      {children}
-    </span>
-  );
-}
-
 export function NewsPage() {
-  const [activecat, setActiveCat] = useState("All");
+  const [active, setActive] = useState("All");
   const [search, setSearch] = useState("");
+  const grid = useRef<HTMLDivElement>(null);
 
-  const filtered = news.filter((n) => {
-    const matchCat = activecat === "All" || n.category === activecat;
-    const matchSearch = n.title.toLowerCase().includes(search.toLowerCase()) || n.excerpt.toLowerCase().includes(search.toLowerCase());
-    return matchCat && matchSearch;
-  });
-
-  const featured = filtered.find((n) => n.featured && activecat === "All" && !search);
+  const q = search.trim().toLowerCase();
+  const filtered = news.filter(
+    (n) => (active === "All" || n.category === active) && (!q || n.title.toLowerCase().includes(q) || n.excerpt.toLowerCase().includes(q)),
+  );
+  const featured = filtered.find((n) => n.featured && active === "All" && !q);
   const rest = featured ? filtered.filter((n) => n.id !== featured.id) : filtered;
 
+  useGSAP(
+    () => {
+      if (prefersReducedMotion()) return;
+      gsap.fromTo(".news-card", { y: 60, opacity: 0, rotationX: -15 }, { y: 0, opacity: 1, rotationX: 0, stagger: 0.07, duration: 1, ease: "expo.out", transformPerspective: 1000 });
+    },
+    { scope: grid, dependencies: [active, q] },
+  );
+
   return (
-    <div style={{ fontFamily: "'Poppins', sans-serif" }}>
+    <>
+      <PageHero
+        eyebrow="News & events"
+        crumb="News"
+        watermark="NEWSROOM"
+        image="/logos/glry11.jpg"
+        title={
+          <>
+            Stories from across <span className="accent">the group.</span>
+          </>
+        }
+        description="Achievements, events, partnerships and announcements from every British Way company."
+      />
 
-      {/* ── PAGE HERO ── */}
-      <section className="relative pt-36 pb-20 overflow-hidden"
-        style={{ background: "linear-gradient(135deg, #1a2f4a 0%, #2a4a7a 50%, #4a80b4 100%)" }}>
-        <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "36px 36px" }} />
-        <div className="absolute bottom-0 left-0 right-0 h-20" style={{ background: "linear-gradient(to bottom, transparent, #f5f9ff)" }} />
-        <div className="relative max-w-4xl mx-auto px-6 text-center">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <SectionLabel>NEWS & EVENTS</SectionLabel>
-            <h1 style={{ fontWeight: 800, fontSize: "clamp(2rem, 5vw, 3.5rem)", color: "white", lineHeight: 1.12, letterSpacing: "-0.02em", marginBottom: "20px" }}>
-              Latest News & Events
-            </h1>
-            <p style={{ fontFamily: "'Open Sans', sans-serif", fontSize: "1.05rem", color: "rgba(255,255,255,0.75)", lineHeight: 1.8, maxWidth: "560px", margin: "0 auto" }}>
-              Stay updated with the latest announcements, achievements, events, and milestones from across the British Way Holdings group.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
-      <section className="py-16" style={{ background: "#f5f9ff" }}>
-        <div className="max-w-6xl mx-auto px-6">
-
-          {/* Search + Filter */}
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-            className="flex flex-col md:flex-row gap-4 mb-12">
-            <div className="relative flex-1">
-              <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2" style={{ color: "#5a7898" }} />
+      <section className="relative px-6 pb-28 md:px-10">
+        <div ref={grid} className="mx-auto max-w-7xl">
+          {/* Filters */}
+          <div className="glass-strong sticky top-24 z-30 mb-12 flex flex-col gap-4 rounded-[1.75rem] p-3 md:flex-row md:items-center">
+            <label className="relative flex-1 md:max-w-xs">
+              <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" />
               <input
-                type="text"
-                placeholder="Search news and events…"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full pl-11 pr-4 py-3 rounded-2xl border text-[14px] focus:outline-none transition-colors"
-                style={{ background: "white", borderColor: "rgba(74,128,180,0.2)", fontFamily: "'Open Sans', sans-serif", color: "#1a2f4a" }}
-                onFocus={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "#4a80b4"; }}
-                onBlur={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(74,128,180,0.2)"; }}
+                placeholder="Search the newsroom…"
+                className="w-full rounded-full border border-white/10 bg-white/5 py-3 pl-11 pr-4 text-sm text-white placeholder:text-white/35 focus:border-[#d8b36a]/60 focus:outline-none"
               />
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {categories.map((cat) => (
-                <button key={cat} onClick={() => setActiveCat(cat)}
-                  className="px-4 py-2 rounded-xl text-[12px] font-semibold transition-all duration-200"
-                  style={{
-                    fontFamily: "'Poppins', sans-serif",
-                    background: activecat === cat ? "#2a5a94" : "white",
-                    color: activecat === cat ? "white" : "#2a5a94",
-                    border: "1.5px solid",
-                    borderColor: activecat === cat ? "#2a5a94" : "rgba(74,128,180,0.2)",
-                  }}>
-                  {cat}
+            </label>
+            <div className="flex gap-2 overflow-x-auto pb-1 md:pb-0" data-lenis-prevent>
+              {categories.map((c) => (
+                <button
+                  key={c}
+                  onClick={() => setActive(c)}
+                  className={`shrink-0 rounded-full px-4 py-2 font-display text-[13px] font-medium transition-all duration-300 ${
+                    active === c ? "bg-gradient-to-r from-[#d8b36a] to-[#f3dca0] text-[#1a1204] shadow-[0_8px_30px_-8px_rgba(216,179,106,0.7)]" : "text-white/65 hover:bg-white/10 hover:text-white"
+                  }`}
+                >
+                  {c}
                 </button>
               ))}
             </div>
-          </motion.div>
+          </div>
 
-          {/* Featured story */}
           {featured && (
-            <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
-              className="group grid lg:grid-cols-2 gap-0 rounded-3xl overflow-hidden bg-white border mb-12 cursor-pointer hover:shadow-2xl transition-all duration-400"
-              style={{ borderColor: "rgba(74,128,180,0.1)" }}>
-              <div className="relative h-72 lg:h-auto overflow-hidden">
-                <ImageWithFallback src={featured.image} alt={featured.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                <div className="absolute inset-0" style={{ background: "linear-gradient(to right, transparent 50%, rgba(255,255,255,0.05))" }} />
-                <span className="absolute top-5 left-5 px-3 py-1.5 rounded-full text-[11px] font-semibold text-white"
-                  style={{ background: categoryColors[featured.category] || "#2a5a94", fontFamily: "'Poppins', sans-serif" }}>
-                  ⭐ Featured · {featured.category}
+            <article className="news-card group relative mb-8 grid overflow-hidden rounded-[2.25rem] border border-white/10 lg:grid-cols-[1.3fr_1fr]">
+              <div className="relative min-h-[320px] overflow-hidden lg:min-h-[480px]">
+                <SmartImage src={featured.image} alt={featured.title} className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1.6s] group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#070b17] max-lg:bg-gradient-to-t" />
+                <span className="absolute left-6 top-6 rounded-full bg-[#d8b36a] px-4 py-1.5 font-display text-xs font-semibold text-[#1a1204]">Featured</span>
+              </div>
+              <div className="relative flex flex-col justify-center gap-5 bg-[#070b17] p-8 md:p-12">
+                <span className="text-xs font-semibold tracking-[0.25em] uppercase" style={{ color: categoryColors[featured.category] }}>
+                  {featured.category}
+                </span>
+                <h2 className="font-display text-3xl font-semibold leading-tight text-white md:text-4xl">{featured.title}</h2>
+                <p className="leading-relaxed text-mist">{featured.excerpt}</p>
+                <span className="flex items-center gap-2 text-sm text-white/45">
+                  <Calendar size={14} /> {featured.date}
                 </span>
               </div>
-              <div className="p-8 flex flex-col justify-center">
-                <div className="flex items-center gap-2 mb-4">
-                  <Calendar size={13} style={{ color: "#5a7898" }} />
-                  <span style={{ fontFamily: "'Open Sans', sans-serif", fontSize: "12px", color: "#5a7898" }}>{featured.date}</span>
-                </div>
-                <h2 style={{ fontWeight: 700, fontSize: "1.4rem", color: "#1a2f4a", lineHeight: 1.35, marginBottom: "14px" }}>{featured.title}</h2>
-                <p style={{ fontFamily: "'Open Sans', sans-serif", fontSize: "14px", color: "#4a6278", lineHeight: 1.8, marginBottom: "20px" }}>{featured.excerpt}</p>
-                <button className="flex items-center gap-2 font-semibold text-[13px] hover:gap-3 transition-all"
-                  style={{ color: "#2a5a94", fontFamily: "'Poppins', sans-serif" }}>
-                  Read Full Story <ArrowRight size={14} />
-                </button>
-              </div>
-            </motion.div>
+            </article>
           )}
 
-          {/* News Grid */}
-          {rest.length > 0 ? (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {rest.map((item, i) => (
-                <motion.div key={item.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.07 }}
-                  className="group rounded-3xl overflow-hidden bg-white border transition-all duration-400 hover:shadow-2xl hover:-translate-y-1 cursor-pointer"
-                  style={{ borderColor: "rgba(74,128,180,0.1)" }}>
-                  <div className="relative h-48 overflow-hidden">
-                    <ImageWithFallback src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700" />
-                    <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(26,47,74,0.55), transparent 55%)" }} />
-                    <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] font-semibold text-white"
-                      style={{ background: categoryColors[item.category] || "#2a5a94", fontFamily: "'Poppins', sans-serif" }}>
-                      {item.category}
-                    </span>
-                  </div>
-                  <div className="p-5">
-                    <div className="flex items-center gap-2 mb-3">
-                      <Calendar size={12} style={{ color: "#5a7898" }} />
-                      <span style={{ fontFamily: "'Open Sans', sans-serif", fontSize: "11px", color: "#5a7898" }}>{item.date}</span>
-                    </div>
-                    <h3 style={{ fontWeight: 600, fontSize: "14px", color: "#1a2f4a", lineHeight: 1.45, marginBottom: "10px" }}>{item.title}</h3>
-                    <p style={{ fontFamily: "'Open Sans', sans-serif", fontSize: "12px", color: "#5a7898", lineHeight: 1.65, marginBottom: "14px" }}>
-                      {item.excerpt.substring(0, 100)}…
-                    </p>
-                    <div className="flex items-center gap-1 font-semibold text-[12px] group-hover:gap-2 transition-all"
-                      style={{ color: "#4a80b4", fontFamily: "'Poppins', sans-serif" }}>
-                      Read More <ArrowRight size={12} />
-                    </div>
-                  </div>
-                </motion.div>
+          {rest.length ? (
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {rest.map((n) => (
+                <div key={n.id} className="news-card">
+                  <TiltCard className="h-full rounded-[1.75rem]" max={6}>
+                    <article className="glass luxe-border group flex h-full flex-col overflow-hidden rounded-[1.75rem]">
+                      <div className="relative h-56 overflow-hidden">
+                        <SmartImage src={n.image} alt={n.title} className="h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-110" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#070b17] to-transparent" />
+                        <span
+                          className="absolute left-4 top-4 rounded-full px-3 py-1 font-display text-[11px] font-semibold text-[#04060d]"
+                          style={{ background: categoryColors[n.category] ?? "#d8b36a" }}
+                        >
+                          {n.category}
+                        </span>
+                      </div>
+                      <div className="flex flex-1 flex-col gap-3 p-6">
+                        <span className="flex items-center gap-2 text-xs text-white/45">
+                          <Calendar size={13} /> {n.date}
+                        </span>
+                        <h3 className="font-display text-lg font-semibold leading-snug text-white">{n.title}</h3>
+                        <p className="flex-1 text-sm leading-relaxed text-mist">{n.excerpt}</p>
+                        <span className="mt-2 flex items-center gap-2 font-display text-sm font-semibold text-[#f3dca0]">
+                          Read story <ArrowUpRight size={15} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                        </span>
+                      </div>
+                    </article>
+                  </TiltCard>
+                </div>
               ))}
             </div>
           ) : (
-            <div className="text-center py-20">
-              <div style={{ fontSize: "3rem", marginBottom: "12px" }}>🔍</div>
-              <p style={{ fontFamily: "'Open Sans', sans-serif", color: "#5a7898", fontSize: "1rem" }}>No results found. Try a different search or category.</p>
-            </div>
+            !featured && (
+              <div className="news-card glass rounded-[2rem] py-24 text-center">
+                <p className="font-display text-xl text-white">No stories found</p>
+                <p className="mt-2 text-mist">Try a different search or category.</p>
+              </div>
+            )
           )}
         </div>
       </section>
-    </div>
+    </>
   );
 }

@@ -22,22 +22,12 @@ export class ErrorBoundary extends Component<Props, State> {
   render() {
     if (this.state.hasError) {
       return (
-        <div
-          className="min-h-[60vh] flex flex-col items-center justify-center px-6 pt-32 pb-20 text-center"
-          style={{ fontFamily: "'Poppins', sans-serif", background: "#f5f9ff" }}
-        >
-          <h1 style={{ fontWeight: 700, fontSize: "1.5rem", color: "#1a2f4a", marginBottom: "12px" }}>
-            Something went wrong
-          </h1>
-          <p style={{ fontFamily: "'Open Sans', sans-serif", fontSize: "0.95rem", color: "#5a7898", marginBottom: "24px", maxWidth: "420px" }}>
-            This page could not be loaded. Please refresh or return to the homepage.
-          </p>
-          <button
-            onClick={() => window.location.assign(import.meta.env.BASE_URL)}
-            className="px-6 py-3 rounded-2xl font-semibold text-[14px] text-white"
-            style={{ background: "linear-gradient(135deg, #4a80b4, #2a5a94)" }}
-          >
-            Go Home
+        <div className="flex min-h-[70vh] flex-col items-center justify-center px-6 pb-20 pt-32 text-center">
+          <span className="eyebrow">Unexpected error</span>
+          <h1 className="mt-5 font-display text-3xl font-semibold text-white">Something went wrong</h1>
+          <p className="mt-3 max-w-md text-mist">This page could not be loaded. Please refresh or return to the homepage.</p>
+          <button onClick={() => window.location.assign(import.meta.env.BASE_URL)} className="btn-luxe mt-8">
+            Go home
           </button>
         </div>
       );

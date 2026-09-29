@@ -1,285 +1,217 @@
-import { useState } from "react";
-import { motion } from "motion/react";
-import { useNavigate } from "react-router";
-import { MapPin, Phone, Mail, Globe, Send, CheckCircle2, Clock, Facebook, Instagram, Linkedin, Youtube, ArrowRight } from "lucide-react";
-import { companies as groupCompanies } from "@/data/companies";
-import { BrandLogo } from "../components/BrandLogo";
+import { useState, type FormEvent } from "react";
+import { Link } from "react-router";
+import { ArrowUpRight, Clock, Globe, Mail, MapPin, Phone, Send } from "lucide-react";
+import { companies } from "@/data/companies";
+import { PageHero } from "../components/ui-luxe/PageHero";
+import { SectionHeading } from "../components/ui-luxe/SectionHeading";
+import { LogoChip } from "../components/ui-luxe/LogoChip";
+import { LuxeButton } from "../components/ui-luxe/LuxeButton";
+import { Reveal } from "../components/fx/Reveal";
+import { TiltCard } from "../components/fx/TiltCard";
 
-function SectionLabel({ children }: { children: string }) {
-  return (
-    <span className="inline-block px-4 py-1.5 rounded-full text-[11px] font-semibold tracking-widest mb-4"
-      style={{ background: "rgba(74,128,180,0.1)", color: "#2a5a94", fontFamily: "'Poppins', sans-serif" }}>
-      {children}
-    </span>
-  );
-}
+const GROUP_EMAIL = "info@britishwayholdings.lk";
+
+const contactItems = [
+  { icon: MapPin, label: "Head office", value: "No. 123, Galle Road, Colombo 03, Sri Lanka" },
+  { icon: Phone, label: "Telephone", value: "+94 11 234 5678", href: "tel:+94112345678" },
+  { icon: Mail, label: "Email", value: GROUP_EMAIL, href: `mailto:${GROUP_EMAIL}` },
+  { icon: Globe, label: "Website", value: "www.britishwayholdings.lk" },
+  { icon: Clock, label: "Office hours", value: "Mon–Fri 8:00 AM – 5:00 PM · Sat 8:00 AM – 1:00 PM" },
+];
+
+const fieldClass =
+  "peer w-full rounded-2xl border border-white/10 bg-white/[0.04] px-5 pb-3 pt-6 text-[15px] text-white placeholder-transparent transition-colors focus:border-[#d8b36a]/70 focus:bg-white/[0.07] focus:outline-none";
+const labelClass =
+  "pointer-events-none absolute left-5 top-2 text-[11px] font-semibold tracking-[0.15em] text-[#f3dca0] uppercase transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:tracking-normal peer-placeholder-shown:normal-case peer-placeholder-shown:text-white/45 peer-focus:top-2 peer-focus:text-[11px] peer-focus:tracking-[0.15em] peer-focus:uppercase peer-focus:text-[#f3dca0]";
 
 export function ContactPage() {
-  const navigate = useNavigate();
-  const [form, setForm] = useState({ name: "", email: "", subject: "", company: "", message: "" });
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [form, setForm] = useState({ name: "", email: "", company: "", subject: "", message: "" });
+  const [opened, setOpened] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // There is no mail server behind the site yet, so hand the message to the visitor's email app.
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setSubmitted(true);
-    }, 1200);
-    setTimeout(() => {
-      setSubmitted(false);
-      setForm({ name: "", email: "", subject: "", company: "", message: "" });
-    }, 5000);
+    const signature = [form.name, form.company, form.email].filter(Boolean).join("\n");
+    const body = `${form.message}\n\n— ${signature}`;
+    window.location.href = `mailto:${GROUP_EMAIL}?subject=${encodeURIComponent(form.subject)}&body=${encodeURIComponent(body)}`;
+    setOpened(true);
   };
 
-  const contactItems = [
-    { icon: MapPin, label: "Head Office", value: "No. 123, Galle Road, Colombo 03, Sri Lanka", color: "#2a5a94" },
-    { icon: Phone, label: "Telephone", value: "+94 11 234 5678", color: "#1a6b3a" },
-    { icon: Mail, label: "Email", value: "info@britishwayholdings.lk", color: "#cc2222" },
-    { icon: Globe, label: "Website", value: "www.britishwayholdings.lk", color: "#4a1a7a" },
-    { icon: Clock, label: "Office Hours", value: "Mon–Fri: 8:00 AM – 5:00 PM\nSat: 8:00 AM – 1:00 PM", color: "#7a5a1e" },
-  ];
-
-  const companies = groupCompanies
-    .filter((c) => c.phone && c.email)
-    .map((c) => ({ name: c.name, phone: c.phone!, email: c.email! }));
+  const field = (key: keyof typeof form, label: string, type = "text", required = true) => (
+    <label className="relative block">
+      <input
+        type={type}
+        required={required}
+        placeholder={label}
+        value={form[key]}
+        onChange={(e) => setForm({ ...form, [key]: e.target.value })}
+        className={fieldClass}
+      />
+      <span className={labelClass}>
+        {label}
+        {required ? " *" : ""}
+      </span>
+    </label>
+  );
 
   return (
-    <div style={{ fontFamily: "'Poppins', sans-serif" }}>
+    <>
+      <PageHero
+        eyebrow="Contact"
+        crumb="Contact"
+        watermark="HELLO"
+        image="/logos/hi002.png"
+        title={
+          <>
+            Let's start a <span className="accent">conversation.</span>
+          </>
+        }
+        description="Whether you're a prospective student, a guest, a partner or a future colleague — we'd love to hear from you."
+      />
 
-      {/* ── PAGE HERO ── */}
-      <section className="relative pt-36 pb-20 overflow-hidden"
-        style={{ background: "linear-gradient(135deg, #1a2f4a 0%, #2a4a7a 50%, #4a80b4 100%)" }}>
-        <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "36px 36px" }} />
-        <div className="absolute bottom-0 left-0 right-0 h-20" style={{ background: "linear-gradient(to bottom, transparent, #f5f9ff)" }} />
-        <div className="relative max-w-4xl mx-auto px-6 text-center">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <SectionLabel>CONTACT US</SectionLabel>
-            <h1 style={{ fontWeight: 800, fontSize: "clamp(2rem, 5vw, 3.5rem)", color: "white", lineHeight: 1.12, letterSpacing: "-0.02em", marginBottom: "20px" }}>
-              Let's Start a Conversation
-            </h1>
-            <p style={{ fontFamily: "'Open Sans', sans-serif", fontSize: "1.05rem", color: "rgba(255,255,255,0.75)", lineHeight: 1.8, maxWidth: "560px", margin: "0 auto" }}>
-              We'd love to hear from you. Reach out for enquiries, partnerships, admissions, or any information about our group companies.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── MAIN CONTACT ── */}
-      <section className="py-20" style={{ background: "#f5f9ff" }}>
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid lg:grid-cols-5 gap-10">
-
-            {/* Info Column */}
-            <motion.div initial={{ opacity: 0, x: -24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}
-              className="lg:col-span-2 flex flex-col gap-5">
-
-              {/* Contact card */}
-              <div className="rounded-3xl overflow-hidden" style={{ background: "linear-gradient(135deg, #1a3a6b, #0f2548)" }}>
-                <div className="p-7">
-                  <div className="mb-6">
-                    <BrandLogo height={44} />
-                    <div style={{ fontFamily: "'Open Sans', sans-serif", fontSize: "10px", color: "rgba(255,255,255,0.5)", marginTop: "8px" }}>
-                      Head Office
-                    </div>
-                  </div>
-                  <div className="flex flex-col gap-5">
-                    {contactItems.map((item) => (
-                      <div key={item.label} className="flex gap-3">
-                        <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
-                          style={{ background: "rgba(255,255,255,0.1)" }}>
-                          <item.icon size={15} color="rgba(255,255,255,0.8)" />
-                        </div>
-                        <div>
-                          <div style={{ fontWeight: 600, fontSize: "10px", color: "rgba(255,255,255,0.45)", letterSpacing: "0.06em", marginBottom: "2px" }}>
-                            {item.label.toUpperCase()}
-                          </div>
-                          <div style={{ fontFamily: "'Open Sans', sans-serif", fontSize: "13px", color: "rgba(255,255,255,0.88)", lineHeight: 1.6, whiteSpace: "pre-line" }}>
-                            {item.value}
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Social media */}
-                <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }} className="px-7 py-5">
-                  <div style={{ fontWeight: 600, fontSize: "11px", color: "rgba(255,255,255,0.4)", letterSpacing: "0.08em", marginBottom: "12px" }}>
-                    FOLLOW US
-                  </div>
-                  <div className="flex gap-3">
-                    {[
-                      { icon: Facebook, color: "#1877f2" },
-                      { icon: Instagram, color: "#e1306c" },
-                      { icon: Linkedin, color: "#0077b5" },
-                      { icon: Youtube, color: "#ff0000" },
-                    ].map(({ icon: Icon, color }, i) => (
-                      <a key={i} href="#"
-                        className="w-9 h-9 rounded-xl flex items-center justify-center transition-all hover:scale-110"
-                        style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.1)" }}
-                        onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = `${color}22`; }}
-                        onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.08)"; }}
-                      >
-                        <Icon size={14} color="rgba(255,255,255,0.7)" />
-                      </a>
-                    ))}
-                  </div>
-                </div>
+      {/* Contact cards */}
+      <section className="relative px-6 md:px-10">
+        <Reveal className="mx-auto grid max-w-7xl gap-4 sm:grid-cols-2 lg:grid-cols-5" stagger={0.08} y={50}>
+          {contactItems.map((c) => {
+            const inner = (
+              <div className="glass luxe-border flex h-full flex-col gap-4 rounded-[1.75rem] p-6">
+                <span className="grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-[#f3dca0] to-[#9c7a3c] text-[#1a1204]">
+                  <c.icon size={20} />
+                </span>
+                <span className="text-[11px] font-semibold tracking-[0.2em] text-white/45 uppercase">{c.label}</span>
+                <span className="text-[15px] leading-relaxed text-white">{c.value}</span>
               </div>
-
-              <div className="rounded-3xl overflow-hidden relative h-48 bg-[#dde8f4]">
-                <iframe
-                  title="British Way Holdings location map"
-                  src="https://maps.google.com/maps?q=Galle+Road+Colombo+03+Sri+Lanka&output=embed"
-                  className="w-full h-full border-0"
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  allowFullScreen
-                />
-              </div>
-            </motion.div>
-
-            {/* Form */}
-            <motion.div initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}
-              className="lg:col-span-3">
-              <div className="p-8 rounded-3xl bg-white" style={{ border: "1px solid rgba(74,128,180,0.1)", boxShadow: "0 4px 40px rgba(74,128,180,0.08)" }}>
-                {submitted ? (
-                  <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
-                    className="flex flex-col items-center justify-center py-16 gap-5">
-                    <div className="w-20 h-20 rounded-3xl flex items-center justify-center"
-                      style={{ background: "rgba(26,107,58,0.1)" }}>
-                      <CheckCircle2 size={40} style={{ color: "#1a6b3a" }} />
-                    </div>
-                    <h3 style={{ fontWeight: 700, fontSize: "1.4rem", color: "#1a2f4a" }}>Message Sent!</h3>
-                    <p style={{ fontFamily: "'Open Sans', sans-serif", fontSize: "14px", color: "#5a7898", textAlign: "center", maxWidth: "320px", lineHeight: 1.7 }}>
-                      Thank you for reaching out to British Way Holdings. Our team will respond within 24 hours.
-                    </p>
-                  </motion.div>
+            );
+            return (
+              <TiltCard key={c.label} className="h-full rounded-[1.75rem]" max={8}>
+                {c.href ? (
+                  <a href={c.href} className="block h-full">
+                    {inner}
+                  </a>
                 ) : (
-                  <>
-                    <h3 style={{ fontWeight: 700, fontSize: "1.3rem", color: "#1a2f4a", marginBottom: "6px" }}>Send Us a Message</h3>
-                    <p style={{ fontFamily: "'Open Sans', sans-serif", fontSize: "13px", color: "#5a7898", marginBottom: "28px" }}>
-                      Fill in the form below and we'll get back to you promptly.
-                    </p>
-                    <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-                      <div className="grid sm:grid-cols-2 gap-5">
-                        {[
-                          { key: "name", label: "Full Name", placeholder: "Dr. John Smith", type: "text" },
-                          { key: "email", label: "Email Address", placeholder: "john@example.com", type: "email" },
-                        ].map((f) => (
-                          <div key={f.key}>
-                            <label style={{ fontWeight: 600, fontSize: "12px", color: "#1a3a6b", display: "block", marginBottom: "6px" }}>
-                              {f.label} *
-                            </label>
-                            <input required type={f.type} placeholder={f.placeholder}
-                              value={form[f.key as keyof typeof form]}
-                              onChange={(e) => setForm({ ...form, [f.key]: e.target.value })}
-                              className="w-full px-4 py-3 rounded-xl text-[13px] focus:outline-none transition-all"
-                              style={{ border: "1.5px solid rgba(74,128,180,0.18)", background: "#f5f9ff", fontFamily: "'Open Sans', sans-serif", color: "#1a2f4a" }}
-                              onFocus={(e) => { e.currentTarget.style.borderColor = "#4a80b4"; e.currentTarget.style.background = "white"; }}
-                              onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(74,128,180,0.18)"; e.currentTarget.style.background = "#f5f9ff"; }}
-                            />
-                          </div>
-                        ))}
-                      </div>
-                      <div className="grid sm:grid-cols-2 gap-5">
-                        <div>
-                          <label style={{ fontWeight: 600, fontSize: "12px", color: "#1a3a6b", display: "block", marginBottom: "6px" }}>Company / Organisation</label>
-                          <input type="text" placeholder="Your Organisation"
-                            value={form.company}
-                            onChange={(e) => setForm({ ...form, company: e.target.value })}
-                            className="w-full px-4 py-3 rounded-xl text-[13px] focus:outline-none transition-all"
-                            style={{ border: "1.5px solid rgba(74,128,180,0.18)", background: "#f5f9ff", fontFamily: "'Open Sans', sans-serif", color: "#1a2f4a" }}
-                            onFocus={(e) => { e.currentTarget.style.borderColor = "#4a80b4"; e.currentTarget.style.background = "white"; }}
-                            onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(74,128,180,0.18)"; e.currentTarget.style.background = "#f5f9ff"; }}
-                          />
-                        </div>
-                        <div>
-                          <label style={{ fontWeight: 600, fontSize: "12px", color: "#1a3a6b", display: "block", marginBottom: "6px" }}>Subject *</label>
-                          <input required type="text" placeholder="Enquiry about BWEA"
-                            value={form.subject}
-                            onChange={(e) => setForm({ ...form, subject: e.target.value })}
-                            className="w-full px-4 py-3 rounded-xl text-[13px] focus:outline-none transition-all"
-                            style={{ border: "1.5px solid rgba(74,128,180,0.18)", background: "#f5f9ff", fontFamily: "'Open Sans', sans-serif", color: "#1a2f4a" }}
-                            onFocus={(e) => { e.currentTarget.style.borderColor = "#4a80b4"; e.currentTarget.style.background = "white"; }}
-                            onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(74,128,180,0.18)"; e.currentTarget.style.background = "#f5f9ff"; }}
-                          />
-                        </div>
-                      </div>
-                      <div>
-                        <label style={{ fontWeight: 600, fontSize: "12px", color: "#1a3a6b", display: "block", marginBottom: "6px" }}>Message *</label>
-                        <textarea required rows={5} placeholder="Please describe your enquiry in detail…"
-                          value={form.message}
-                          onChange={(e) => setForm({ ...form, message: e.target.value })}
-                          className="w-full px-4 py-3 rounded-xl text-[13px] focus:outline-none transition-all resize-none"
-                          style={{ border: "1.5px solid rgba(74,128,180,0.18)", background: "#f5f9ff", fontFamily: "'Open Sans', sans-serif", color: "#1a2f4a" }}
-                          onFocus={(e) => { e.currentTarget.style.borderColor = "#4a80b4"; e.currentTarget.style.background = "white"; }}
-                          onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(74,128,180,0.18)"; e.currentTarget.style.background = "#f5f9ff"; }}
-                        />
-                      </div>
-                      <button type="submit" disabled={loading}
-                        className="flex items-center justify-center gap-3 py-4 rounded-2xl text-white font-semibold text-[14px] transition-all duration-300 hover:scale-[1.02] hover:shadow-xl disabled:opacity-70"
-                        style={{ background: "linear-gradient(135deg, #2a5a94, #4a80b4)", fontFamily: "'Poppins', sans-serif" }}>
-                        {loading ? (
-                          <>
-                            <div className="w-4 h-4 rounded-full border-2 border-white/30 border-t-white animate-spin" />
-                            Sending…
-                          </>
-                        ) : (
-                          <>
-                            <Send size={16} /> Send Message
-                          </>
-                        )}
-                      </button>
-                    </form>
-                  </>
+                  inner
                 )}
+              </TiltCard>
+            );
+          })}
+        </Reveal>
+      </section>
+
+      {/* Form + map */}
+      <section className="relative px-6 py-24 md:px-10 md:py-32">
+        <div className="orb left-0 top-1/3 h-[420px] w-[420px] bg-[#1b3f8f]/30" />
+        <div className="relative mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1.15fr_1fr]">
+          <Reveal y={60}>
+            <div className="glass-strong luxe-border rounded-[2.25rem] p-7 md:p-10">
+              <span className="eyebrow">Send a message</span>
+              <h2 className="mt-4 font-display text-3xl font-semibold text-white md:text-4xl">How can we help?</h2>
+              <p className="mt-3 text-sm text-mist">Fill in the form and your email app will open with the message ready to send to our team.</p>
+              <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-4">
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {field("name", "Full name")}
+                  {field("email", "Email address", "email")}
+                </div>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {field("company", "Company / organisation", "text", false)}
+                  {field("subject", "Subject")}
+                </div>
+                <label className="relative block">
+                  <textarea
+                    required
+                    rows={6}
+                    placeholder="Message"
+                    value={form.message}
+                    onChange={(e) => setForm({ ...form, message: e.target.value })}
+                    className={`${fieldClass} resize-none`}
+                  />
+                  <span className={labelClass}>Message *</span>
+                </label>
+                <div className="flex flex-wrap items-center gap-4 pt-2">
+                  <button type="submit" className="btn-luxe shine">
+                    <Send size={16} /> Send message
+                  </button>
+                  {opened && (
+                    <p className="text-sm text-[#f3dca0]">
+                      Your email app should now be open. If it isn't, write to us at{" "}
+                      <a href={`mailto:${GROUP_EMAIL}`} className="underline">
+                        {GROUP_EMAIL}
+                      </a>
+                      .
+                    </p>
+                  )}
+                </div>
+              </form>
+            </div>
+          </Reveal>
+
+          <Reveal y={60} className="flex flex-col gap-6">
+            <div className="relative min-h-[380px] flex-1 overflow-hidden rounded-[2.25rem] border border-white/10">
+              <iframe
+                title="British Way Holdings head office map"
+                src="https://maps.google.com/maps?q=Galle+Road+Colombo+03+Sri+Lanka&output=embed"
+                className="absolute inset-0 h-full w-full"
+                style={{ filter: "invert(0.92) hue-rotate(180deg) saturate(0.6) brightness(0.9)" }}
+                loading="lazy"
+              />
+              <div className="glass-strong absolute bottom-4 left-4 right-4 flex items-center gap-4 rounded-2xl p-4">
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-[#d7263d] text-white">
+                  <MapPin size={18} />
+                </span>
+                <div>
+                  <p className="font-display text-sm font-semibold text-white">British Way Holdings — Head Office</p>
+                  <p className="text-xs text-white/60">No. 123, Galle Road, Colombo 03</p>
+                </div>
               </div>
-            </motion.div>
-          </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* ── COMPANY CONTACTS ── */}
-      <section className="py-20" style={{ background: "#eaf2fb" }}>
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-10">
-            <SectionLabel>COMPANY CONTACTS</SectionLabel>
-            <h2 style={{ fontWeight: 700, fontSize: "clamp(1.5rem, 3vw, 2rem)", color: "#1a2f4a" }}>
-              Contact Our <span style={{ color: "#4a80b4" }}>Subsidiaries</span> Directly
-            </h2>
-          </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {groupCompanies.map((c, i) => (
-              <motion.div
-                key={c.name}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
-                className="p-5 rounded-2xl bg-white border transition-all hover:shadow-lg cursor-pointer group"
-                style={{ borderColor: "rgba(74,128,180,0.1)" }}
-                onClick={() => navigate(`/companies/${c.slug}`)}
-              >
-                <div style={{ fontWeight: 700, fontSize: "13px", color: "#1a2f4a", marginBottom: "10px", lineHeight: 1.35 }}>{c.name}</div>
-                <div className="flex items-center gap-2 mb-2">
-                  <Phone size={12} style={{ color: "#4a80b4" }} />
-                  <span style={{ fontFamily: "'Open Sans', sans-serif", fontSize: "12px", color: "#4a6278" }}>{c.phone}</span>
+      {/* Company directory */}
+      <section className="relative px-6 pb-28 md:px-10">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeading
+            eyebrow="Company directory"
+            title={
+              <>
+                Reach a company <span className="accent">directly.</span>
+              </>
+            }
+            action={
+              <LuxeButton to="/about#companies" variant="ghost">
+                All companies
+              </LuxeButton>
+            }
+          />
+          <Reveal className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" stagger={0.06} y={40}>
+            {companies.map((c) => (
+              <div key={c.slug} className="glass luxe-border group flex h-full flex-col gap-4 rounded-[1.75rem] p-5">
+                <div className="flex items-center gap-3">
+                  <LogoChip company={c} className="h-12 w-16 shrink-0" padding="p-1.5" />
+                  <Link to={`/companies/${c.slug}`} className="font-display text-sm font-semibold leading-snug text-white hover:text-[#f3dca0]">
+                    {c.name}
+                  </Link>
                 </div>
-                <div className="flex items-center gap-2 mb-3">
-                  <Mail size={12} style={{ color: "#4a80b4" }} />
-                  <span style={{ fontFamily: "'Open Sans', sans-serif", fontSize: "12px", color: "#4a6278" }}>{c.email}</span>
+                <div className="mt-auto flex flex-col gap-2 text-[13px]">
+                  {c.phone && (
+                    <a href={`tel:${c.phone.replace(/\s/g, "")}`} className="flex items-center gap-2 text-white/65 hover:text-white">
+                      <Phone size={13} className="text-[#d8b36a]" /> {c.phone}
+                    </a>
+                  )}
+                  {c.email && (
+                    <a href={`mailto:${c.email}`} className="flex items-center gap-2 text-white/65 hover:text-white">
+                      <Mail size={13} className="text-[#d8b36a]" /> {c.email}
+                    </a>
+                  )}
+                  <a href={c.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-white/65 hover:text-white">
+                    <ArrowUpRight size={13} className="text-[#d8b36a]" /> {c.website.replace(/^https?:\/\/(www\.)?/, "")}
+                  </a>
                 </div>
-                <div className="flex items-center gap-1 text-[11px] font-semibold group-hover:gap-2 transition-all" style={{ color: "#4a80b4", fontFamily: "'Poppins', sans-serif" }}>
-                  View Company <ArrowRight size={11} />
-                </div>
-              </motion.div>
+              </div>
             ))}
-          </div>
+          </Reveal>
         </div>
       </section>
-    </div>
+    </>
   );
 }

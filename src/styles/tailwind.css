@@ -2,20 +2,3 @@
 @source '../**/*.{js,ts,jsx,tsx}';
 
 @import 'tw-animate-css';
-
-@keyframes marquee-rtl {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-.company-marquee-track {
-  animation: marquee-rtl 45s linear infinite;
-}
-
-.company-marquee:hover .company-marquee-track {
-  animation-play-state: paused;
-}

@@ -1,283 +1,200 @@
-import { motion } from "motion/react";
-import { useNavigate, useParams, Navigate } from "react-router";
-import { ArrowLeft, ArrowRight, ExternalLink, CheckCircle2, Phone, Mail, Globe } from "lucide-react";
-import { getCompanyBySlug } from "@/data/companies";
-import { CompanyLogo } from "../components/CompanyLogo";
-import { ImageWithFallback } from "../components/figma/ImageWithFallback";
-
-function SectionLabel({ children, color = "#2a5a94" }: { children: string; color?: string }) {
-  return (
-    <span
-      className="inline-block px-4 py-1.5 rounded-full text-[11px] font-semibold tracking-widest mb-4"
-      style={{ background: `${color}18`, color, fontFamily: "'Poppins', sans-serif" }}
-    >
-      {children}
-    </span>
-  );
-}
+import { useRef } from "react";
+import { Link, Navigate, useParams } from "react-router";
+import { ArrowUpRight, Globe, Mail, Phone } from "lucide-react";
+import { companies, getCompanyBySlug } from "@/data/companies";
+import { sectors } from "@/data/sectors";
+import { gsap, useGSAP, prefersReducedMotion } from "@/app/lib/gsap";
+import { onIntroDone } from "../components/fx/intro";
+import { SplitHeading } from "../components/fx/SplitHeading";
+import { Reveal } from "../components/fx/Reveal";
+import { TiltCard } from "../components/fx/TiltCard";
+import { Parallax } from "../components/fx/Parallax";
+import { SectionHeading } from "../components/ui-luxe/SectionHeading";
+import { LuxeButton } from "../components/ui-luxe/LuxeButton";
+import { LogoChip } from "../components/ui-luxe/LogoChip";
+import { SmartImage } from "../components/ui-luxe/SmartImage";
+import { CompanyCard } from "../components/ui-luxe/CompanyCard";
 
 export function CompanyDetailPage() {
   const { slug } = useParams<{ slug: string }>();
-  const navigate = useNavigate();
   const company = slug ? getCompanyBySlug(slug) : undefined;
+  const root = useRef<HTMLDivElement>(null);
 
-  if (!company) {
-    return <Navigate to="/about#companies" replace />;
-  }
+  useGSAP(
+    () => {
+      if (!company || prefersReducedMotion()) return;
+      const tl = gsap.timeline({ paused: true });
+      tl.from(".cd-bg", { scale: 1.3, opacity: 0, duration: 2, ease: "expo.out" })
+        .from(".cd-logo", { scale: 0.6, rotationY: -60, opacity: 0, duration: 1.4, ease: "expo.out" }, 0.3)
+        .from(".cd-fade", { y: 30, opacity: 0, stagger: 0.1, duration: 1, ease: "expo.out" }, 0.5);
+      const off = onIntroDone(() => tl.play());
+      gsap.to(".cd-bg", { yPercent: 20, ease: "none", scrollTrigger: { trigger: ".cd-hero", start: "top top", end: "bottom top", scrub: true } });
+      gsap.to(".cd-next-word", {
+        xPercent: -30,
+        ease: "none",
+        scrollTrigger: { trigger: ".cd-next", start: "top bottom", end: "bottom top", scrub: true },
+      });
+      return off;
+    },
+    { scope: root, dependencies: [slug] },
+  );
+
+  if (!company) return <Navigate to="/about#companies" replace />;
+
+  const index = companies.findIndex((c) => c.slug === company.slug);
+  const next = companies[(index + 1) % companies.length];
+  const others = companies.filter((c) => c.slug !== company.slug).slice(0, 4);
+  const sector = sectors.find((s) => s.companies.includes(company.slug));
+  const site = company.website.replace(/^https?:\/\/(www\.)?/, "");
 
   return (
-    <div style={{ fontFamily: "'Poppins', sans-serif" }}>
-      <section
-        className="relative pt-36 pb-24 overflow-hidden"
-        style={{ background: `linear-gradient(135deg, ${company.color} 0%, ${company.accent} 100%)` }}
-      >
-        <div
-          className="absolute inset-0 opacity-[0.06]"
-          style={{
-            backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)",
-            backgroundSize: "36px 36px",
-          }}
-        />
-        <div className="absolute bottom-0 left-0 right-0 h-24" style={{ background: "linear-gradient(to bottom, transparent, #f5f9ff)" }} />
-        <div className="relative max-w-4xl mx-auto px-6">
-          <motion.button
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            onClick={() => navigate("/about#companies")}
-            className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-xl text-[13px] font-medium transition-all duration-200 hover:scale-[1.02]"
-            style={{
-              background: "rgba(255,255,255,0.15)",
-              color: "white",
-              fontFamily: "'Poppins', sans-serif",
-              border: "1px solid rgba(255,255,255,0.2)",
-            }}
-          >
-            <ArrowLeft size={14} /> Back to Group Companies
-          </motion.button>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="flex flex-col sm:flex-row items-center sm:items-start gap-6 text-center sm:text-left"
-          >
-            <CompanyLogo slug={company.slug} short={company.short} color={company.color} accent={company.accent} size="lg" />
-            <div>
-              <div
-                style={{
-                  fontFamily: "'Open Sans', sans-serif",
-                  fontSize: "11px",
-                  color: "rgba(255,255,255,0.75)",
-                  fontWeight: 600,
-                  letterSpacing: "0.08em",
-                  marginBottom: "6px",
-                }}
-              >
-                {company.cat.toUpperCase()}
-              </div>
-              <h1
-                style={{
-                  fontWeight: 800,
-                  fontSize: "clamp(1.8rem, 4vw, 2.8rem)",
-                  color: "white",
-                  lineHeight: 1.15,
-                  letterSpacing: "-0.02em",
-                  marginBottom: "8px",
-                }}
-              >
-                {company.name}
-              </h1>
-              <p
-                style={{
-                  fontFamily: "'Open Sans', sans-serif",
-                  fontSize: "1.05rem",
-                  color: "rgba(255,255,255,0.9)",
-                  fontStyle: "italic",
-                  marginBottom: "12px",
-                }}
-              >
-                {company.tagline}
-              </p>
-              <p
-                style={{
-                  fontFamily: "'Open Sans', sans-serif",
-                  fontSize: "1rem",
-                  color: "rgba(255,255,255,0.82)",
-                  lineHeight: 1.75,
-                  maxWidth: "540px",
-                }}
-              >
-                {company.desc}
-              </p>
-            </div>
-          </motion.div>
+    <div ref={root}>
+      {/* Hero */}
+      <section className="cd-hero relative flex min-h-[92svh] items-end overflow-hidden pb-16 pt-36 md:pb-24">
+        <div className="cd-bg absolute inset-0">
+          <SmartImage src={company.img} alt="" eager from={company.color} to={company.accent} className="h-full w-full object-cover" />
         </div>
-      </section>
+        <div className="absolute inset-0" style={{ background: `linear-gradient(115deg, #04060d 20%, ${company.color}cc 60%, transparent)` }} />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#04060d] via-[#04060d]/40 to-transparent" />
+        <div className="grid-lines absolute inset-0 opacity-50" />
+        <div className="orb -left-32 bottom-0 h-[480px] w-[480px] opacity-50" style={{ background: company.accent }} />
 
-      <section className="py-20" style={{ background: "#f5f9ff" }}>
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
-            <motion.div
-              initial={{ opacity: 0, x: -24 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              <SectionLabel color={company.color}>ABOUT</SectionLabel>
-              <h2
-                style={{
-                  fontWeight: 700,
-                  fontSize: "clamp(1.5rem, 3vw, 2rem)",
-                  color: "#1a2f4a",
-                  lineHeight: 1.25,
-                  marginBottom: "18px",
-                }}
-              >
-                About {company.name}
-              </h2>
-              <p
-                style={{
-                  fontFamily: "'Open Sans', sans-serif",
-                  fontSize: "1rem",
-                  color: "#4a6278",
-                  lineHeight: 1.85,
-                  marginBottom: "28px",
-                }}
-              >
-                {company.longDesc}
-              </p>
-              <div className="grid sm:grid-cols-2 gap-3 mb-8">
-                {company.points.map((point) => (
-                  <div key={point} className="flex items-center gap-2.5">
-                    <CheckCircle2 size={15} style={{ color: company.color, flexShrink: 0 }} />
-                    <span style={{ fontFamily: "'Open Sans', sans-serif", fontSize: "13px", color: "#3a5068" }}>{point}</span>
-                  </div>
-                ))}
-              </div>
-
-              <a
-                href={company.website}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-semibold text-[14px] text-white transition-all duration-300 hover:scale-[1.04] hover:shadow-xl"
-                style={{
-                  background: `linear-gradient(135deg, ${company.color}, ${company.accent})`,
-                  fontFamily: "'Poppins', sans-serif",
-                  textDecoration: "none",
-                  boxShadow: `0 8px 28px ${company.color}55`,
-                }}
-              >
-                Visit {company.short} Website <ExternalLink size={15} />
-              </a>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 24 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="space-y-6"
-            >
-              <div className="rounded-3xl overflow-hidden shadow-xl">
-                <ImageWithFallback src={company.img} alt={company.name} className="w-full h-80 object-cover" />
-              </div>
-
-              {(company.phone || company.email) && (
-                <div
-                  className="rounded-3xl p-6 bg-white border"
-                  style={{ borderColor: "rgba(74,128,180,0.12)" }}
-                >
-                  <SectionLabel color={company.color}>CONTACT</SectionLabel>
-                  <h3 style={{ fontWeight: 700, fontSize: "1.1rem", color: "#1a2f4a", marginBottom: "16px" }}>
-                    Get in Touch
-                  </h3>
-                  <div className="flex flex-col gap-4">
-                    {company.phone && (
-                      <a
-                        href={`tel:${company.phone.replace(/\s/g, "")}`}
-                        className="flex items-center gap-3 no-underline transition-opacity hover:opacity-80"
-                      >
-                        <div
-                          className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
-                          style={{ background: `${company.color}15` }}
-                        >
-                          <Phone size={16} style={{ color: company.color }} />
-                        </div>
-                        <span style={{ fontFamily: "'Open Sans', sans-serif", fontSize: "14px", color: "#3a5068" }}>
-                          {company.phone}
-                        </span>
-                      </a>
-                    )}
-                    {company.email && (
-                      <a
-                        href={`mailto:${company.email}`}
-                        className="flex items-center gap-3 no-underline transition-opacity hover:opacity-80"
-                      >
-                        <div
-                          className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
-                          style={{ background: `${company.color}15` }}
-                        >
-                          <Mail size={16} style={{ color: company.color }} />
-                        </div>
-                        <span style={{ fontFamily: "'Open Sans', sans-serif", fontSize: "14px", color: "#3a5068" }}>
-                          {company.email}
-                        </span>
-                      </a>
-                    )}
-                    <a
-                      href={company.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-3 no-underline transition-opacity hover:opacity-80"
-                    >
-                      <div
-                        className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
-                        style={{ background: `${company.color}15` }}
-                      >
-                        <Globe size={16} style={{ color: company.color }} />
-                      </div>
-                      <span style={{ fontFamily: "'Open Sans', sans-serif", fontSize: "14px", color: "#3a5068" }}>
-                        {company.website.replace(/^https?:\/\/(www\.)?/, "")}
-                      </span>
-                    </a>
-                  </div>
-                </div>
-              )}
-            </motion.div>
+        <div className="relative mx-auto grid w-full max-w-7xl items-end gap-10 px-6 md:px-10 lg:grid-cols-[1.4fr_1fr]">
+          <div className="flex flex-col gap-6">
+            <nav className="cd-fade flex items-center gap-2 font-display text-xs tracking-widest text-white/50 uppercase">
+              <Link to="/" className="hover:text-[#f3dca0]">
+                Home
+              </Link>
+              <span>/</span>
+              <Link to="/about#companies" className="hover:text-[#f3dca0]">
+                Companies
+              </Link>
+              <span>/</span>
+              <span className="text-[#d8b36a]">{company.short}</span>
+            </nav>
+            <span className="cd-fade eyebrow">{company.cat}</span>
+            <SplitHeading as="h1" trigger="intro" delay={0.3} className="font-display text-[clamp(2.6rem,7vw,6.5rem)] font-semibold leading-[0.95] tracking-[-0.045em] text-white">
+              {company.name}
+            </SplitHeading>
+            <p className="cd-fade font-serif-luxe text-2xl text-[#f3dca0] italic md:text-3xl">{company.tagline}</p>
+            <p className="cd-fade max-w-2xl text-lg leading-relaxed text-white/70">{company.desc}</p>
+            <div className="cd-fade mt-2 flex flex-wrap gap-4">
+              <LuxeButton href={company.website}>Visit {company.short} website</LuxeButton>
+              <LuxeButton to="/about#companies" variant="ghost">
+                All companies
+              </LuxeButton>
+            </div>
+          </div>
+          <div className="hidden justify-end lg:flex" style={{ perspective: 1000 }}>
+            <div className="cd-logo float relative">
+              <div className="orb -inset-10 opacity-60" style={{ background: company.accent }} />
+              <LogoChip company={company} className="relative h-56 w-72 rounded-[2rem]" padding="p-8" />
+            </div>
           </div>
         </div>
       </section>
 
-      <section
-        className="py-16 text-center relative overflow-hidden"
-        style={{ background: "linear-gradient(135deg, #1a3a6b, #4a80b4)" }}
-      >
-        <div className="relative max-w-xl mx-auto px-6">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 style={{ fontWeight: 700, fontSize: "1.6rem", color: "white", marginBottom: "12px" }}>
-              Explore More Group Companies
-            </h2>
-            <p
-              style={{
-                fontFamily: "'Open Sans', sans-serif",
-                fontSize: "0.95rem",
-                color: "rgba(255,255,255,0.72)",
-                lineHeight: 1.75,
-                marginBottom: "24px",
-              }}
-            >
-              Discover the full portfolio of British Way Holdings enterprises.
-            </p>
-            <button
-              onClick={() => navigate("/about#companies")}
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-2xl font-semibold text-[14px] transition-all duration-300 hover:scale-[1.03]"
-              style={{ background: "white", color: "#2a5a94", fontFamily: "'Poppins', sans-serif" }}
-            >
-              View All Companies <ArrowRight size={15} />
-            </button>
-          </motion.div>
+      {/* Story + highlights */}
+      <section className="relative px-6 py-24 md:px-10 md:py-32">
+        <div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-[1.1fr_1fr]">
+          <div className="flex flex-col gap-8">
+            <SectionHeading
+              eyebrow={sector ? sector.title : "About"}
+              title={
+                <>
+                  About <span className="accent">{company.short}</span>
+                </>
+              }
+            />
+            <Reveal y={30}>
+              <p className="text-[1.1rem] leading-relaxed text-mist">{company.longDesc}</p>
+            </Reveal>
+            <Reveal className="grid gap-4 sm:grid-cols-2" stagger={0.1} y={50}>
+              {company.points.map((p, i) => (
+                <TiltCard key={p} className="rounded-3xl" max={8}>
+                  <div className="glass luxe-border group relative flex h-full flex-col gap-4 overflow-hidden rounded-3xl p-6">
+                    <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full opacity-40 blur-2xl transition-opacity duration-500 group-hover:opacity-80" style={{ background: company.accent }} />
+                    <span className="font-display text-sm font-semibold text-[#f3dca0]">0{i + 1}</span>
+                    <p className="relative font-display text-lg font-semibold leading-snug text-white">{p}</p>
+                  </div>
+                </TiltCard>
+              ))}
+            </Reveal>
+          </div>
+
+          <div className="flex flex-col gap-6">
+            <Reveal y={60}>
+              <Parallax className="aspect-[4/3] rounded-[2rem] border border-white/10" speed={8}>
+                <SmartImage src={company.img} alt={company.name} from={company.color} to={company.accent} className="h-full w-full object-cover" />
+              </Parallax>
+            </Reveal>
+            <Reveal y={40}>
+              <div className="glass-strong luxe-border flex flex-col gap-5 rounded-[2rem] p-7">
+                <span className="eyebrow">Get in touch</span>
+                {[
+                  company.phone && { icon: Phone, label: company.phone, href: `tel:${company.phone.replace(/\s/g, "")}` },
+                  company.email && { icon: Mail, label: company.email, href: `mailto:${company.email}` },
+                  { icon: Globe, label: site, href: company.website, external: true },
+                ]
+                  .filter(Boolean)
+                  .map((item) => {
+                    const it = item as { icon: typeof Phone; label: string; href: string; external?: boolean };
+                    return (
+                      <a
+                        key={it.label}
+                        href={it.href}
+                        target={it.external ? "_blank" : undefined}
+                        rel={it.external ? "noopener noreferrer" : undefined}
+                        className="group flex items-center gap-4 rounded-2xl border border-white/5 bg-white/[0.03] p-3 transition-colors hover:border-white/20"
+                      >
+                        <span className="grid h-11 w-11 place-items-center rounded-xl" style={{ background: `${company.accent}33`, color: "#f3dca0" }}>
+                          <it.icon size={17} />
+                        </span>
+                        <span className="text-white/85">{it.label}</span>
+                        <ArrowUpRight size={16} className="ml-auto text-white/40 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[#f3dca0]" />
+                      </a>
+                    );
+                  })}
+              </div>
+            </Reveal>
+          </div>
         </div>
       </section>
+
+      {/* More companies */}
+      <section className="relative px-6 pb-8 md:px-10">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeading
+            eyebrow="The family"
+            title={
+              <>
+                More from <span className="accent">British Way.</span>
+              </>
+            }
+          />
+          <Reveal className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4" stagger={0.08} y={60}>
+            {others.map((c) => (
+              <CompanyCard key={c.slug} company={c} index={companies.indexOf(c)} />
+            ))}
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Next company */}
+      <Link to={`/companies/${next.slug}`} className="cd-next group relative mt-24 block overflow-hidden border-y border-white/10 py-16 md:py-24">
+        <div className="absolute inset-0 origin-bottom scale-y-0 transition-transform duration-700 ease-out group-hover:scale-y-100" style={{ background: `linear-gradient(120deg, ${next.color}, ${next.accent})` }} />
+        <div className="relative mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 md:px-10">
+          <div>
+            <span className="eyebrow">Next company</span>
+            <p className="cd-next-word mt-4 whitespace-nowrap font-display text-[clamp(2.4rem,8vw,7rem)] font-semibold leading-none tracking-[-0.04em] text-white">
+              {next.name}
+            </p>
+          </div>
+          <span className="grid h-16 w-16 shrink-0 place-items-center rounded-full border border-white/20 text-white transition-all duration-500 group-hover:rotate-45 group-hover:bg-white group-hover:text-black md:h-24 md:w-24">
+            <ArrowUpRight size={30} />
+          </span>
+        </div>
+      </Link>
     </div>
   );
 }

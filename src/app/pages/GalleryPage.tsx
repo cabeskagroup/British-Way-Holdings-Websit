@@ -1,227 +1,195 @@
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "motion/react";
-import { X, ZoomIn, ChevronLeft, ChevronRight } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import { ChevronLeft, ChevronRight, Maximize2, X } from "lucide-react";
 import { galleryPhotos as photos, galleryCategories as categories } from "@/data/gallery";
-import { ImageWithFallback } from "../components/figma/ImageWithFallback";
-
-function SectionLabel({ children }: { children: string }) {
-  return (
-    <span className="inline-block px-4 py-1.5 rounded-full text-[11px] font-semibold tracking-widest mb-4"
-      style={{ background: "rgba(74,128,180,0.1)", color: "#2a5a94", fontFamily: "'Poppins', sans-serif" }}>
-      {children}
-    </span>
-  );
-}
+import { gsap, useGSAP, prefersReducedMotion } from "@/app/lib/gsap";
+import { PageHero } from "../components/ui-luxe/PageHero";
+import { SmartImage } from "../components/ui-luxe/SmartImage";
+import { TiltCard } from "../components/fx/TiltCard";
+import { useLenis } from "../components/fx/SmoothScroll";
 
 export function GalleryPage() {
-  const [activeCat, setActiveCat] = useState("All");
-  const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
+  const [active, setActive] = useState("All");
+  const [open, setOpen] = useState<number | null>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+  const boxRef = useRef<HTMLDivElement>(null);
+  const lenis = useLenis();
 
-  const filtered = activeCat === "All" ? photos : photos.filter((p) => p.cat === activeCat);
+  const filtered = active === "All" ? photos : photos.filter((p) => p.cat === active);
+  const photo = open !== null ? filtered[open] : null;
 
-  const openLightbox = (id: number) => {
-    const idx = filtered.findIndex((p) => p.id === id);
-    if (idx >= 0) setLightboxIdx(idx);
-  };
+  useGSAP(
+    () => {
+      if (prefersReducedMotion()) return;
+      gsap.fromTo(".gl-item", { y: 80, opacity: 0, scale: 0.94 }, { y: 0, opacity: 1, scale: 1, stagger: 0.06, duration: 1.1, ease: "expo.out" });
+    },
+    { scope: gridRef, dependencies: [active] },
+  );
 
-  const lightboxPhoto = lightboxIdx !== null ? filtered[lightboxIdx] : null;
-
-  const prevPhoto = () => {
-    if (filtered.length === 0) return;
-    setLightboxIdx((i) => (i !== null ? (i - 1 + filtered.length) % filtered.length : null));
-  };
-
-  const nextPhoto = () => {
-    if (filtered.length === 0) return;
-    setLightboxIdx((i) => (i !== null ? (i + 1) % filtered.length : null));
-  };
-
-  const handleCategoryChange = (cat: string) => {
-    setActiveCat(cat);
-    setLightboxIdx(null);
-  };
-
+  // Lightbox: lock scrolling and wire the keyboard
   useEffect(() => {
-    if (lightboxIdx === null) return;
-
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setLightboxIdx(null);
-        return;
-      }
-      if (filtered.length === 0) return;
-      if (e.key === "ArrowLeft") {
-        setLightboxIdx((i) => (i !== null ? (i - 1 + filtered.length) % filtered.length : null));
-      }
-      if (e.key === "ArrowRight") {
-        setLightboxIdx((i) => (i !== null ? (i + 1) % filtered.length : null));
-      }
+    if (open === null) return;
+    lenis?.stop();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(null);
+      if (e.key === "ArrowRight") setOpen((i) => (i === null ? i : (i + 1) % filtered.length));
+      if (e.key === "ArrowLeft") setOpen((i) => (i === null ? i : (i - 1 + filtered.length) % filtered.length));
     };
-
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", onKeyDown);
-
+    window.addEventListener("keydown", onKey);
     return () => {
-      document.body.style.overflow = "";
-      window.removeEventListener("keydown", onKeyDown);
+      lenis?.start();
+      window.removeEventListener("keydown", onKey);
     };
-  }, [lightboxIdx, filtered.length]);
+  }, [open === null, filtered.length, lenis]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useGSAP(
+    () => {
+      if (open === null || prefersReducedMotion()) return;
+      gsap.fromTo(
+        ".lb-image",
+        { scale: 0.92, opacity: 0, rotationY: -8 },
+        { scale: 1, opacity: 1, rotationY: 0, duration: 0.8, ease: "expo.out", transformPerspective: 1200 },
+      );
+      gsap.fromTo(".lb-caption", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, delay: 0.1, ease: "expo.out" });
+    },
+    { scope: boxRef, dependencies: [open] },
+  );
 
   return (
-    <div style={{ fontFamily: "'Poppins', sans-serif" }}>
+    <>
+      <PageHero
+        eyebrow="Gallery"
+        crumb="Gallery"
+        watermark="MOMENTS"
+        image="/logos/glry01.jpg"
+        title={
+          <>
+            Moments of <span className="accent">excellence.</span>
+          </>
+        }
+        description="Ceremonies, workshops, premieres and community programmes from across the British Way family."
+      />
 
-      {/* ── PAGE HERO ── */}
-      <section className="relative pt-36 pb-20 overflow-hidden"
-        style={{ background: "linear-gradient(135deg, #1a2f4a 0%, #2a4a7a 50%, #4a80b4 100%)" }}>
-        <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "36px 36px" }} />
-        <div className="absolute bottom-0 left-0 right-0 h-20" style={{ background: "linear-gradient(to bottom, transparent, #f5f9ff)" }} />
-        <div className="relative max-w-4xl mx-auto px-6 text-center">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <SectionLabel>GALLERY</SectionLabel>
-            <h1 style={{ fontWeight: 800, fontSize: "clamp(2rem, 5vw, 3.5rem)", color: "white", lineHeight: 1.12, letterSpacing: "-0.02em", marginBottom: "20px" }}>
-              Moments of Excellence
-            </h1>
-            <p style={{ fontFamily: "'Open Sans', sans-serif", fontSize: "1.05rem", color: "rgba(255,255,255,0.75)", lineHeight: 1.8, maxWidth: "560px", margin: "0 auto" }}>
-              A visual journey through the events, achievements, and milestones that define the British Way Holdings story.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
-      <section className="py-16" style={{ background: "#f5f9ff" }}>
-        <div className="max-w-6xl mx-auto px-6">
-
-          {/* Filter */}
-          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-            className="flex flex-wrap gap-2 justify-center mb-12">
-            {categories.map((cat) => (
-              <button key={cat} onClick={() => handleCategoryChange(cat)}
-                className="px-4 py-2.5 rounded-xl text-[12px] font-semibold transition-all duration-200"
-                style={{
-                  fontFamily: "'Poppins', sans-serif",
-                  background: activeCat === cat ? "#2a5a94" : "white",
-                  color: activeCat === cat ? "white" : "#2a5a94",
-                  border: "1.5px solid",
-                  borderColor: activeCat === cat ? "#2a5a94" : "rgba(74,128,180,0.2)",
-                }}>
-                {cat}
-              </button>
-            ))}
-          </motion.div>
-
-          {/* Masonry-style grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 auto-rows-[200px]">
-            <AnimatePresence mode="sync">
-              {filtered.map((photo) => (
-                <motion.div
-                  key={photo.id}
-                  initial={{ opacity: 0, scale: 0.96 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.96 }}
-                  transition={{ duration: 0.25 }}
-                  className={`group relative rounded-2xl overflow-hidden cursor-pointer h-full min-h-[200px] ${photo.span || ""}`}
-                  onClick={() => openLightbox(photo.id)}
+      <section className="relative px-6 pb-28 md:px-10">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-12 flex flex-wrap justify-center gap-2">
+            {categories.map((c) => {
+              const count = c === "All" ? photos.length : photos.filter((p) => p.cat === c).length;
+              return (
+                <button
+                  key={c}
+                  onClick={() => setActive(c)}
+                  className={`flex items-center gap-2 rounded-full border px-5 py-2.5 font-display text-[13px] font-medium transition-all duration-300 ${
+                    active === c
+                      ? "border-transparent bg-gradient-to-r from-[#d8b36a] to-[#f3dca0] text-[#1a1204] shadow-[0_10px_30px_-10px_rgba(216,179,106,0.8)]"
+                      : "border-white/10 bg-white/[0.03] text-white/70 hover:border-white/25 hover:text-white"
+                  }`}
                 >
-                  <ImageWithFallback
-                    src={photo.src}
-                    alt={photo.alt}
-                    loading="lazy"
-                    className="w-full h-full min-h-[200px] object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center pointer-events-none"
-                    style={{ background: "rgba(26,47,74,0.55)" }}>
-                    <div className="w-12 h-12 rounded-2xl flex items-center justify-center"
-                      style={{ background: "rgba(255,255,255,0.2)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.3)" }}>
-                      <ZoomIn size={20} color="white" />
-                    </div>
-                  </div>
-                  <div className="absolute bottom-0 left-0 right-0 p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                    style={{ background: "linear-gradient(to top, rgba(26,47,74,0.8), transparent)" }}>
-                    <p style={{ fontFamily: "'Open Sans', sans-serif", fontSize: "11px", color: "rgba(255,255,255,0.9)" }}>{photo.alt}</p>
-                  </div>
-                  <div className="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-lg text-[9px] font-semibold text-white opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
-                    style={{ background: "rgba(74,128,180,0.85)", backdropFilter: "blur(4px)", fontFamily: "'Poppins', sans-serif" }}>
-                    {photo.cat}
-                  </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
+                  {c}
+                  <span className={`rounded-full px-2 py-0.5 text-[10px] ${active === c ? "bg-black/15" : "bg-white/10"}`}>{count}</span>
+                </button>
+              );
+            })}
           </div>
 
-          {filtered.length === 0 && (
-            <div className="text-center py-20">
-              <div style={{ fontSize: "3rem", marginBottom: "12px" }}>📷</div>
-              <p style={{ fontFamily: "'Open Sans', sans-serif", color: "#5a7898" }}>No photos in this category yet.</p>
-            </div>
-          )}
+          <div ref={gridRef} className="columns-1 gap-5 sm:columns-2 lg:columns-3">
+            {filtered.map((p, i) => (
+              <div key={p.id} className="gl-item mb-5 break-inside-avoid">
+                <TiltCard className="rounded-[1.75rem]" max={6}>
+                  <button
+                    onClick={() => setOpen(i)}
+                    className="group relative block w-full overflow-hidden rounded-[1.75rem] border border-white/10 text-left"
+                    aria-label={`Open ${p.alt}`}
+                  >
+                    <SmartImage src={p.src} alt={p.alt} className="w-full transition-transform duration-[1.2s] ease-out group-hover:scale-110" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                    <div className="absolute inset-x-0 bottom-0 flex translate-y-4 items-end justify-between gap-4 p-5 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+                      <div>
+                        <p className="text-[11px] font-semibold tracking-[0.2em] text-[#f3dca0] uppercase">{p.cat}</p>
+                        <p className="mt-1 font-display text-base font-semibold text-white">{p.alt}</p>
+                      </div>
+                      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white/15 text-white backdrop-blur">
+                        <Maximize2 size={16} />
+                      </span>
+                    </div>
+                  </button>
+                </TiltCard>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* ── LIGHTBOX ── */}
-      <AnimatePresence>
-        {lightboxPhoto && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[200] flex items-center justify-center p-4"
-            style={{ background: "rgba(10,20,40,0.95)", backdropFilter: "blur(12px)" }}
-            onClick={() => setLightboxIdx(null)}
+      {/* Lightbox (portalled so it sits above the navbar) */}
+      {photo &&
+        createPortal(
+          <div
+            ref={boxRef}
+            className="fixed inset-0 z-[160] flex flex-col bg-[#04060d]/95 backdrop-blur-xl"
             role="dialog"
             aria-modal="true"
-            aria-label="Photo viewer"
+            aria-label={photo.alt}
           >
-            <button
-              className="absolute top-5 right-5 w-11 h-11 rounded-2xl flex items-center justify-center transition-colors"
-              style={{ background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.2)" }}
-              onClick={() => setLightboxIdx(null)}
-              aria-label="Close photo viewer"
-            >
-              <X size={20} color="white" />
-            </button>
-
-            <button
-              className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-2xl flex items-center justify-center transition-colors z-10"
-              style={{ background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.2)" }}
-              onClick={(e) => { e.stopPropagation(); prevPhoto(); }}
-              aria-label="Previous photo"
-            >
-              <ChevronLeft size={22} color="white" />
-            </button>
-
-            <motion.div
-              key={lightboxPhoto.id}
-              initial={{ opacity: 0, scale: 0.88 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.88 }}
-              transition={{ duration: 0.28 }}
-              className="max-w-5xl w-full mx-12"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <ImageWithFallback
-                src={lightboxPhoto.src.replace("w=800", "w=1200").replace("w=400", "w=800")}
-                alt={lightboxPhoto.alt}
-                className="w-full max-h-[78vh] object-contain rounded-2xl shadow-2xl"
+            <div className="flex items-center justify-between p-4 md:p-6">
+              <span className="font-display text-sm tabular-nums text-white/60">
+                {String((open ?? 0) + 1).padStart(2, "0")} / {String(filtered.length).padStart(2, "0")}
+              </span>
+              <button
+                onClick={() => setOpen(null)}
+                className="glass grid h-12 w-12 place-items-center rounded-full text-white hover:bg-white/10"
+                aria-label="Close"
+              >
+                <X size={20} />
+              </button>
+            </div>
+            <div className="relative flex flex-1 items-center justify-center px-4 md:px-24" onClick={() => setOpen(null)}>
+              <img
+                key={photo.id}
+                src={photo.src}
+                alt={photo.alt}
+                onClick={(e) => e.stopPropagation()}
+                className="lb-image max-h-[70vh] max-w-full rounded-2xl object-contain shadow-[0_40px_120px_-20px_rgba(0,0,0,0.9)]"
               />
-              <div className="mt-4 text-center">
-                <p style={{ fontFamily: "'Open Sans', sans-serif", fontSize: "13px", color: "rgba(255,255,255,0.75)" }}>{lightboxPhoto.alt}</p>
-                <p style={{ fontFamily: "'Poppins', sans-serif", fontSize: "11px", color: "rgba(255,255,255,0.4)", marginTop: "4px" }}>
-                  {lightboxIdx !== null ? lightboxIdx + 1 : ""} / {filtered.length}
-                </p>
-              </div>
-            </motion.div>
-
-            <button
-              className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-2xl flex items-center justify-center transition-colors z-10"
-              style={{ background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.2)" }}
-              onClick={(e) => { e.stopPropagation(); nextPhoto(); }}
-              aria-label="Next photo"
-            >
-              <ChevronRight size={22} color="white" />
-            </button>
-          </motion.div>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setOpen((i) => (i === null ? i : (i - 1 + filtered.length) % filtered.length));
+                }}
+                className="glass absolute left-3 top-1/2 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full text-white hover:bg-white/10 md:left-8"
+                aria-label="Previous photo"
+              >
+                <ChevronLeft size={22} />
+              </button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setOpen((i) => (i === null ? i : (i + 1) % filtered.length));
+                }}
+                className="glass absolute right-3 top-1/2 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full text-white hover:bg-white/10 md:right-8"
+                aria-label="Next photo"
+              >
+                <ChevronRight size={22} />
+              </button>
+            </div>
+            <div className="lb-caption p-6 text-center">
+              <p className="text-[11px] font-semibold tracking-[0.25em] text-[#f3dca0] uppercase">{photo.cat}</p>
+              <p className="mt-2 font-display text-lg text-white">{photo.alt}</p>
+            </div>
+            <div className="flex justify-center gap-2 overflow-x-auto px-4 pb-6" data-lenis-prevent>
+              {filtered.map((p, i) => (
+                <button
+                  key={p.id}
+                  onClick={() => setOpen(i)}
+                  className={`h-14 w-14 shrink-0 overflow-hidden rounded-xl border-2 transition-all ${i === open ? "border-[#d8b36a] opacity-100" : "border-transparent opacity-40 hover:opacity-80"}`}
+                  aria-label={p.alt}
+                >
+                  <img src={p.src} alt="" className="h-full w-full object-cover" />
+                </button>
+              ))}
+            </div>
+          </div>,
+          document.body,
         )}
-      </AnimatePresence>
-    </div>
+    </>
   );
 }
