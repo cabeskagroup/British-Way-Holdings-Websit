@@ -127,7 +127,7 @@ export function AboutPage() {
           </>
         }
         lotus
-        description="A proudly Sri Lankan group built on trust, excellence and a relentless commitment to transforming lives — carrying the island's heritage of care and learning to the world."
+        description="A proudly Sri Lankan group built on trust, excellence and a relentless commitment to transforming lives, carrying the island's heritage of care and learning to the world."
       >
         <div className="flex flex-wrap gap-4">
           <LuxeButton to="/about#heritage">Enter the Heritage Hall</LuxeButton>
@@ -151,7 +151,7 @@ export function AboutPage() {
             />
             <Reveal className="flex flex-col gap-5 text-[1.02rem] leading-relaxed text-mist" stagger={0.12}>
               <p>
-                British Way Holdings (Pvt) Ltd was founded with a singular purpose — to elevate the standards of education and professional development in Sri
+                British Way Holdings (Pvt) Ltd was founded with a singular purpose: to elevate the standards of education and professional development in Sri
                 Lanka. Over the past 20 years, we have grown from a single English academy into a diversified holding group spanning eight distinct
                 enterprises.
               </p>
@@ -248,7 +248,7 @@ export function AboutPage() {
                 Milestones that <span className="accent">made us.</span>
               </>
             }
-            description="Two decades of growth — from one classroom to a group that educates, hosts, entertains and inspires."
+            description="Two decades of growth, from one classroom to a group that educates, hosts, entertains and inspires."
           />
           <Timeline />
         </div>

@@ -81,7 +81,7 @@ export function GalleryHelix({ photos, onOpen }: { photos: GalleryPhoto[]; onOpe
 
   return (
     <section ref={root} className="relative h-[100svh] overflow-hidden bg-[radial-gradient(ellipse_at_center,#10204a_0%,#04060d_65%)]">
-      <LotusMandala className="spin-slower pointer-events-none absolute left-1/2 top-1/2 h-[900px] w-[900px] -translate-x-1/2 -translate-y-1/2" opacity={0.1} />
+      <LotusMandala className="spin-slower pointer-events-none absolute left-1/2 top-1/2 h-[900px] w-[900px] -translate-x-1/2 -translate-y-1/2" opacity={0.04} />
       <div className="grid-lines absolute inset-0 opacity-40" />
       <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap font-display text-[20vw] font-extrabold leading-none tracking-tighter outline-text">
         MOMENTS

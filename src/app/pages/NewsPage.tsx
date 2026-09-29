@@ -110,7 +110,7 @@ export function NewsPage() {
             Stories from across <span className="accent">the island.</span>
           </>
         }
-        description="Milestones, ceremonies, premieres and programmes — straight from the British Way family."
+        description="Milestones, ceremonies, premieres and programmes, straight from the British Way family."
       />
 
       {/* Featured story */}

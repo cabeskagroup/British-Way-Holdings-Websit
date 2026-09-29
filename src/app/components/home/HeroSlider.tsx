@@ -12,7 +12,7 @@ const slides = [
     tab: "The Group",
     title: ["From", "the", "island,", "to", "the", "*world."],
     subtitle:
-      "A proudly Sri Lankan group building world-class brands in education, hospitality, media, sports and entertainment — powering the island and taking Sri Lankan excellence global.",
+      "A proudly Sri Lankan group building world-class brands in education, hospitality, media, sports and entertainment, powering the island and taking Sri Lankan excellence global.",
     cta: "Discover our story",
     to: "/about",
   },
@@ -32,7 +32,7 @@ const slides = [
     label: "Hospitality",
     tab: "Hospitality",
     title: ["Where", "elegance", "meets", "*hospitality."],
-    subtitle: "The Pharo Hotel — boutique luxury, award-winning dining and unforgettable events.",
+    subtitle: "The Pharo Hotel: boutique luxury, award-winning dining and unforgettable events.",
     cta: "Explore The Pharo",
     to: "/companies/pharo-hotel",
   },

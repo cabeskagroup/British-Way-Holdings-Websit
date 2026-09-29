@@ -50,7 +50,7 @@ export function HeritageTeaser() {
           <div className="flex flex-col gap-6">
             <span className="eyebrow">The Heritage Hall</span>
             <SplitHeading className="font-display text-[clamp(2.2rem,4.6vw,4.2rem)] font-semibold leading-[1] tracking-[-0.035em] text-white">
-              Step inside our <span className="accent">story</span> — in 3D.
+              Step inside our <span className="accent">story</span> in 3D.
             </SplitHeading>
             <Reveal y={24} stagger={0.1} className="flex flex-col gap-6">
               <p className="max-w-lg text-mist">

@@ -115,7 +115,7 @@ export class HeritageMuseum {
     this.stops.push({
       kicker: "Welcome",
       title: "The British Way Heritage Hall",
-      text: "Walk through our journey — every milestone framed in gold, and our proudest honours at the end of the hall.",
+      text: "Walk through our journey. Every milestone is framed in gold, with our proudest honours at the end of the hall.",
       position: new THREE.Vector3(0, EYE, 2.6),
       target: new THREE.Vector3(0, 1.9, -20),
     });

@@ -60,7 +60,7 @@ export const companies: Company[] = [
     tagline: "UK Qualifications. Sri Lankan Roots.",
     desc: "A higher education institution offering degree and diploma programmes in partnership with leading UK universities, bridging Sri Lankan students to world-class qualifications.",
     longDesc:
-      "British Campus connects ambitious students and working professionals with internationally recognised UK degree and diploma programmes. Through partnerships with leading British universities, we offer pathways in business, management, IT, and engineering — with flexible full-time, part-time, and blended study modes. Our academic support team guides every learner from enrolment to graduation and beyond.",
+      "British Campus connects ambitious students and working professionals with internationally recognised UK degree and diploma programmes. Through partnerships with leading British universities, we offer pathways in business, management, IT, and engineering, with flexible full-time, part-time, and blended study modes. Our academic support team guides every learner from enrolment to graduation and beyond.",
     img: "/logos/opt/bche.jpg",
     points: ["UK University Partnerships", "Business & Management", "IT & Engineering", "Flexible Study Modes"],
     website: "https://www.britishcampus.lk",
@@ -94,7 +94,7 @@ export const companies: Company[] = [
     tagline: "Skills That Shape Careers.",
     desc: "A leading college for professional qualifications and vocational training, delivering programmes aligned with global industry standards and employer expectations.",
     longDesc:
-      "Thames College specialises in professional qualifications that open doors to rewarding careers. Our portfolio includes AAT, CIMA, digital marketing, leadership development, and industry certifications — all taught by practitioners with real-world experience. With flexible schedules and career counselling support, Thames College helps professionals at every stage advance with confidence.",
+      "Thames College specialises in professional qualifications that open doors to rewarding careers. Our portfolio includes AAT, CIMA, digital marketing, leadership development, and industry certifications, all taught by practitioners with real-world experience. With flexible schedules and career counselling support, Thames College helps professionals at every stage advance with confidence.",
     img: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=560&h=360&fit=crop&auto=format",
     points: ["AAT & CIMA Pathways", "Digital Skills Training", "Leadership Development", "Industry Certifications"],
     website: "https://www.thamescollege.lk",

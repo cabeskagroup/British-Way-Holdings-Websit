@@ -45,7 +45,7 @@ function FlipCard({ name, title, bio, image }: { name: string; title: string; bi
         </div>
         {/* Back */}
         <div className="absolute inset-0 flex flex-col justify-between overflow-hidden rounded-[2rem] border border-[#d8b36a]/50 bg-gradient-to-br from-[#1b3f8f] via-[#0c1326] to-[#04060d] p-7 [backface-visibility:hidden] [transform:rotateY(180deg)]">
-          <LotusMandala className="absolute -right-24 -top-24 h-72 w-72" opacity={0.18} />
+          <LotusMandala className="absolute -right-24 -top-24 h-72 w-72" opacity={0.06} />
           <div className="relative">
             <p className="text-[11px] font-semibold tracking-[0.25em] text-[#f3dca0] uppercase">{title}</p>
             <h3 className="mt-2 font-display text-2xl font-semibold text-white">{name}</h3>
@@ -88,7 +88,7 @@ export function LeadershipPage() {
     <div ref={root}>
       {/* Hero with fanned portraits */}
       <section className="relative overflow-hidden pb-20 pt-36 md:pb-28 md:pt-44">
-        <LotusMandala className="spin-slower pointer-events-none absolute -right-60 -top-40 h-[820px] w-[820px]" opacity={0.1} />
+        <LotusMandala className="spin-slower pointer-events-none absolute -right-60 -top-40 h-[820px] w-[820px]" opacity={0.04} />
         <div className="grid-lines absolute inset-0 opacity-50" />
         <div className="orb -left-40 top-20 h-[420px] w-[420px] bg-[#1b3f8f]/40" />
         <div className="relative mx-auto grid max-w-7xl items-center gap-16 px-6 md:px-10 lg:grid-cols-[1fr_1.1fr]">
@@ -105,7 +105,7 @@ export function LeadershipPage() {
               Guided by <span className="accent">visionaries.</span>
             </SplitHeading>
             <p className="lh-fade max-w-xl text-lg leading-relaxed text-mist">
-              Sri Lankan leaders with decades of combined experience, building home-grown brands to world standards — and keeping the group rooted in
+              Sri Lankan leaders with decades of combined experience, building home-grown brands to world standards while keeping the group rooted in
               the values of the island.
             </p>
             <div className="lh-fade">

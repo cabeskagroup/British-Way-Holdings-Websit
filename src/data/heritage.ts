@@ -1,6 +1,6 @@
 // Content for the About page timeline and the 3D Heritage Hall.
 // NOTE: the milestone years and wording below are demo placeholders built around
-// the group's companies — replace them with the real dates and stories.
+// the group's companies. Replace them with the real dates and stories.
 // The Hall of Honours shows real milestones taken from the group's event posters (see news.ts).
 
 export interface Milestone {
@@ -78,7 +78,7 @@ export interface Award {
 export const awards: Award[] = [
   { title: "First private-sector pension rights", by: "British Way Holdings · government-backed, for every employee", year: "Milestone", kind: "star" },
   { title: "2nd Place, All Island Dance Competition", by: "BWIS dance team · Gampaha zonal level", year: "2026", kind: "medal" },
-  { title: "Convocation Ceremony 2026", by: "British Way English Academy · Galle–Matara branch", year: "2026", kind: "cup" },
+  { title: "Convocation Ceremony 2026", by: "British Way English Academy · Galle-Matara branch", year: "2026", kind: "cup" },
   { title: "“Manamala Katha” premiere", by: "Emika Productions", year: "Premiere", kind: "crystal" },
   { title: "2,000+ at Ma Piya Wandana", by: "Parents and students honouring family", year: "2026", kind: "shield" },
 ];

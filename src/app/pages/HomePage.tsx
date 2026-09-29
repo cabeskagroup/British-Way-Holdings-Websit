@@ -7,8 +7,7 @@ import { HeroSlider } from "../components/home/HeroSlider";
 import { LogoOrbit } from "../components/home/LogoOrbit";
 import { SectorShowcase } from "../components/home/SectorShowcase";
 import { HeritageTeaser } from "../components/home/HeritageTeaser";
-import { IslandToWorld } from "../components/home/IslandToWorld";
-import { GalleryRing } from "../components/home/GalleryRing";
+import { GalleryMosaic } from "../components/home/GalleryMosaic";
 import { Marquee } from "../components/fx/Marquee";
 import { Reveal } from "../components/fx/Reveal";
 import { CountUp } from "../components/fx/CountUp";
@@ -59,7 +58,7 @@ export function HomePage() {
                   Sri Lankan brands, <span className="accent">built for the world.</span>
                 </>
               }
-              description="Academies, an international school, a UK-partnered campus, a boutique hotel, a production house, a cricket academy and an entertainment company — each born in Sri Lanka, each built to world standards, all moving together."
+              description="Academies, an international school, a UK-partnered campus, a boutique hotel, a production house, a cricket academy and an entertainment company. Each was born in Sri Lanka, each is built to world standards, and all move together."
             />
             <Reveal className="grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4" stagger={0.08}>
               {groupStats.map((s) => (
@@ -78,8 +77,6 @@ export function HomePage() {
           <LogoOrbit />
         </div>
       </section>
-
-      <IslandToWorld />
 
       <SectorShowcase />
 
@@ -152,9 +149,9 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* Gallery ribbon */}
-      <section className="relative py-24 md:py-28">
-        <div className="mx-auto max-w-7xl px-6 md:px-10">
+      {/* Gallery */}
+      <section className="relative px-6 py-24 md:px-10 md:py-28">
+        <div className="mx-auto max-w-7xl">
           <SectionHeading
             eyebrow="Moments of excellence"
             title={
@@ -162,16 +159,16 @@ export function HomePage() {
                 Life across <span className="accent">the group.</span>
               </>
             }
-            description="Ceremonies, premieres and community moments from across the island. Hover to pause the carousel."
+            description="Ceremonies, premieres and community moments from across the island. Tap any card to view it full size."
             action={
               <LuxeButton to="/gallery" variant="ghost">
                 Open gallery
               </LuxeButton>
             }
           />
-        </div>
-        <div className="mt-6">
-          <GalleryRing />
+          <div className="mt-14">
+            <GalleryMosaic />
+          </div>
         </div>
       </section>
 

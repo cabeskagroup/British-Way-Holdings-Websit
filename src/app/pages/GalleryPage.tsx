@@ -74,7 +74,7 @@ export function GalleryPage() {
             Moments of <span className="accent">excellence.</span>
           </>
         }
-        description="Ceremonies, premieres, campuses and community — a living portrait of the British Way family. Scroll to turn the spiral."
+        description="Ceremonies, premieres, campuses and community: a living portrait of the British Way family. Scroll to turn the spiral."
       />
 
       <GalleryHelix photos={photos} onOpen={(index) => setViewer({ list: photos, index })} />

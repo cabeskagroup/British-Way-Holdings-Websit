@@ -27,7 +27,7 @@ export const newsItems: NewsItem[] = [
     slug: "government-backed-pension-rights",
     title: "A historic first: government-backed pension rights for our employees",
     excerpt:
-      "British Way Holdings becomes the first private-sector organisation in Sri Lanka to secure government-backed pension rights for its employees — a milestone celebrated on Bizz Talks.",
+      "British Way Holdings becomes the first private-sector organisation in Sri Lanka to secure government-backed pension rights for its employees, a milestone celebrated on Bizz Talks.",
     category: "Milestone",
     company: "British Way Holdings",
     image: "/logos/opt/glry04.jpg",
@@ -38,7 +38,7 @@ export const newsItems: NewsItem[] = [
     slug: "ma-piya-wandana-2026",
     title: "Ma Piya Wandana brings together more than 2,000 parents and students",
     excerpt:
-      "A Ma Piya Wandana ceremony honouring parents was held at the Grand Emirates Hotel with over 2,000 parents and students from the Britishway residential camp — a memorable and successful event.",
+      "A Ma Piya Wandana ceremony honouring parents was held at the Grand Emirates Hotel with over 2,000 parents and students from the Britishway residential camp, making it a memorable and successful event.",
     date: "2026-05-17",
     place: "Grand Emirates Hotel",
     category: "Community",
@@ -51,7 +51,7 @@ export const newsItems: NewsItem[] = [
     title: "Blood donation programme at British Way English Academy, Nittambuwa",
     excerpt: "Students, staff and the community came together for a successful blood donation programme held at the academy in Nittambuwa.",
     date: "2026-05-12",
-    time: "9.00 a.m. – 3.00 p.m.",
+    time: "9.00 a.m. to 3.00 p.m.",
     place: "British Way English Academy, Nittambuwa",
     category: "Community",
     company: "British Way English Academy",
@@ -70,8 +70,8 @@ export const newsItems: NewsItem[] = [
   {
     id: 5,
     slug: "convocation-galle-matara-2026",
-    title: "Convocation Ceremony 2026 — Galle–Matara branch",
-    excerpt: "British Way English Academy celebrated its graduates on the big stage at the 2026 Annual Convocation Ceremony of the Galle–Matara branch.",
+    title: "Convocation Ceremony 2026, Galle-Matara branch",
+    excerpt: "British Way English Academy celebrated its graduates on the big stage at the 2026 Annual Convocation Ceremony of the Galle-Matara branch.",
     year: "2026",
     category: "Event",
     company: "British Way English Academy",

@@ -89,7 +89,7 @@ export function SectorShowcase() {
             One family, <span className="accent">five worlds</span> of excellence.
           </h2>
           <p className="max-w-md text-mist">
-            Hotels, academies, productions, sports and entertainment — each a leader in its field, all sharing one standard of care.
+            Hotels, academies, productions, sports and entertainment. Each is a leader in its field, and all share one standard of care.
           </p>
           <div className="hidden items-center gap-3 font-display text-xs tracking-[0.3em] text-white/50 uppercase lg:flex">
             Keep scrolling <MoveRight size={16} className="text-[#d8b36a]" />

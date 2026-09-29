@@ -16,7 +16,7 @@ const contactItems = [
   { icon: Phone, label: "Telephone", value: "+94 11 234 5678", href: "tel:+94112345678" },
   { icon: Mail, label: "Email", value: GROUP_EMAIL, href: `mailto:${GROUP_EMAIL}` },
   { icon: Globe, label: "Website", value: "www.britishwayholdings.lk" },
-  { icon: Clock, label: "Office hours", value: "Mon–Fri 8:00 AM – 5:00 PM · Sat 8:00 AM – 1:00 PM" },
+  { icon: Clock, label: "Office hours", value: "Monday to Friday, 8:00 AM to 5:00 PM · Saturday, 8:00 AM to 1:00 PM" },
 ];
 
 const fieldClass =
@@ -32,7 +32,7 @@ export function ContactPage() {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     const signature = [form.name, form.company, form.email].filter(Boolean).join("\n");
-    const body = `${form.message}\n\n— ${signature}`;
+    const body = `${form.message}\n\n${signature}`;
     window.location.href = `mailto:${GROUP_EMAIL}?subject=${encodeURIComponent(form.subject)}&body=${encodeURIComponent(body)}`;
     setOpened(true);
   };
@@ -67,7 +67,7 @@ export function ContactPage() {
             From Sri Lanka, <span className="accent">to the world.</span>
           </>
         }
-        description="Ayubowan — welcome. Whether you're a student, a guest, a partner or a future colleague, anywhere on earth, the British Way family is one message away."
+        description="Ayubowan, and welcome. Whether you're a student, a guest, a partner or a future colleague, anywhere on earth, the British Way family is one message away."
       />
 
       {/* Contact cards */}
@@ -112,7 +112,7 @@ export function ContactPage() {
                   Island heart, <span className="accent">global reach.</span>
                 </>
               }
-              description="From our head office on Galle Road, Colombo, we connect students, guests, audiences and partners to Sri Lankan brands built to international standards — and help Sri Lankan talent reach the world."
+              description="From our head office on Galle Road, Colombo, we connect students, guests, audiences and partners to Sri Lankan brands built to international standards, and help Sri Lankan talent reach the world."
             />
             <Reveal className="grid gap-3 sm:grid-cols-2" stagger={0.08} y={30}>
               {[
@@ -193,7 +193,7 @@ export function ContactPage() {
                   <MapPin size={18} />
                 </span>
                 <div>
-                  <p className="font-display text-sm font-semibold text-white">British Way Holdings — Head Office</p>
+                  <p className="font-display text-sm font-semibold text-white">British Way Holdings Head Office</p>
                   <p className="text-xs text-white/60">No. 123, Galle Road, Colombo 03</p>
                 </div>
               </div>

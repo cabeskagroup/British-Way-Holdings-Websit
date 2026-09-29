@@ -74,7 +74,7 @@ export function Footer() {
           <div className="max-w-3xl">
             <span className="eyebrow">Let's talk</span>
             <SplitHeading className="mt-6 font-display text-[clamp(2.4rem,6vw,5.2rem)] font-semibold leading-[0.98] tracking-[-0.04em] text-white">
-              Ready to build what's <span className="accent">next</span> — together?
+              Ready to build what's <span className="accent">next</span>, together?
             </SplitHeading>
           </div>
           <LuxeButton to="/contact">Start a conversation</LuxeButton>
@@ -88,7 +88,7 @@ export function Footer() {
           <div className="relative">
             <BrandLogo height={36} />
             <p className="mt-6 text-sm leading-relaxed text-mist">
-              A proudly Sri Lankan group uniting education, hospitality, media, sports and entertainment — carrying the island's heritage of
+              A proudly Sri Lankan group uniting education, hospitality, media, sports and entertainment, carrying the island's heritage of
               care and craft to the world.
             </p>
           </div>

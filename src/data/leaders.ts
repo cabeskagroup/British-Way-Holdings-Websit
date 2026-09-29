@@ -12,7 +12,7 @@ export const leaders: Leader[] = [
     name: "Dr. Shantha Geethadewa",
     title: "Managing Director",
     bio: "Dr. Geethadewa is a visionary leader with over 20 years of experience in education and corporate management. Under his strategic direction, British Way Holdings has grown into one of Sri Lanka's most respected diversified holding groups.",
-    message: "Our mission has always been to unlock the potential of every individual we serve — whether a student, a professional, or a guest.",
+    message: "Our mission has always been to unlock the potential of every individual we serve, whether a student, a professional, or a guest.",
     image: "/logos/opt/dr_geethadewa.jpg",
     featured: true,
   },
