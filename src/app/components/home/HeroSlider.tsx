@@ -6,36 +6,41 @@ import { CountUp } from "../fx/CountUp";
 
 const slides = [
   {
-    image: "/logos/hi001.png",
-    mobileImage: "/logos/mi001.png",
-    label: "The Group",
-    title: ["Shaping", "the", "future", "through", "*excellence."],
-    subtitle: "A diversified Sri Lankan group leading education, hospitality, media, sports and entertainment.",
+    image: "/logos/opt/hi001.jpg",
+    mobileImage: "/logos/opt/mi001.jpg",
+    label: "Sri Lankan heritage · Global vision",
+    tab: "The Group",
+    title: ["From", "the", "island,", "to", "the", "*world."],
+    subtitle:
+      "A proudly Sri Lankan group building world-class brands in education, hospitality, media, sports and entertainment — powering the island and taking Sri Lankan excellence global.",
     cta: "Discover our story",
     to: "/about",
   },
   {
-    image: "/logos/hi002.png",
-    mobileImage: "/logos/mi002.png",
+    image: "/logos/opt/hi002.jpg",
+    mobileImage: "/logos/opt/mi002.jpg",
     label: "Academies",
+    tab: "Academies",
     title: ["Empowering", "the", "leaders", "of", "*tomorrow."],
     subtitle: "Thousands graduate every year from our world-class institutions, ready to lead in a global world.",
     cta: "Our institutions",
     to: "/about#companies",
   },
   {
-    image: "/logos/hi003.png",
-    mobileImage: "/logos/mi003.png",
+    image: "/logos/opt/hi003.jpg",
+    mobileImage: "/logos/opt/mi003.jpg",
     label: "Hospitality",
+    tab: "Hospitality",
     title: ["Where", "elegance", "meets", "*hospitality."],
     subtitle: "The Pharo Hotel — boutique luxury, award-winning dining and unforgettable events.",
     cta: "Explore The Pharo",
     to: "/companies/pharo-hotel",
   },
   {
-    image: "/logos/hi004.png",
-    mobileImage: "/logos/mi004.png",
+    image: "/logos/opt/hi004.jpg",
+    mobileImage: "/logos/opt/mi004.jpg",
     label: "Media & Events",
+    tab: "Media & Events",
     title: ["Stories", "that", "move", "*audiences."],
     subtitle: "Productions, premieres and live experiences that bring Sri Lanka together.",
     cta: "Meet Emika Productions",
@@ -141,7 +146,7 @@ export function HeroSlider() {
   const slide = slides[index];
 
   return (
-    <section ref={root} className="relative flex min-h-[100svh] flex-col overflow-hidden md:block md:h-[100svh] md:min-h-[680px]">
+    <section ref={root} className="relative flex min-h-[100svh] flex-col overflow-hidden md:min-h-[760px]">
       <div className="hero-media-wrap absolute inset-0">
         <div className="hero-media absolute -inset-6">
           {slides.map((s, i) => (
@@ -168,18 +173,18 @@ export function HeroSlider() {
       <div className="pointer-events-none absolute inset-0 z-[3] bg-gradient-to-t from-[#04060d] via-transparent to-[#04060d]/60" />
       <div className="grid-lines pointer-events-none absolute inset-0 z-[3] opacity-50" />
 
-      <div className="hero-content relative z-[4] mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-6 pb-10 pt-28 md:h-full md:px-10 md:pb-36">
+      <div className="hero-content relative z-[4] mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-6 pb-10 pt-32 md:px-10 md:pb-12 md:pt-40">
         <div className="hero-fade mb-7 flex items-center gap-3">
           <span className="relative flex h-2.5 w-2.5">
             <span className="pulse-ring absolute inline-flex h-full w-full rounded-full bg-[#d8b36a]" />
             <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#d8b36a]" />
           </span>
-          <span className="whitespace-nowrap font-display text-[11px] font-semibold tracking-[0.35em] text-[#f3dca0] uppercase">{slide.label}</span>
+          <span className="font-display text-[10px] font-semibold tracking-[0.25em] text-[#f3dca0] uppercase sm:whitespace-nowrap sm:text-[11px] sm:tracking-[0.35em]">{slide.label}</span>
           <span className="hidden h-px w-10 bg-white/20 sm:block" />
           <span className="hidden whitespace-nowrap font-display text-[11px] tracking-[0.3em] text-white/50 uppercase sm:inline">British Way Holdings</span>
         </div>
 
-        <h1 key={index} className="max-w-4xl font-display text-[clamp(2.9rem,8.2vw,7.6rem)] font-semibold leading-[0.93] tracking-[-0.045em] text-white">
+        <h1 key={index} className="max-w-4xl font-display text-[clamp(2.7rem,7vw,6.6rem)] font-semibold leading-[0.95] tracking-[-0.045em] text-white">
           {slide.title.map((w, i) => {
             const accent = w.startsWith("*");
             return (
@@ -204,11 +209,11 @@ export function HeroSlider() {
       </div>
 
       {/* Slide index with progress */}
-      <div className="absolute bottom-40 right-6 z-[5] hidden flex-col gap-4 md:right-10 md:flex lg:bottom-44">
+      <div className="absolute right-6 top-1/2 z-[5] hidden -translate-y-1/2 flex-col gap-4 md:right-10 xl:flex">
         {slides.map((s, i) => (
-          <button key={s.label} onClick={() => go(i)} className="hero-fade group flex items-center gap-4 text-right" aria-label={`Show ${s.label}`}>
+          <button key={s.tab} onClick={() => go(i)} className="hero-fade group flex items-center gap-4 text-right" aria-label={`Show ${s.tab}`}>
             <span className={`font-display text-xs tracking-[0.25em] uppercase transition-colors ${i === index ? "text-white" : "text-white/35 group-hover:text-white/70"}`}>
-              {s.label}
+              {s.tab}
             </span>
             <span className="relative h-px w-16 overflow-hidden bg-white/15">
               <span data-i={i} className="hero-progress absolute inset-0 origin-left scale-x-0 bg-gradient-to-r from-[#d8b36a] to-[#f3dca0]" />
@@ -219,7 +224,7 @@ export function HeroSlider() {
       </div>
 
       {/* Stats bar */}
-      <div className="relative z-[5] px-4 pb-5 md:absolute md:inset-x-0 md:bottom-0 md:px-10 md:pb-8">
+      <div className="relative z-[5] px-4 pb-5 md:px-10 md:pb-8">
         <div className="glass mx-auto grid max-w-7xl grid-cols-2 overflow-hidden rounded-3xl md:grid-cols-4">
           {stats.map((s, i) => (
             <div key={s.label} className={`hero-stat flex flex-col gap-1 px-5 py-4 md:px-8 md:py-6 ${i > 0 ? "md:border-l md:border-white/10" : ""} ${i % 2 ? "border-l border-white/10 md:border-l" : ""} ${i > 1 ? "border-t border-white/10 md:border-t-0" : ""}`}>

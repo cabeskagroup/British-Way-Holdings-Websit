@@ -1,10 +1,10 @@
 import { useState, type FormEvent } from "react";
-import { Link } from "react-router";
-import { ArrowUpRight, Clock, Globe, Mail, MapPin, Phone, Send } from "lucide-react";
-import { companies } from "@/data/companies";
+import { Clock, Globe, Mail, MapPin, Phone, Send } from "lucide-react";
 import { PageHero } from "../components/ui-luxe/PageHero";
 import { SectionHeading } from "../components/ui-luxe/SectionHeading";
-import { LogoChip } from "../components/ui-luxe/LogoChip";
+import { Liyawela } from "../components/ui-luxe/Heritage";
+import { GlobeView } from "../components/globe/GlobeView";
+import { CompanySwitchboard } from "../components/contact/CompanySwitchboard";
 import { LuxeButton } from "../components/ui-luxe/LuxeButton";
 import { Reveal } from "../components/fx/Reveal";
 import { TiltCard } from "../components/fx/TiltCard";
@@ -57,16 +57,17 @@ export function ContactPage() {
   return (
     <>
       <PageHero
-        eyebrow="Contact"
+        eyebrow="Contact · Sri Lanka to the world"
         crumb="Contact"
-        watermark="HELLO"
-        image="/logos/hi002.png"
+        watermark="AYUBOWAN"
+        image="/logos/opt/hi002.jpg"
+        lotus
         title={
           <>
-            Let's start a <span className="accent">conversation.</span>
+            From Sri Lanka, <span className="accent">to the world.</span>
           </>
         }
-        description="Whether you're a prospective student, a guest, a partner or a future colleague — we'd love to hear from you."
+        description="Ayubowan — welcome. Whether you're a student, a guest, a partner or a future colleague, anywhere on earth, the British Way family is one message away."
       />
 
       {/* Contact cards */}
@@ -95,6 +96,40 @@ export function ContactPage() {
             );
           })}
         </Reveal>
+      </section>
+
+      {/* Island to world */}
+      <section className="relative overflow-hidden px-6 pt-24 md:px-10 md:pt-32">
+        <div className="relative mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.1fr_1fr]">
+          <Reveal y={50} scale={0.92}>
+            <GlobeView className="mx-auto max-w-[560px]" />
+          </Reveal>
+          <div className="flex flex-col gap-8">
+            <SectionHeading
+              eyebrow="Rooted in Colombo · Reaching everywhere"
+              title={
+                <>
+                  Island heart, <span className="accent">global reach.</span>
+                </>
+              }
+              description="From our head office on Galle Road, Colombo, we connect students, guests, audiences and partners to Sri Lankan brands built to international standards — and help Sri Lankan talent reach the world."
+            />
+            <Reveal className="grid gap-3 sm:grid-cols-2" stagger={0.08} y={30}>
+              {[
+                { k: "Head office", v: "Colombo 03, Sri Lanka" },
+                { k: "Network", v: "Branches island-wide" },
+                { k: "Partners", v: "UK universities & beyond" },
+                { k: "We reply", v: "Monday to Saturday" },
+              ].map((i) => (
+                <div key={i.k} className="glass rounded-2xl p-4">
+                  <p className="text-[11px] tracking-[0.2em] text-white/45 uppercase">{i.k}</p>
+                  <p className="mt-1 font-display text-base font-semibold text-white">{i.v}</p>
+                </div>
+              ))}
+            </Reveal>
+            <Liyawela opacity={0.35} />
+          </div>
+        </div>
       </section>
 
       {/* Form + map */}
@@ -167,48 +202,26 @@ export function ContactPage() {
         </div>
       </section>
 
-      {/* Company directory */}
+      {/* Company contacts */}
       <section className="relative px-6 pb-28 md:px-10">
         <div className="mx-auto max-w-7xl">
           <SectionHeading
-            eyebrow="Company directory"
+            eyebrow="Company contacts"
             title={
               <>
-                Reach a company <span className="accent">directly.</span>
+                Contact our subsidiaries <span className="accent">directly.</span>
               </>
             }
+            description="Choose a company to see its direct line, email and website."
+            className="mb-12"
             action={
               <LuxeButton to="/about#companies" variant="ghost">
                 All companies
               </LuxeButton>
             }
           />
-          <Reveal className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" stagger={0.06} y={40}>
-            {companies.map((c) => (
-              <div key={c.slug} className="glass luxe-border group flex h-full flex-col gap-4 rounded-[1.75rem] p-5">
-                <div className="flex items-center gap-3">
-                  <LogoChip company={c} className="h-12 w-16 shrink-0" padding="p-1.5" />
-                  <Link to={`/companies/${c.slug}`} className="font-display text-sm font-semibold leading-snug text-white hover:text-[#f3dca0]">
-                    {c.name}
-                  </Link>
-                </div>
-                <div className="mt-auto flex flex-col gap-2 text-[13px]">
-                  {c.phone && (
-                    <a href={`tel:${c.phone.replace(/\s/g, "")}`} className="flex items-center gap-2 text-white/65 hover:text-white">
-                      <Phone size={13} className="text-[#d8b36a]" /> {c.phone}
-                    </a>
-                  )}
-                  {c.email && (
-                    <a href={`mailto:${c.email}`} className="flex items-center gap-2 text-white/65 hover:text-white">
-                      <Mail size={13} className="text-[#d8b36a]" /> {c.email}
-                    </a>
-                  )}
-                  <a href={c.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-white/65 hover:text-white">
-                    <ArrowUpRight size={13} className="text-[#d8b36a]" /> {c.website.replace(/^https?:\/\/(www\.)?/, "")}
-                  </a>
-                </div>
-              </div>
-            ))}
+          <Reveal y={50}>
+            <CompanySwitchboard />
           </Reveal>
         </div>
       </section>

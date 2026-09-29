@@ -1,91 +1,161 @@
+// Newsroom stories taken from the group's own event posters (public/logos/glry*.jpg).
+// Only two posters state an exact day; the others give the year at most. Add an ISO
+// `date` to any story when the real day is known and it will appear on the calendar.
+
 export interface NewsItem {
   id: number;
   slug: string;
   title: string;
   excerpt: string;
-  date: string;
+  /** ISO date (yyyy-mm-dd) when the exact day is known. */
+  date?: string;
+  /** Year shown when there is no exact date. */
+  year?: string;
+  time?: string;
+  place?: string;
   category: string;
+  company: string;
   image: string;
   featured?: boolean;
 }
 
-export const newsCategories = ["All", "Achievement", "Event", "Award", "Partnership", "Programme", "Announcement"];
+export const newsCategories = ["All", "Milestone", "Community", "Achievement", "Event", "Programme", "Corporate"];
 
 export const newsItems: NewsItem[] = [
   {
     id: 1,
-    slug: "bwea-iso-certification",
-    title: "British Way English Academy Achieves ISO 9001:2015 Certification",
-    excerpt: "We are proud to announce that British Way English Academy has received ISO 9001:2015 certification, reaffirming our unwavering commitment to quality education standards.",
-    date: "June 2, 2026",
-    category: "Achievement",
-    image: "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=600&h=380&fit=crop&auto=format",
+    slug: "government-backed-pension-rights",
+    title: "A historic first: government-backed pension rights for our employees",
+    excerpt:
+      "British Way Holdings becomes the first private-sector organisation in Sri Lanka to secure government-backed pension rights for its employees — a milestone celebrated on Bizz Talks.",
+    category: "Milestone",
+    company: "British Way Holdings",
+    image: "/logos/opt/glry04.jpg",
     featured: true,
   },
   {
     id: 2,
-    slug: "annual-convocation-2026",
-    title: "Annual Convocation 2026 — Celebrating 1,200 Graduates",
-    excerpt: "British Way Holdings hosted its grandest convocation ceremony yet, celebrating over 1,200 graduates from across all group companies.",
-    date: "May 18, 2026",
-    category: "Event",
-    image: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=600&h=380&fit=crop&auto=format",
+    slug: "ma-piya-wandana-2026",
+    title: "Ma Piya Wandana brings together more than 2,000 parents and students",
+    excerpt:
+      "A Ma Piya Wandana ceremony honouring parents was held at the Grand Emirates Hotel with over 2,000 parents and students from the Britishway residential camp — a memorable and successful event.",
+    date: "2026-05-17",
+    place: "Grand Emirates Hotel",
+    category: "Community",
+    company: "British Way Holdings",
+    image: "/logos/opt/glry03.jpg",
   },
   {
     id: 3,
-    slug: "pharo-hotel-award-2026",
-    title: "The Pharo Hotel Wins Best Boutique Hotel 2026",
-    excerpt: "The Pharo Hotel has been recognised at the Sri Lanka Tourism Awards as the Best Boutique Hotel of the Year.",
-    date: "April 30, 2026",
-    category: "Award",
-    image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=380&fit=crop&auto=format",
+    slug: "blood-donation-nittambuwa",
+    title: "Blood donation programme at British Way English Academy, Nittambuwa",
+    excerpt: "Students, staff and the community came together for a successful blood donation programme held at the academy in Nittambuwa.",
+    date: "2026-05-12",
+    time: "9.00 a.m. – 3.00 p.m.",
+    place: "British Way English Academy, Nittambuwa",
+    category: "Community",
+    company: "British Way English Academy",
+    image: "/logos/opt/glry02.jpg",
   },
   {
     id: 4,
-    slug: "uel-partnership",
-    title: "New Partnership with University of East London",
-    excerpt: "British Campus has signed a landmark MOU with the University of East London, opening direct pathways for dual degree programmes.",
-    date: "April 12, 2026",
-    category: "Partnership",
-    image: "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=600&h=380&fit=crop&auto=format",
+    slug: "bwis-all-island-dance-2026",
+    title: "BWIS dancers take second place in the Gampaha zone",
+    excerpt: "Our British Way International School dance team secured 2nd place at the Gampaha zonal level of the All Island Dance Competition 2026.",
+    year: "2026",
+    category: "Achievement",
+    company: "British Way International School",
+    image: "/logos/opt/glry05.jpg",
   },
   {
     id: 5,
-    slug: "thames-digital-marketing",
-    title: "Thames College Launches Digital Marketing Diploma",
-    excerpt: "Thames College introduces a cutting-edge Professional Diploma in Digital Marketing, developed in collaboration with global industry leaders.",
-    date: "March 25, 2026",
-    category: "Programme",
-    image: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=600&h=380&fit=crop&auto=format",
+    slug: "convocation-galle-matara-2026",
+    title: "Convocation Ceremony 2026 — Galle–Matara branch",
+    excerpt: "British Way English Academy celebrated its graduates on the big stage at the 2026 Annual Convocation Ceremony of the Galle–Matara branch.",
+    year: "2026",
+    category: "Event",
+    company: "British Way English Academy",
+    image: "/logos/opt/glry11.jpg",
   },
   {
     id: 6,
-    slug: "bwis-stem-wing",
-    title: "British Way International School Opens New STEM Wing",
-    excerpt: "BWIS inaugurated its state-of-the-art STEM wing, featuring robotics labs, a design studio, and cutting-edge science facilities.",
-    date: "March 10, 2026",
-    category: "Announcement",
-    image: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&h=380&fit=crop&auto=format",
+    slug: "manamala-katha-premiere",
+    title: "A proud premiere: “Manamala Katha” by Emika Productions",
+    excerpt: "Emika Productions launched “Manamala Katha” (මනමාල කතා) with a premiere press event covered by Sri Lanka's leading television and news channels.",
+    category: "Event",
+    company: "Emika Productions",
+    image: "/logos/opt/glry08.jpg",
   },
   {
     id: 7,
-    slug: "15-years-excellence",
-    title: "British Way Holdings Celebrates 15 Years of Excellence",
-    excerpt: "On our 15th anniversary, we reflect on a journey of transforming over 50,000 lives and reaffirm our commitment to growth.",
-    date: "February 20, 2026",
-    category: "Event",
-    image: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=600&h=380&fit=crop&auto=format",
+    slug: "empowering-educators-2026",
+    title: "Empowering Educators 2026 at British Way International School",
+    excerpt:
+      "A professional development programme for BWIS teachers, built around the school's vision: enabling students to become well-disciplined, well-exposed citizens ready for a global future.",
+    year: "2026",
+    category: "Programme",
+    company: "British Way International School",
+    image: "/logos/opt/glry07.jpg",
   },
   {
     id: 8,
-    slug: "wisdom-cricket-tournament",
-    title: "Wisdom Cricket Academy Hosts Inter-School Tournament",
-    excerpt: "Over 200 young cricketers competed in the academy's annual inter-school tournament, showcasing emerging talent.",
-    date: "February 5, 2026",
-    category: "Event",
-    image: "https://images.unsplash.com/photo-1531418841129-388b303f0c4a?w=600&h=380&fit=crop&auto=format",
+    slug: "branch-managers-meeting-2026",
+    title: "Britishway Branch Managers Meeting 2026",
+    excerpt: "Branch managers from across the Britishway network met to align on priorities for the year ahead.",
+    year: "2026",
+    category: "Corporate",
+    company: "British Way Holdings",
+    image: "/logos/opt/glry12.jpg",
+  },
+  {
+    id: 9,
+    slug: "mindfulness-session-educators",
+    title: "Mindfulness session for educators",
+    excerpt: "Teachers stepped outdoors for a guided mindfulness session focused on wellbeing, calm and presence in the classroom.",
+    category: "Programme",
+    company: "British Way Holdings",
+    image: "/logos/opt/glry01.jpg",
+  },
+  {
+    id: 10,
+    slug: "hod-one-on-one-programme",
+    title: "HOD One-on-One Programme",
+    excerpt:
+      "Designed to enhance employee satisfaction, strengthen workplace confidence and encourage greater efficiency through personalised guidance and support.",
+    category: "Programme",
+    company: "British Way Holdings",
+    image: "/logos/opt/glry06.jpg",
+  },
+  {
+    id: 11,
+    slug: "hod-strategic-review",
+    title: "HOD Strategic Review Meeting",
+    excerpt: "Heads of department from across British Way Holdings gathered to review strategy and performance.",
+    category: "Corporate",
+    company: "British Way Holdings",
+    image: "/logos/opt/glry09.jpg",
+  },
+  {
+    id: 12,
+    slug: "management-strategy-workshop",
+    title: "Management Strategy Workshop: “Success Mantra”",
+    excerpt: "Managers from across the group came together for the Success Mantra strategy workshop.",
+    category: "Corporate",
+    company: "British Way Holdings",
+    image: "/logos/opt/glry10.jpg",
   },
 ];
+
+const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+/** "17 May 2026", "2026" or null. */
+export function newsWhen(n: NewsItem): string | null {
+  if (n.date) {
+    const [y, m, d] = n.date.split("-").map(Number);
+    return `${d} ${MONTHS[m - 1]} ${y}`;
+  }
+  return n.year ?? null;
+}
 
 export function getLatestNews(count = 3): NewsItem[] {
   return newsItems.slice(0, count);

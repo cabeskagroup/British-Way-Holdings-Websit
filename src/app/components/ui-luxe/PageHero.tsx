@@ -5,6 +5,7 @@ import { gsap, useGSAP, prefersReducedMotion } from "@/app/lib/gsap";
 import { SplitHeading } from "../fx/SplitHeading";
 import { onIntroDone } from "../fx/intro";
 import { SmartImage } from "./SmartImage";
+import { LotusMandala } from "./Heritage";
 
 interface PageHeroProps {
   eyebrow: string;
@@ -16,10 +17,12 @@ interface PageHeroProps {
   crumb: string;
   children?: ReactNode;
   accent?: string;
+  /** Show the slowly turning lotus mandala (Sri Lankan heritage motif). */
+  lotus?: boolean;
 }
 
 /** Cinematic opening banner for inner pages. */
-export function PageHero({ eyebrow, title, description, image, watermark, crumb, children, accent = "#3d7be0" }: PageHeroProps) {
+export function PageHero({ eyebrow, title, description, image, watermark, crumb, children, accent = "#3d7be0", lotus }: PageHeroProps) {
   const root = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -60,6 +63,8 @@ export function PageHero({ eyebrow, title, description, image, watermark, crumb,
       <div className="grid-lines absolute inset-0 opacity-60" />
       <div className="orb -left-40 top-10 h-[420px] w-[420px] opacity-40" style={{ background: accent }} />
       <div className="orb -right-32 bottom-0 h-[360px] w-[360px] bg-[#d7263d] opacity-20" />
+
+      {lotus && <LotusMandala className="spin-slower pointer-events-none absolute -right-48 top-1/2 h-[760px] w-[760px] -translate-y-1/2 md:-right-24" opacity={0.22} />}
 
       {watermark && (
         <div className="ph-watermark pointer-events-none absolute left-0 top-1/2 -translate-y-1/2 whitespace-nowrap font-display text-[22vw] font-extrabold leading-none tracking-tighter outline-text select-none">

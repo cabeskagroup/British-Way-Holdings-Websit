@@ -120,13 +120,14 @@ export function AboutPage() {
         eyebrow="About British Way"
         crumb="About"
         watermark="HERITAGE"
-        image="/logos/aboutus.png"
+        image="/logos/opt/aboutus.jpg"
         title={
           <>
             A legacy of <span className="accent">excellence</span> since 2004.
           </>
         }
-        description="A diversified corporate organisation built on trust, excellence and a relentless commitment to transforming lives through education and service."
+        lotus
+        description="A proudly Sri Lankan group built on trust, excellence and a relentless commitment to transforming lives — carrying the island's heritage of care and learning to the world."
       >
         <div className="flex flex-wrap gap-4">
           <LuxeButton to="/about#heritage">Enter the Heritage Hall</LuxeButton>
@@ -174,14 +175,14 @@ export function AboutPage() {
           <Reveal className="relative" y={80}>
             <div className="relative">
               <Parallax className="aspect-[4/5] rounded-[2.5rem] border border-white/10" speed={8}>
-                <SmartImage src="/logos/aboutus.png" alt="British Way Holdings leadership" className="h-full w-full object-cover" />
+                <SmartImage src="/logos/opt/aboutus.jpg" alt="British Way Holdings leadership" className="h-full w-full object-cover" />
               </Parallax>
               <div className="glass-strong float absolute -bottom-8 -left-4 rounded-3xl p-6 md:-left-10">
                 <CountUp value="20+" className="font-display text-5xl font-semibold text-white" />
                 <p className="mt-1 text-xs tracking-[0.2em] text-[#f3dca0] uppercase">Years of excellence</p>
               </div>
               <div className="absolute -right-4 -top-8 hidden w-44 overflow-hidden rounded-3xl border-4 border-[#04060d] shadow-2xl md:block lg:-right-10">
-                <SmartImage src="/logos/britishway.png" alt="British Way English Academy" className="aspect-square w-full object-cover" />
+                <SmartImage src="/logos/opt/britishway.jpg" alt="British Way English Academy" className="aspect-square w-full object-cover" />
               </div>
             </div>
           </Reveal>

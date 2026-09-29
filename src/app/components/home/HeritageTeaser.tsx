@@ -6,9 +6,9 @@ import { SplitHeading } from "../fx/SplitHeading";
 import { Reveal } from "../fx/Reveal";
 
 const frames = [
-  { src: "/logos/glry11.jpg", x: -34, r: 28 },
-  { src: "/logos/aboutus.png", x: 0, r: 0 },
-  { src: "/logos/glry03.jpg", x: 34, r: -28 },
+  { src: "/logos/opt/glry11.jpg", x: -34, r: 28 },
+  { src: "/logos/opt/aboutus.jpg", x: 0, r: 0 },
+  { src: "/logos/opt/glry03.jpg", x: 34, r: -28 },
 ];
 
 /** Invitation into the 3D Heritage Hall, with a gallery wall that swings into perspective. */

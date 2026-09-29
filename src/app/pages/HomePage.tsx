@@ -1,13 +1,14 @@
 import { Link } from "react-router";
 import { ArrowUpRight, Quote, Sparkles } from "lucide-react";
 import { companies } from "@/data/companies";
-import { getLatestNews } from "@/data/news";
+import { getLatestNews, newsWhen } from "@/data/news";
 import { getFeaturedLeaders } from "@/data/leaders";
-import { galleryPhotos } from "@/data/gallery";
 import { HeroSlider } from "../components/home/HeroSlider";
 import { LogoOrbit } from "../components/home/LogoOrbit";
 import { SectorShowcase } from "../components/home/SectorShowcase";
 import { HeritageTeaser } from "../components/home/HeritageTeaser";
+import { IslandToWorld } from "../components/home/IslandToWorld";
+import { GalleryRing } from "../components/home/GalleryRing";
 import { Marquee } from "../components/fx/Marquee";
 import { Reveal } from "../components/fx/Reveal";
 import { CountUp } from "../components/fx/CountUp";
@@ -17,7 +18,7 @@ import { LuxeButton } from "../components/ui-luxe/LuxeButton";
 import { CompanyCard } from "../components/ui-luxe/CompanyCard";
 import { SmartImage } from "../components/ui-luxe/SmartImage";
 
-const pillars = ["Education", "Hospitality", "Productions", "Sports", "Entertainment", "Academies", "Hotels", "Events"];
+const pillars = ["Sri Lankan Heritage", "Education", "Hospitality", "Global Standards", "Productions", "Sports", "Powering the Island", "Entertainment"];
 
 const groupStats = [
   { value: "8", label: "Companies" },
@@ -52,13 +53,13 @@ export function HomePage() {
         <div className="relative mx-auto grid max-w-7xl items-center gap-16 lg:grid-cols-[1fr_1.15fr]">
           <div className="flex flex-col gap-8">
             <SectionHeading
-              eyebrow="One Group · Eight Brands"
+              eyebrow="One Group · Eight Sri Lankan Brands"
               title={
                 <>
-                  A constellation of <span className="accent">leading</span> companies.
+                  Sri Lankan brands, <span className="accent">built for the world.</span>
                 </>
               }
-              description="British Way Holdings brings together academies, schools, a university campus, a boutique hotel, a production house, a cricket academy and an entertainment company — each shining on its own, stronger together."
+              description="Academies, an international school, a UK-partnered campus, a boutique hotel, a production house, a cricket academy and an entertainment company — each born in Sri Lanka, each built to world standards, all moving together."
             />
             <Reveal className="grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4" stagger={0.08}>
               {groupStats.map((s) => (
@@ -77,6 +78,8 @@ export function HomePage() {
           <LogoOrbit />
         </div>
       </section>
+
+      <IslandToWorld />
 
       <SectorShowcase />
 
@@ -153,12 +156,13 @@ export function HomePage() {
       <section className="relative py-24 md:py-28">
         <div className="mx-auto max-w-7xl px-6 md:px-10">
           <SectionHeading
-            eyebrow="Moments"
+            eyebrow="Moments of excellence"
             title={
               <>
                 Life across <span className="accent">the group.</span>
               </>
             }
+            description="Ceremonies, premieres and community moments from across the island. Hover to pause the carousel."
             action={
               <LuxeButton to="/gallery" variant="ghost">
                 Open gallery
@@ -166,25 +170,8 @@ export function HomePage() {
             }
           />
         </div>
-        <div className="mt-14 flex flex-col gap-5">
-          <Marquee speed={60}>
-            {galleryPhotos.slice(0, 6).map((p) => (
-              <Link key={p.id} to="/gallery" className="group relative mr-5 block h-64 w-80 shrink-0 overflow-hidden rounded-3xl md:h-80 md:w-[26rem]">
-                <SmartImage src={p.src} alt={p.alt} className="h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-110" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                <p className="absolute inset-x-5 bottom-4 translate-y-3 font-display text-sm font-medium text-white opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-                  {p.alt}
-                </p>
-              </Link>
-            ))}
-          </Marquee>
-          <Marquee speed={70} reverse>
-            {galleryPhotos.slice(5).map((p) => (
-              <Link key={p.id} to="/gallery" className="group relative mr-5 block h-52 w-72 shrink-0 overflow-hidden rounded-3xl md:h-64 md:w-80">
-                <SmartImage src={p.src} alt={p.alt} className="h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-110" />
-              </Link>
-            ))}
-          </Marquee>
+        <div className="mt-6">
+          <GalleryRing />
         </div>
       </section>
 
@@ -195,7 +182,7 @@ export function HomePage() {
             eyebrow="Newsroom"
             title={
               <>
-                The latest from <span className="accent">British Way.</span>
+                Latest from <span className="accent">the island.</span>
               </>
             }
             action={
@@ -207,13 +194,13 @@ export function HomePage() {
           <Reveal className="mt-14 grid gap-5 lg:grid-cols-[1.4fr_1fr]" stagger={0.12} y={60}>
             {news[0] && (
               <Link to="/news" className="group relative flex min-h-[460px] overflow-hidden rounded-[2rem] border border-white/10">
-                <SmartImage src={news[0].image} alt={news[0].title} className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1.6s] group-hover:scale-105" />
+                <SmartImage src={news[0].image} alt={news[0].title} className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-[1.6s] group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#04060d] via-[#04060d]/50 to-transparent" />
                 <div className="relative mt-auto flex flex-col gap-4 p-8 md:p-10">
                   <span className="w-fit rounded-full bg-[#d8b36a] px-3 py-1 font-display text-[11px] font-semibold text-[#1a1204]">{news[0].category}</span>
                   <h3 className="max-w-xl font-display text-2xl font-semibold leading-tight text-white md:text-3xl">{news[0].title}</h3>
                   <p className="max-w-xl text-sm text-white/65">{news[0].excerpt}</p>
-                  <span className="text-xs tracking-widest text-white/45 uppercase">{news[0].date}</span>
+                  <span className="text-xs tracking-widest text-white/45 uppercase">{newsWhen(news[0]) ?? news[0].company}</span>
                 </div>
               </Link>
             )}
@@ -227,7 +214,7 @@ export function HomePage() {
                     <span className="text-[11px] font-semibold tracking-[0.2em] text-[#f3dca0] uppercase">{n.category}</span>
                     <h3 className="font-display text-base font-semibold leading-snug text-white md:text-lg">{n.title}</h3>
                     <span className="flex items-center gap-1 text-xs text-white/45">
-                      {n.date} <ArrowUpRight size={13} className="ml-auto text-[#d8b36a] transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                      {newsWhen(n) ?? n.company} <ArrowUpRight size={13} className="ml-auto text-[#d8b36a] transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                     </span>
                   </div>
                 </Link>

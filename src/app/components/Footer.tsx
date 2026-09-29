@@ -88,8 +88,8 @@ export function Footer() {
           <div className="relative">
             <BrandLogo height={36} />
             <p className="mt-6 text-sm leading-relaxed text-mist">
-              A diversified Sri Lankan group uniting education, hospitality, media, sports and entertainment — driven by one promise:
-              excellence in everything we touch.
+              A proudly Sri Lankan group uniting education, hospitality, media, sports and entertainment — carrying the island's heritage of
+              care and craft to the world.
             </p>
           </div>
           <div className="relative flex gap-3">
@@ -160,8 +160,8 @@ export function Footer() {
       </div>
 
       {/* Giant wordmark */}
-      <div className="ft-word relative mx-auto mt-16 max-w-[1600px] overflow-hidden px-4" aria-hidden>
-        <div className="flex justify-center whitespace-nowrap font-display text-[16.5vw] font-extrabold leading-[0.8] tracking-[-0.06em]">
+      <div className="ft-word relative mt-16 overflow-hidden px-[3vw]" aria-hidden>
+        <div className="flex justify-center whitespace-nowrap font-display text-[13vw] font-extrabold leading-[0.82] tracking-[-0.05em]">
           {"BRITISH WAY".split("").map((ch, i) => (
             <span
               key={i}
@@ -178,7 +178,7 @@ export function Footer() {
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-6 text-xs text-white/40 md:flex-row md:px-10">
           <p>© {new Date().getFullYear()} British Way Holdings (Pvt) Ltd. All rights reserved.</p>
           <div className="flex items-center gap-6">
-            <span>Crafted with excellence in Sri Lanka</span>
+            <span>Proudly Sri Lankan · Built for the world</span>
             <button
               onClick={() => scrollToTarget(lenis, 0)}
               className="group flex items-center gap-2 rounded-full border border-white/10 px-4 py-2 text-white/70 transition-colors hover:border-[#d8b36a]/60 hover:text-white"

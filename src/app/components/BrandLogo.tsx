@@ -2,6 +2,8 @@ import { useState } from "react";
 
 /** Full logo with white lettering, for the dark theme. */
 export const HOLDINGS_LOGO_PATH = "/logos/bwh-logo-light.png";
+/** Full-colour logo with navy lettering, for light backgrounds such as the navbar. */
+export const HOLDINGS_COLOR_PATH = "/logos/british-way-holdings.png";
 /** Just the BW mark. */
 export const HOLDINGS_MARK_PATH = "/logos/bwh-mark.png";
 
