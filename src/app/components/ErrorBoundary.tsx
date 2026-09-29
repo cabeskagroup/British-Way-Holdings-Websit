@@ -33,7 +33,7 @@ export class ErrorBoundary extends Component<Props, State> {
             This page could not be loaded. Please refresh or return to the homepage.
           </p>
           <button
-            onClick={() => window.location.assign("/")}
+            onClick={() => window.location.assign(import.meta.env.BASE_URL)}
             className="px-6 py-3 rounded-2xl font-semibold text-[14px] text-white"
             style={{ background: "linear-gradient(135deg, #4a80b4, #2a5a94)" }}
           >

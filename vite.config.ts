@@ -16,9 +16,28 @@ function figmaAssetResolver() {
   }
 }
 
+// Sub-folder the site is served from, e.g. "/British-Way-Holdings-Websit/" on
+// GitHub Pages. Defaults to the domain root for local dev and Vercel.
+const base = process.env.BASE_PATH || '/'
+
+// Public images are referenced as "/logos/..." throughout src. When the site is
+// served from a sub-folder, prefix those paths so they still resolve.
+function publicPathBase() {
+  return {
+    name: 'public-path-base',
+    enforce: 'pre' as const,
+    transform(code: string, id: string) {
+      if (base === '/' || !/\/src\/.*\.tsx?$/.test(id.split('?')[0])) return
+      return code.replace(/(["'`])\/logos\//g, `$1${base}logos/`)
+    },
+  }
+}
+
 export default defineConfig({
+  base,
   plugins: [
     figmaAssetResolver(),
+    publicPathBase(),
     // The React and Tailwind plugins are both required for Make, even if
     // Tailwind is not being actively used – do not remove them
     react(),
