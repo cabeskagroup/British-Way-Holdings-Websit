@@ -1,198 +1,330 @@
-import { motion } from "motion/react";
-import { useNavigate } from "react-router";
-import { CheckCircle2, ArrowRight } from "lucide-react";
-import { ImageWithFallback } from "../components/figma/ImageWithFallback";
+import { useRef } from "react";
+import { Check } from "lucide-react";
 import { companies } from "@/data/companies";
-import { coreValues, visionMissionItems } from "@/data/aboutContent";
-import { CompanyLogo } from "../components/CompanyLogo";
+import { visionMissionItems, coreValues } from "@/data/aboutContent";
+import { milestones } from "@/data/heritage";
+import { gsap, useGSAP, prefersReducedMotion } from "@/app/lib/gsap";
+import { PageHero } from "../components/ui-luxe/PageHero";
+import { SectionHeading } from "../components/ui-luxe/SectionHeading";
+import { CompanyCard } from "../components/ui-luxe/CompanyCard";
+import { LuxeButton } from "../components/ui-luxe/LuxeButton";
+import { SmartImage } from "../components/ui-luxe/SmartImage";
+import { Reveal } from "../components/fx/Reveal";
+import { CountUp } from "../components/fx/CountUp";
+import { TiltCard } from "../components/fx/TiltCard";
+import { Parallax } from "../components/fx/Parallax";
+import { HeritageHall } from "../components/heritage/HeritageHall";
 
-function SectionLabel({ children }: { children: string }) {
+const highlights = [
+  "ISO-accredited programmes",
+  "International partnerships",
+  "Award-winning faculty",
+  "State-of-the-art facilities",
+  "Online learning platforms",
+  "Industry-aligned curriculum",
+];
+
+const numbers = [
+  { value: "20+", label: "Years of excellence" },
+  { value: "8", label: "Group companies" },
+  { value: "50,000+", label: "Students every year" },
+  { value: "2000+", label: "People in the family" },
+];
+
+function Timeline() {
+  const root = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      if (prefersReducedMotion()) return;
+      gsap.fromTo(
+        ".tl-line",
+        { scaleY: 0 },
+        { scaleY: 1, ease: "none", scrollTrigger: { trigger: root.current, start: "top 60%", end: "bottom 60%", scrub: true } },
+      );
+      gsap.utils.toArray<HTMLElement>(".tl-item").forEach((item) => {
+        const fromLeft = item.dataset.side === "left";
+        gsap.from(item.querySelector(".tl-card"), {
+          x: fromLeft ? -80 : 80,
+          rotationY: fromLeft ? 20 : -20,
+          opacity: 0,
+          transformPerspective: 1200,
+          duration: 1.3,
+          ease: "expo.out",
+          scrollTrigger: { trigger: item, start: "top 80%", once: true },
+        });
+        gsap.from(item.querySelector(".tl-dot"), { scale: 0, duration: 0.8, ease: "back.out(3)", scrollTrigger: { trigger: item, start: "top 70%", once: true } });
+        gsap.from(item.querySelector(".tl-year"), {
+          yPercent: 60,
+          opacity: 0,
+          duration: 1.2,
+          ease: "expo.out",
+          scrollTrigger: { trigger: item, start: "top 80%", once: true },
+        });
+      });
+    },
+    { scope: root },
+  );
+
   return (
-    <span className="inline-block px-4 py-1.5 rounded-full text-[11px] font-semibold tracking-widest mb-4"
-      style={{ background: "rgba(74,128,180,0.1)", color: "#2a5a94", fontFamily: "'Poppins', sans-serif" }}>
-      {children}
-    </span>
+    <div ref={root} className="relative mt-20">
+      <div className="absolute bottom-0 left-5 top-0 w-px bg-white/10 md:left-1/2" />
+      <div className="tl-line absolute bottom-0 left-5 top-0 w-px origin-top bg-gradient-to-b from-[#f3dca0] via-[#d8b36a] to-[#d7263d] md:left-1/2" />
+      <div className="flex flex-col gap-16 md:gap-24">
+        {milestones.map((m, i) => {
+          const left = i % 2 === 0;
+          return (
+            <div key={m.year} data-side={left ? "left" : "right"} className="tl-item relative grid items-center gap-6 pl-14 md:grid-cols-2 md:gap-20 md:pl-0">
+              <span className="tl-dot absolute left-5 top-8 z-10 grid h-5 w-5 -translate-x-1/2 place-items-center rounded-full bg-[#04060d] ring-2 ring-[#d8b36a] md:left-1/2 md:top-1/2 md:-translate-y-1/2">
+                <span className="h-2 w-2 rounded-full bg-[#f3dca0]" />
+              </span>
+              <div className={`${left ? "md:order-1 md:text-right" : "md:order-2"} overflow-hidden`}>
+                <p className="tl-year font-serif-luxe text-6xl text-transparent italic md:text-8xl" style={{ WebkitTextStroke: "1px rgba(243,220,160,0.6)" }}>
+                  {m.year}
+                </p>
+              </div>
+              <div className={`${left ? "md:order-2" : "md:order-1"}`} style={{ perspective: 1200 }}>
+                <div className="tl-card glass luxe-border group overflow-hidden rounded-[1.75rem]">
+                  <div className="relative h-52 overflow-hidden">
+                    <SmartImage
+                      src={m.image}
+                      alt={m.title}
+                      className="h-full w-full object-cover transition-transform duration-[1.4s] group-hover:scale-110"
+                      style={m.historic ? { filter: "sepia(0.55) contrast(1.05)" } : undefined}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a1022] to-transparent" />
+                    {m.historic && (
+                      <span className="absolute left-4 top-4 rounded-full bg-black/50 px-3 py-1 text-[10px] font-semibold tracking-[0.25em] text-[#f3dca0] uppercase backdrop-blur">
+                        Archive
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex flex-col gap-2 p-6">
+                    <h3 className="font-display text-xl font-semibold text-white">{m.title}</h3>
+                    <p className="text-sm leading-relaxed text-mist">{m.text}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
   );
 }
 
 export function AboutPage() {
-  const navigate = useNavigate();
-
   return (
-    <div style={{ fontFamily: "'Poppins', sans-serif" }}>
-
-      {/* ── PAGE HERO ── */}
-      <section className="relative pt-36 pb-20 overflow-hidden"
-        style={{ background: "linear-gradient(135deg, #1a2f4a 0%, #2a4a7a 50%, #4a80b4 100%)" }}>
-        <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "36px 36px" }} />
-        <div className="absolute bottom-0 left-0 right-0 h-24" style={{ background: "linear-gradient(to bottom, transparent, #f5f9ff)" }} />
-        <div className="relative max-w-4xl mx-auto px-6 text-center">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <SectionLabel>ABOUT US</SectionLabel>
-            <h1 style={{ fontWeight: 800, fontSize: "clamp(2rem, 5vw, 3.5rem)", color: "white", lineHeight: 1.12, letterSpacing: "-0.02em", marginBottom: "20px" }}>
-              About British Way Holdings
-            </h1>
-            <p style={{ fontFamily: "'Open Sans', sans-serif", fontSize: "1.05rem", color: "rgba(255,255,255,0.75)", lineHeight: 1.8, maxWidth: "600px", margin: "0 auto" }}>
-              A diversified corporate organisation built on trust, excellence, and a relentless commitment to transforming lives through education and service.
-            </p>
-          </motion.div>
+    <>
+      <PageHero
+        eyebrow="About British Way"
+        crumb="About"
+        watermark="HERITAGE"
+        image="/logos/aboutus.png"
+        title={
+          <>
+            A legacy of <span className="accent">excellence</span> since 2004.
+          </>
+        }
+        description="A diversified corporate organisation built on trust, excellence and a relentless commitment to transforming lives through education and service."
+      >
+        <div className="flex flex-wrap gap-4">
+          <LuxeButton to="/about#heritage">Enter the Heritage Hall</LuxeButton>
+          <LuxeButton to="/about#companies" variant="ghost">
+            Our companies
+          </LuxeButton>
         </div>
-      </section>
+      </PageHero>
 
-      {/* ── COMPANY OVERVIEW ── */}
-      <section className="py-24" style={{ background: "#f5f9ff" }}>
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
-              <SectionLabel>OUR STORY</SectionLabel>
-              <h2 style={{ fontWeight: 700, fontSize: "clamp(1.7rem, 3.5vw, 2.4rem)", color: "#1a2f4a", lineHeight: 1.25, marginBottom: "20px" }}>
-                A Legacy of Excellence Since 2004
-              </h2>
-              <p style={{ fontFamily: "'Open Sans', sans-serif", fontSize: "1rem", color: "#4a6278", lineHeight: 1.85, marginBottom: "16px" }}>
-                British Way Holdings (Pvt) Ltd was founded with a singular purpose — to elevate the standards of education and professional development in Sri Lanka. Over the past 20 years, we have grown from a single English academy into a diversified holding group spanning eight distinct enterprises.
+      {/* Story */}
+      <section className="relative px-6 py-24 md:px-10 md:py-32">
+        <div className="mx-auto grid max-w-7xl items-center gap-16 lg:grid-cols-2">
+          <div className="flex flex-col gap-8">
+            <SectionHeading
+              eyebrow="Our story"
+              title={
+                <>
+                  From one academy to a <span className="accent">family of eight.</span>
+                </>
+              }
+            />
+            <Reveal className="flex flex-col gap-5 text-[1.02rem] leading-relaxed text-mist" stagger={0.12}>
+              <p>
+                British Way Holdings (Pvt) Ltd was founded with a singular purpose — to elevate the standards of education and professional development in Sri
+                Lanka. Over the past 20 years, we have grown from a single English academy into a diversified holding group spanning eight distinct
+                enterprises.
               </p>
-              <p style={{ fontFamily: "'Open Sans', sans-serif", fontSize: "1rem", color: "#4a6278", lineHeight: 1.85, marginBottom: "24px" }}>
-                Today, our group serves over 50,000 students annually, employs hundreds of dedicated professionals, and maintains international partnerships with leading universities and institutions across the United Kingdom and beyond.
+              <p>
+                Today, our group serves over 50,000 students annually, employs hundreds of dedicated professionals, and maintains international partnerships
+                with leading universities and institutions across the United Kingdom and beyond.
               </p>
-              <div className="grid grid-cols-2 gap-3">
-                {["ISO-accredited programmes", "International partnerships", "Award-winning faculty", "State-of-the-art facilities", "Online learning platforms", "Industry-aligned curriculum"].map((item) => (
-                  <div key={item} className="flex items-center gap-2.5">
-                    <CheckCircle2 size={15} style={{ color: "#4a80b4", flexShrink: 0 }} />
-                    <span style={{ fontFamily: "'Open Sans', sans-serif", fontSize: "13px", color: "#3a5068" }}>{item}</span>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-            <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
-              className="relative">
-              <div className="rounded-3xl overflow-hidden shadow-2xl">
-                <ImageWithFallback src="/logos/aboutus.png" alt="British Way Holdings leadership" className="w-full h-96 object-cover" />
-              </div>
-              <div className="absolute -bottom-5 -left-5 bg-white rounded-2xl shadow-xl p-5" style={{ border: "1px solid rgba(74,128,180,0.12)" }}>
-                <div style={{ fontWeight: 800, fontSize: "2rem", color: "#cc2222", lineHeight: 1 }}>20+</div>
-                <div style={{ fontFamily: "'Open Sans', sans-serif", fontSize: "12px", color: "#5a7898", marginTop: "2px" }}>Years of Excellence</div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── VISION & MISSION ── */}
-      <section className="py-20" style={{ background: "#eaf2fb" }}>
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <SectionLabel>VISION & MISSION</SectionLabel>
-            <h2 style={{ fontWeight: 700, fontSize: "clamp(1.7rem, 3.5vw, 2.4rem)", color: "#1a2f4a" }}>
-              What <span style={{ color: "#4a80b4" }}>Drives Us</span>
-            </h2>
-          </div>
-          <div className="grid md:grid-cols-2 gap-8">
-            {visionMissionItems.map((item) => (
-              <motion.div key={item.title} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-                className="p-8 rounded-3xl text-white" style={{ background: item.bg }}>
-                <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5" style={{ background: "rgba(255,255,255,0.12)" }}>
-                  <ImageWithFallback src={item.icon} alt={item.title} className="w-8 h-8 object-contain" />
+            </Reveal>
+            <Reveal className="grid gap-3 sm:grid-cols-2" stagger={0.06} y={20}>
+              {highlights.map((h) => (
+                <div key={h} className="flex items-center gap-3 rounded-2xl border border-white/5 bg-white/[0.03] px-4 py-3">
+                  <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-gradient-to-br from-[#f3dca0] to-[#9c7a3c] text-[#1a1204]">
+                    <Check size={13} strokeWidth={3} />
+                  </span>
+                  <span className="text-sm text-white/80">{h}</span>
                 </div>
-                <h3 style={{ fontWeight: 700, fontSize: "1.4rem", color: "white", marginBottom: "14px" }}>{item.title}</h3>
-                <p style={{ fontFamily: "'Open Sans', sans-serif", fontSize: "0.95rem", color: "rgba(255,255,255,0.82)", lineHeight: 1.8 }}>{item.text}</p>
-              </motion.div>
-            ))}
+              ))}
+            </Reveal>
           </div>
+
+          <Reveal className="relative" y={80}>
+            <div className="relative">
+              <Parallax className="aspect-[4/5] rounded-[2.5rem] border border-white/10" speed={8}>
+                <SmartImage src="/logos/aboutus.png" alt="British Way Holdings leadership" className="h-full w-full object-cover" />
+              </Parallax>
+              <div className="glass-strong float absolute -bottom-8 -left-4 rounded-3xl p-6 md:-left-10">
+                <CountUp value="20+" className="font-display text-5xl font-semibold text-white" />
+                <p className="mt-1 text-xs tracking-[0.2em] text-[#f3dca0] uppercase">Years of excellence</p>
+              </div>
+              <div className="absolute -right-4 -top-8 hidden w-44 overflow-hidden rounded-3xl border-4 border-[#04060d] shadow-2xl md:block lg:-right-10">
+                <SmartImage src="/logos/britishway.png" alt="British Way English Academy" className="aspect-square w-full object-cover" />
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* ── CORE VALUES ── */}
-      <section className="py-24" style={{ background: "#f5f9ff" }}>
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <SectionLabel>CORE VALUES</SectionLabel>
-            <h2 style={{ fontWeight: 700, fontSize: "clamp(1.7rem, 3.5vw, 2.4rem)", color: "#1a2f4a" }}>
-              The Principles That <span style={{ color: "#4a80b4" }}>Guide Us</span>
-            </h2>
-          </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-5">
+      {/* Numbers */}
+      <section className="relative border-y border-white/5 bg-[#070b17]/60 px-6 py-16 md:px-10">
+        <Reveal className="mx-auto grid max-w-7xl grid-cols-2 gap-8 md:grid-cols-4" stagger={0.1}>
+          {numbers.map((n) => (
+            <div key={n.label} className="flex flex-col gap-2">
+              <CountUp value={n.value} className="font-display text-4xl font-semibold text-white md:text-6xl" />
+              <span className="text-xs tracking-[0.25em] text-white/50 uppercase">{n.label}</span>
+            </div>
+          ))}
+        </Reveal>
+      </section>
+
+      {/* Vision & mission */}
+      <section className="relative px-6 py-24 md:px-10 md:py-32">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeading
+            align="center"
+            eyebrow="Vision & mission"
+            title={
+              <>
+                What <span className="accent">drives</span> us.
+              </>
+            }
+          />
+          <Reveal className="mt-14 grid gap-6 md:grid-cols-2" stagger={0.15} y={70}>
+            {visionMissionItems.map((item, i) => (
+              <TiltCard key={item.title} className="rounded-[2rem]" max={6}>
+                <div
+                  className="relative flex h-full min-h-[340px] flex-col justify-between overflow-hidden rounded-[2rem] border border-white/10 p-8 md:p-12"
+                  style={{ background: i === 0 ? "linear-gradient(145deg,#1b3f8f,#0c1326 70%)" : "linear-gradient(145deg,#8a1024,#1a0a10 70%)" }}
+                >
+                  <div className="orb -right-16 -top-16 h-56 w-56 bg-white/10" />
+                  <span className="absolute right-8 top-6 font-display text-[7rem] font-bold leading-none text-white/5">0{i + 1}</span>
+                  <div className="relative grid h-16 w-16 place-items-center rounded-2xl bg-white/10 backdrop-blur">
+                    <img src={item.icon} alt="" className="h-9 w-9 object-contain invert" />
+                  </div>
+                  <div className="relative mt-10">
+                    <h3 className="font-display text-3xl font-semibold text-white md:text-4xl">{item.title}</h3>
+                    <p className="mt-4 text-[1.02rem] leading-relaxed text-white/75">{item.text}</p>
+                  </div>
+                </div>
+              </TiltCard>
+            ))}
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Journey */}
+      <section className="relative overflow-hidden px-6 py-24 md:px-10 md:py-32">
+        <div className="orb left-1/2 top-40 h-[500px] w-[500px] -translate-x-1/2 bg-[#1b3f8f]/25" />
+        <div className="relative mx-auto max-w-6xl">
+          <SectionHeading
+            align="center"
+            eyebrow="Our journey"
+            title={
+              <>
+                Milestones that <span className="accent">made us.</span>
+              </>
+            }
+            description="Two decades of growth — from one classroom to a group that educates, hosts, entertains and inspires."
+          />
+          <Timeline />
+        </div>
+      </section>
+
+      {/* Heritage Hall */}
+      <section id="heritage" className="relative scroll-mt-24 px-4 py-24 md:px-10 md:py-32">
+        <div className="absolute inset-x-0 top-1/3 h-2/3 bg-[radial-gradient(ellipse_at_center,rgba(122,16,34,0.35),transparent_70%)]" />
+        <div className="relative mx-auto max-w-7xl">
+          <SectionHeading
+            eyebrow="The Heritage Hall"
+            title={
+              <>
+                Walk through our <span className="accent">history</span> in 3D.
+              </>
+            }
+            description="A virtual museum of the British Way story. Drag to look around, walk with W A S D, or press Tour for a guided visit past every milestone to our Hall of Honours. On a VR headset, choose Enter VR."
+            className="mb-12 px-2"
+          />
+          <Reveal y={60}>
+            <HeritageHall />
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Values */}
+      <section className="relative px-6 py-24 md:px-10 md:py-32">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeading
+            eyebrow="Core values"
+            title={
+              <>
+                The principles that <span className="accent">guide us.</span>
+              </>
+            }
+          />
+          <Reveal className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-5" stagger={0.08} y={60}>
             {coreValues.map((v, i) => (
-              <motion.div key={v.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}
-                className="group text-center p-6 rounded-3xl bg-white border transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
-                style={{ borderColor: "rgba(74,128,180,0.1)" }}>
-                <div className="w-14 h-14 mx-auto mb-4 flex items-center justify-center rounded-2xl" style={{ background: "rgba(74,128,180,0.08)" }}>
-                  <ImageWithFallback src={v.icon} alt={v.title} className="w-9 h-9 object-contain" />
+              <TiltCard key={v.title} className="h-full rounded-[1.75rem]" max={10}>
+                <div className="glass luxe-border group relative flex h-full flex-col gap-5 overflow-hidden rounded-[1.75rem] p-7">
+                  <span className="font-display text-xs text-white/30">0{i + 1}</span>
+                  <div className="grid h-16 w-16 place-items-center rounded-2xl bg-gradient-to-br from-[#f3dca0]/20 to-transparent ring-1 ring-[#d8b36a]/30 transition-transform duration-500 group-hover:-translate-y-1 group-hover:rotate-6">
+                    <img src={v.icon} alt="" className="h-9 w-9 object-contain invert" />
+                  </div>
+                  <h3 className="font-display text-lg font-semibold text-white">{v.title}</h3>
+                  <p className="text-sm leading-relaxed text-mist">{v.desc}</p>
                 </div>
-                <div style={{ fontWeight: 700, fontSize: "14px", color: "#1a2f4a", marginBottom: "8px" }}>{v.title}</div>
-                <div style={{ fontFamily: "'Open Sans', sans-serif", fontSize: "12px", color: "#5a7898", lineHeight: 1.65 }}>{v.desc}</div>
-              </motion.div>
+              </TiltCard>
             ))}
-          </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* ── GROUP COMPANIES ── */}
-      <section id="companies" className="py-24" style={{ background: "#eaf2fb" }}>
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-14">
-            <SectionLabel>GROUP COMPANIES</SectionLabel>
-            <h2 style={{ fontWeight: 700, fontSize: "clamp(1.7rem, 3.5vw, 2.4rem)", color: "#1a2f4a" }}>
-              Our Portfolio of <span style={{ color: "#4a80b4" }}>Excellence</span>
-            </h2>
-          </div>
-          <div className="flex flex-col gap-10">
+      {/* Companies */}
+      <section id="companies" className="relative scroll-mt-24 px-6 pb-24 pt-8 md:px-10 md:pb-32">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeading
+            eyebrow="Group companies"
+            title={
+              <>
+                Meet the <span className="accent">family.</span>
+              </>
+            }
+            description="Eight companies across education, hospitality, media, sports and entertainment."
+            action={
+              <LuxeButton to="/leadership" variant="ghost">
+                Our leadership
+              </LuxeButton>
+            }
+          />
+          <Reveal className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4" stagger={0.08} y={70}>
             {companies.map((c, i) => (
-              <motion.div key={c.name} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
-                className={`grid lg:grid-cols-2 gap-10 items-center ${i % 2 !== 0 ? "lg:grid-flow-dense" : ""}`}>
-                <div className={i % 2 !== 0 ? "lg:col-start-2" : ""}>
-                  <div className="rounded-3xl overflow-hidden shadow-xl cursor-pointer" onClick={() => navigate(`/companies/${c.slug}`)}>
-                    <ImageWithFallback src={c.img} alt={c.name} className="w-full h-64 object-cover" />
-                  </div>
-                </div>
-                <div className={i % 2 !== 0 ? "lg:col-start-1 lg:row-start-1" : ""}>
-                  <div className="flex items-center gap-4 mb-5">
-                    <CompanyLogo slug={c.slug} short={c.short} color={c.color} accent={c.accent} />
-                    <div>
-                      <div style={{ fontFamily: "'Open Sans', sans-serif", fontSize: "11px", color: c.color, fontWeight: 600, letterSpacing: "0.08em" }}>{c.cat.toUpperCase()}</div>
-                      <div style={{ fontWeight: 700, fontSize: "1.2rem", color: "#1a2f4a" }}>{c.name}</div>
-                    </div>
-                  </div>
-                  <p style={{ fontFamily: "'Open Sans', sans-serif", fontSize: "0.95rem", color: "#4a6278", lineHeight: 1.8, marginBottom: "18px" }}>{c.desc}</p>
-                  <div className="grid grid-cols-2 gap-2 mb-6">
-                    {c.points.map((p) => (
-                      <div key={p} className="flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: c.color }} />
-                        <span style={{ fontFamily: "'Open Sans', sans-serif", fontSize: "12px", color: "#3a5068" }}>{p}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <button
-                    onClick={() => navigate(`/companies/${c.slug}`)}
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl font-semibold text-[13px] text-white transition-all duration-300 hover:scale-[1.03]"
-                    style={{ background: `linear-gradient(135deg, ${c.color}, ${c.accent})`, fontFamily: "'Poppins', sans-serif" }}
-                  >
-                    Learn More <ArrowRight size={14} />
-                  </button>
-                </div>
-              </motion.div>
+              <CompanyCard key={c.slug} company={c} index={i} />
             ))}
-          </div>
+          </Reveal>
         </div>
       </section>
-
-      {/* ── BOTTOM CTA ── */}
-      <section className="py-20 text-center relative overflow-hidden"
-        style={{ background: "linear-gradient(135deg, #1a3a6b, #4a80b4)" }}>
-        <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "36px 36px" }} />
-        <div className="relative max-w-xl mx-auto px-6">
-          <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 style={{ fontWeight: 700, fontSize: "2rem", color: "white", marginBottom: "16px" }}>Meet Our Leadership Team</h2>
-            <p style={{ fontFamily: "'Open Sans', sans-serif", fontSize: "0.95rem", color: "rgba(255,255,255,0.72)", lineHeight: 1.75, marginBottom: "28px" }}>
-              Get to know the visionary individuals who guide British Way Holdings towards continued excellence.
-            </p>
-            <button onClick={() => navigate("/leadership")}
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-semibold text-[14px] text-white transition-all duration-300 hover:scale-[1.04]"
-              style={{ background: "linear-gradient(135deg, #cc2222, #e03333)", fontFamily: "'Poppins', sans-serif" }}>
-              Meet the Team <ArrowRight size={15} />
-            </button>
-          </motion.div>
-        </div>
-      </section>
-    </div>
+    </>
   );
 }
