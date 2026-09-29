@@ -1,7 +1,9 @@
 import { useState } from "react";
 
-export const HOLDINGS_LOGO_PATH = "/logos/british-way-holdings.png";
-export const HOLDINGS_LOGO_WHITE_PATH = "/logos/british-way-holdings.png";
+/** Full logo with white lettering, for the dark theme. */
+export const HOLDINGS_LOGO_PATH = "/logos/bwh-logo-light.png";
+/** Just the BW mark. */
+export const HOLDINGS_MARK_PATH = "/logos/bwh-mark.png";
 
 interface BrandLogoProps {
   height?: number;
@@ -14,12 +16,9 @@ export function BrandLogo({ height = 40, className = "", src = HOLDINGS_LOGO_PAT
 
   if (failed) {
     return (
-      <div
-        className={`flex items-center justify-center rounded-xl shadow-md ${className}`}
-        style={{ height, minWidth: height, background: "linear-gradient(135deg, #4a80b4, #2a5a94)" }}
-      >
-        <span style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 800, fontSize: "13px", color: "white" }}>BW</span>
-      </div>
+      <span className={`font-display font-bold tracking-[0.2em] text-white ${className}`} style={{ fontSize: height * 0.4 }}>
+        BRITISH WAY
+      </span>
     );
   }
 
