@@ -127,7 +127,7 @@ export function Navbar() {
         >
           <div className="nav-pill grid grid-cols-[1.1fr_2.4fr] gap-6 rounded-[2rem] p-5 shadow-[0_40px_100px_-40px_rgba(20,33,63,0.5)]">
             <div className="on-dark relative flex flex-col justify-between overflow-hidden rounded-3xl bg-gradient-to-br from-[#1b3f8f] via-navy to-navy-deep p-7">
-              <div className="orb -right-10 -top-10 h-40 w-40 bg-champagne/40" />
+              <div className="orb -right-10 -top-10 h-40 w-40 bg-sky/25" />
               <div className="relative">
                 <span className="eyebrow">The Group</span>
                 <p className="mt-4 font-display text-2xl font-semibold leading-tight text-fg">
@@ -170,7 +170,7 @@ export function Navbar() {
       {menuOpen && (
         <div ref={overlayRef} className="fixed inset-0 z-[99] overflow-y-auto bg-base lg:hidden" data-lenis-prevent>
           <div className="orb -left-20 top-20 h-72 w-72 bg-pearl/70" />
-          <div className="orb -right-20 bottom-10 h-72 w-72 bg-blush/80" />
+          <div className="orb -right-20 bottom-10 h-72 w-72 bg-pearl/60" />
           <div className="relative flex min-h-full flex-col px-6 pb-10 pt-28">
             <ul className="flex flex-col gap-1">
               {navLinks.map((link, i) => (

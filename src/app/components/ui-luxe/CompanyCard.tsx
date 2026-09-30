@@ -18,7 +18,7 @@ export function CompanyCard({ company: c, index }: { company: Company; index: nu
           <SmartImage src={c.img} alt={c.name} from={c.color} to={c.accent} className="h-full w-full object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-110" />
           <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/20 to-transparent" />
           <span className="absolute left-5 top-4 font-display text-xs font-semibold tracking-[0.3em] text-white drop-shadow-[0_1px_6px_rgba(0,0,0,0.5)]">{String(index + 1).padStart(2, "0")}</span>
-          <span className="absolute right-4 top-4 grid h-10 w-10 place-items-center rounded-full border border-white/40 bg-black/25 text-white backdrop-blur transition-all duration-500 group-hover:rotate-45 group-hover:border-[#f3dca0] group-hover:bg-[#d8b36a] group-hover:text-[#1a1204]">
+          <span className="absolute right-4 top-4 grid h-10 w-10 place-items-center rounded-full border border-white/40 bg-black/25 text-white backdrop-blur transition-all duration-500 group-hover:rotate-45 group-hover:border-white group-hover:bg-white group-hover:text-navy">
             <ArrowUpRight size={17} />
           </span>
         </div>

@@ -98,7 +98,7 @@ export function Footer() {
                 <a
                   href={s.href}
                   aria-label={s.label}
-                  className="grid h-11 w-11 place-items-center rounded-full border border-fg/10 bg-fg/5 text-fg/70 transition-all duration-300 hover:border-gold-hi/60 hover:bg-[#d8b36a] hover:text-[#1a1204]"
+                  className="grid h-11 w-11 place-items-center rounded-full border border-fg/10 bg-fg/5 text-fg/70 transition-all duration-300 hover:border-white hover:bg-white hover:text-navy"
                 >
                   <s.icon size={17} />
                 </a>
@@ -113,7 +113,7 @@ export function Footer() {
             {exploreLinks.map((l) => (
               <li key={l.label}>
                 <Link to={l.to} className="group flex items-center gap-2 text-sm text-fg/65 transition-colors hover:text-fg">
-                  <span className="h-px w-0 bg-[#d8b36a] transition-all duration-300 group-hover:w-4" />
+                  <span className="h-px w-0 bg-crimson transition-all duration-300 group-hover:w-4" />
                   {l.label}
                 </Link>
               </li>

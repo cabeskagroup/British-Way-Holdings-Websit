@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { ArrowUpRight, Building2, Clock, MapPin, Search, Sparkles, X } from "lucide-react";
+import { ArrowUpRight, Award, Building2, Clock, MapPin, Search, X } from "lucide-react";
 import { newsItems as news, newsCategories as categories, newsWhen, type NewsItem } from "@/data/news";
 import { gsap, useGSAP, prefersReducedMotion } from "@/app/lib/gsap";
 import { PageHero } from "../components/ui-luxe/PageHero";
@@ -121,10 +121,10 @@ export function NewsPage() {
               <Parallax className="relative min-h-[360px] lg:min-h-[560px]" speed={8}>
                 <SmartImage src={featured.image} alt={featured.title} className="absolute inset-0 h-full w-full object-cover object-top" />
               </Parallax>
-              <div className="relative flex flex-col justify-center gap-6 bg-gradient-to-br from-champagne/50 via-surface to-pearl/40 p-8 md:p-12">
-                <div className="orb -right-10 -top-10 h-48 w-48 bg-blush/70" />
-                <span className="relative flex w-fit items-center gap-2 rounded-full bg-[#d8b36a] px-4 py-1.5 font-display text-xs font-semibold text-[#1a1204]">
-                  <Sparkles size={13} /> A first for Sri Lanka's private sector
+              <div className="relative flex flex-col justify-center gap-6 bg-gradient-to-br from-pearl/50 via-surface to-pearl/40 p-8 md:p-12">
+                <div className="orb -right-10 -top-10 h-48 w-48 bg-pearl/60" />
+                <span className="relative flex w-fit items-center gap-2 rounded-full bg-royal px-4 py-1.5 font-display text-xs font-semibold text-white">
+                  <Award size={13} /> A first for Sri Lanka's private sector
                 </span>
                 <h2 className="relative font-display text-3xl font-semibold leading-[1.05] tracking-[-0.02em] text-fg md:text-5xl">{featured.title}</h2>
                 <p className="relative text-lg leading-relaxed text-mist">{featured.excerpt}</p>
@@ -175,7 +175,7 @@ export function NewsPage() {
                   key={c}
                   onClick={() => setActive(c)}
                   className={`shrink-0 rounded-full px-4 py-2 font-display text-[13px] font-medium transition-all duration-300 ${
-                    active === c ? "bg-gradient-to-r from-[#d8b36a] to-[#f3dca0] text-[#1a1204] shadow-[0_8px_30px_-8px_rgba(216,179,106,0.7)]" : "text-fg/65 hover:bg-fg/10 hover:text-fg"
+                    active === c ? "bg-royal text-white shadow-[0_8px_20px_-10px_rgba(31,63,145,0.7)]" : "text-fg/65 hover:bg-fg/10 hover:text-fg"
                   }`}
                 >
                   {c}

@@ -69,14 +69,14 @@ function Timeline() {
   return (
     <div ref={root} className="relative mt-20">
       <div className="absolute bottom-0 left-5 top-0 w-px bg-fg/10 md:left-1/2" />
-      <div className="tl-line absolute bottom-0 left-5 top-0 w-px origin-top bg-gradient-to-b from-[#d8b36a] via-gold to-crimson md:left-1/2" />
+      <div className="tl-line absolute bottom-0 left-5 top-0 w-px origin-top bg-gradient-to-b from-royal via-sky to-crimson md:left-1/2" />
       <div className="flex flex-col gap-16 md:gap-24">
         {milestones.map((m, i) => {
           const left = i % 2 === 0;
           return (
             <div key={m.year} data-side={left ? "left" : "right"} className="tl-item relative grid items-center gap-6 pl-14 md:grid-cols-2 md:gap-20 md:pl-0">
-              <span className="tl-dot absolute left-5 top-8 z-10 grid h-5 w-5 -translate-x-1/2 place-items-center rounded-full bg-base ring-2 ring-[#d8b36a] md:left-1/2 md:top-1/2 md:-translate-y-1/2">
-                <span className="h-2 w-2 rounded-full bg-[#f3dca0]" />
+              <span className="tl-dot absolute left-5 top-8 z-10 grid h-5 w-5 -translate-x-1/2 place-items-center rounded-full bg-base ring-2 ring-sky md:left-1/2 md:top-1/2 md:-translate-y-1/2">
+                <span className="h-2 w-2 rounded-full bg-crimson" />
               </span>
               <div className={`${left ? "md:order-1 md:text-right" : "md:order-2"} overflow-hidden`}>
                 <p className="tl-year font-serif-luxe text-6xl text-transparent italic md:text-8xl" style={{ WebkitTextStroke: "1px var(--gold)" }}>
@@ -94,7 +94,7 @@ function Timeline() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-surface to-transparent" />
                     {m.historic && (
-                      <span className="absolute left-4 top-4 rounded-full bg-black/50 px-3 py-1 text-[10px] font-semibold tracking-[0.25em] text-[#f3dca0] uppercase backdrop-blur">
+                      <span className="absolute left-4 top-4 rounded-full bg-black/50 px-3 py-1 text-[10px] font-semibold tracking-[0.25em] text-white uppercase backdrop-blur">
                         Archive
                       </span>
                     )}
@@ -163,7 +163,7 @@ export function AboutPage() {
             <Reveal className="grid gap-3 sm:grid-cols-2" stagger={0.06} y={20}>
               {highlights.map((h) => (
                 <div key={h} className="flex items-center gap-3 rounded-2xl border border-fg/5 bg-fg/[0.03] px-4 py-3">
-                  <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-gradient-to-br from-[#f3dca0] to-[#9c7a3c] text-[#1a1204]">
+                  <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-gradient-to-br from-sky to-royal text-white">
                     <Check size={13} strokeWidth={3} />
                   </span>
                   <span className="text-sm text-fg/80">{h}</span>
@@ -218,7 +218,7 @@ export function AboutPage() {
               <TiltCard key={item.title} className="rounded-[2rem]" max={6}>
                 <div
                   className="on-dark relative flex h-full min-h-[340px] flex-col justify-between overflow-hidden rounded-[2rem] border border-fg/10 p-8 md:p-12"
-                  style={{ background: i === 0 ? "linear-gradient(145deg,#2a56b8,#14213f 70%)" : "linear-gradient(145deg,#9b1f35,#4a1222 75%)" }}
+                  style={{ background: i === 0 ? "linear-gradient(145deg,#2d5fc4,#13295f 70%)" : "linear-gradient(145deg,#d3182a,#7a1320 75%)" }}
                 >
                   <div className="orb -right-16 -top-16 h-56 w-56 bg-fg/10" />
                   <span className="absolute right-8 top-6 font-display text-[7rem] font-bold leading-none text-fg/5">0{i + 1}</span>
@@ -256,7 +256,7 @@ export function AboutPage() {
 
       {/* Heritage Hall */}
       <section id="heritage" className="relative scroll-mt-24 px-4 py-24 md:px-10 md:py-32">
-        <div className="absolute inset-x-0 top-1/3 h-2/3 bg-[radial-gradient(ellipse_at_center,rgba(243,211,211,0.7),transparent_70%)]" />
+        <div className="absolute inset-x-0 top-1/3 h-2/3 bg-[radial-gradient(ellipse_at_center,rgba(205,223,246,0.8),transparent_70%)]" />
         <div className="relative mx-auto max-w-7xl">
           <SectionHeading
             eyebrow="The Heritage Hall"
@@ -290,7 +290,7 @@ export function AboutPage() {
               <TiltCard key={v.title} className="h-full rounded-[1.75rem]" max={10}>
                 <div className="glass luxe-border group relative flex h-full flex-col gap-5 overflow-hidden rounded-[1.75rem] p-7">
                   <span className="font-display text-xs text-fg/30">0{i + 1}</span>
-                  <div className="grid h-16 w-16 place-items-center rounded-2xl bg-gradient-to-br from-[#f3dca0]/20 to-transparent ring-1 ring-[#d8b36a]/30 transition-transform duration-500 group-hover:-translate-y-1 group-hover:rotate-6">
+                  <div className="grid h-16 w-16 place-items-center rounded-2xl bg-gradient-to-br from-pearl/70 to-transparent ring-1 ring-sky/30 transition-transform duration-500 group-hover:-translate-y-1 group-hover:rotate-6">
                     <img src={v.icon} alt="" className="h-9 w-9 object-contain opacity-80" />
                   </div>
                   <h3 className="font-display text-lg font-semibold text-fg">{v.title}</h3>

@@ -75,7 +75,7 @@ export function Preloader() {
         </div>
         <div className="flex w-56 flex-col items-center gap-3">
           <div className="h-px w-full overflow-hidden bg-fg/10">
-            <div className="pl-bar h-full origin-left scale-x-0 bg-gradient-to-r from-[#9c7a3c] via-[#f3dca0] to-[#d8b36a]" />
+            <div className="pl-bar h-full origin-left scale-x-0 bg-gradient-to-r from-royal via-sky to-crimson" />
           </div>
           <span ref={countRef} className="font-display text-xs tracking-[0.4em] text-gold">
             000

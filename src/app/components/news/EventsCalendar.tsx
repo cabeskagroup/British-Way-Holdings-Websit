@@ -8,11 +8,11 @@ const WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 export const categoryColors: Record<string, string> = {
-  Milestone: "#a8772a",
-  Community: "#c8283f",
+  Milestone: "#1f3f91",
+  Community: "#d3182a",
   Achievement: "#2f8f5b",
   Event: "#7a4fc7",
-  Programme: "#2a56b8",
+  Programme: "#3f8ad8",
   Corporate: "#1f8aa3",
 };
 
@@ -122,8 +122,8 @@ export function EventsCalendar({ onOpen }: { onOpen?: (n: NewsItem) => void }) {
                     ? "invisible"
                     : events
                       ? isSel
-                        ? "bg-gradient-to-br from-[#f3dca0] to-[#b8914a] font-semibold text-[#1a1204] shadow-[0_10px_30px_-8px_rgba(216,179,106,0.8)]"
-                        : "border border-gold/60 bg-[#d8b36a]/10 font-semibold text-gold-hi hover:bg-[#d8b36a]/20"
+                        ? "bg-royal font-semibold text-white shadow-[0_10px_24px_-10px_rgba(31,63,145,0.7)]"
+                        : "border border-gold/60 bg-sky/10 font-semibold text-gold-hi hover:bg-sky/20"
                       : isSel
                         ? "bg-fg/15 text-fg"
                         : "text-fg/55 hover:bg-fg/5 hover:text-fg"
@@ -178,7 +178,7 @@ export function EventsCalendar({ onOpen }: { onOpen?: (n: NewsItem) => void }) {
                   onOpen?.(n);
                 }}
                 className={`agenda-item group flex gap-4 overflow-hidden rounded-[1.75rem] border p-3 text-left transition-all duration-500 md:gap-5 ${
-                  active ? "border-gold/70 bg-[#d8b36a]/10 shadow-[0_20px_60px_-30px_rgba(216,179,106,0.8)]" : "border-fg/10 bg-surface/60 hover:border-fg/25"
+                  active ? "border-gold/70 bg-sky/10 shadow-[0_20px_60px_-30px_rgba(45,95,196,0.45)]" : "border-fg/10 bg-surface/60 hover:border-fg/25"
                 }`}
               >
                 <div className="relative w-28 shrink-0 overflow-hidden rounded-2xl md:w-36">

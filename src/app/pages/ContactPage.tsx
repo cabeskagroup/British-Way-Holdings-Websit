@@ -76,7 +76,7 @@ export function ContactPage() {
           {contactItems.map((c) => {
             const inner = (
               <div className="glass luxe-border flex h-full flex-col gap-4 rounded-[1.75rem] p-6">
-                <span className="grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-[#f3dca0] to-[#9c7a3c] text-[#1a1204]">
+                <span className="grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-sky to-royal text-white">
                   <c.icon size={20} />
                 </span>
                 <span className="text-[11px] font-semibold tracking-[0.2em] text-fg/45 uppercase">{c.label}</span>

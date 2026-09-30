@@ -80,7 +80,7 @@ export function GalleryHelix({ photos, onOpen }: { photos: GalleryPhoto[]; onOpe
   );
 
   return (
-    <section ref={root} className="relative h-[100svh] overflow-hidden bg-[radial-gradient(ellipse_at_center,#e3ecf8_0%,#f7f3ec_65%)]">
+    <section ref={root} className="relative h-[100svh] overflow-hidden bg-[radial-gradient(ellipse_at_center,#d9e7f9_0%,#eef4fd_65%)]">
       <LotusMandala className="spin-slower pointer-events-none absolute left-1/2 top-1/2 h-[900px] w-[900px] -translate-x-1/2 -translate-y-1/2" opacity={0.04} />
       <div className="grid-lines absolute inset-0 opacity-40" />
       <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap font-display text-[20vw] font-extrabold leading-none tracking-tighter outline-text">
@@ -100,7 +100,7 @@ export function GalleryHelix({ photos, onOpen }: { photos: GalleryPhoto[]; onOpe
             >
               <img src={p.src} alt={p.alt} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
               <span className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-              <span className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-[#d8b36a] via-gold to-crimson" />
+              <span className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-royal via-sky to-crimson" />
             </button>
           ))}
         </div>

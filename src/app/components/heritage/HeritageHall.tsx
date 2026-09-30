@@ -96,7 +96,7 @@ export function HeritageHall() {
   return (
     <div
       ref={shell}
-      className={`on-dark relative overflow-hidden border border-gold/25 bg-[#0b0608] shadow-[0_60px_160px_-40px_rgba(122,16,34,0.55)] ${
+      className={`on-dark heritage-gold relative overflow-hidden border border-gold/25 bg-[#0b0608] shadow-[0_40px_100px_-40px_rgba(14,31,69,0.5)] ${
         fullscreen ? "h-screen w-screen rounded-none" : "h-[78vh] min-h-[560px] rounded-[2rem] md:rounded-[2.5rem]"
       }`}
     >

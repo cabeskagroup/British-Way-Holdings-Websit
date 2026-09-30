@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { ArrowUpRight, Quote, Sparkles } from "lucide-react";
+import { ArrowUpRight, Quote } from "lucide-react";
 import { companies } from "@/data/companies";
 import { getLatestNews, newsWhen } from "@/data/news";
 import { getFeaturedLeaders } from "@/data/leaders";
@@ -40,7 +40,7 @@ export function HomePage() {
           {pillars.map((p, i) => (
             <span key={p} className="flex items-center gap-10 pr-10 font-display text-[clamp(2rem,5vw,4.2rem)] font-semibold tracking-[-0.03em]">
               <span className={i % 2 ? "outline-text" : "text-fg"}>{p}</span>
-              <Sparkles className="h-6 w-6 text-gold md:h-8 md:w-8" />
+              <span className="h-2.5 w-2.5 rotate-45 bg-crimson md:h-3 md:w-3" />
             </span>
           ))}
         </Marquee>
@@ -81,7 +81,7 @@ export function HomePage() {
       <SectorShowcase />
 
       {/* Companies */}
-      <section className="relative px-6 py-24 md:px-10 md:py-32">
+      <section className="band-blue relative px-6 py-24 md:px-10 md:py-32">
         <div className="mx-auto max-w-7xl">
           <SectionHeading
             eyebrow="Our Companies"
@@ -109,7 +109,7 @@ export function HomePage() {
 
       {/* Leadership */}
       <section className="relative overflow-hidden px-6 py-24 md:px-10 md:py-32">
-        <div className="orb right-0 top-1/3 h-[420px] w-[420px] bg-blush/80" />
+        <div className="orb right-0 top-1/3 h-[420px] w-[420px] bg-pearl/60" />
         <div className="relative mx-auto max-w-7xl">
           <SectionHeading
             eyebrow="Leadership"
@@ -130,7 +130,7 @@ export function HomePage() {
                 <div className="glass luxe-border group relative grid overflow-hidden rounded-[2rem] sm:grid-cols-[0.9fr_1.1fr]">
                   <div className="relative h-96 overflow-hidden sm:h-full sm:min-h-[420px]">
                     <SmartImage src={l.image} alt={l.name} className="absolute inset-0 h-full w-full object-cover object-top grayscale-[0.5] transition-all duration-[1.2s] group-hover:scale-105 group-hover:grayscale-0" />
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#1b3f8f]/35 via-transparent to-[#d8b36a]/10 mix-blend-multiply" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#1b3f8f]/35 via-transparent to-sky/10 mix-blend-multiply" />
                     <div className="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent" />
                     <div className="absolute inset-0 hidden bg-gradient-to-l from-surface via-transparent to-transparent sm:block" />
                   </div>
@@ -150,7 +150,7 @@ export function HomePage() {
       </section>
 
       {/* Gallery */}
-      <section className="relative px-6 py-24 md:px-10 md:py-28">
+      <section className="band-blue relative px-6 py-24 md:px-10 md:py-28">
         <div className="mx-auto max-w-7xl">
           <SectionHeading
             eyebrow="Moments of excellence"
@@ -194,7 +194,7 @@ export function HomePage() {
                 <SmartImage src={news[0].image} alt={news[0].title} className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-[1.6s] group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-base via-base/50 to-transparent" />
                 <div className="relative mt-auto flex flex-col gap-4 p-8 md:p-10">
-                  <span className="w-fit rounded-full bg-[#d8b36a] px-3 py-1 font-display text-[11px] font-semibold text-[#1a1204]">{news[0].category}</span>
+                  <span className="w-fit rounded-full bg-royal px-3 py-1 font-display text-[11px] font-semibold text-white">{news[0].category}</span>
                   <h3 className="max-w-xl font-display text-2xl font-semibold leading-tight text-fg md:text-3xl">{news[0].title}</h3>
                   <p className="max-w-xl text-sm text-fg/65">{news[0].excerpt}</p>
                   <span className="text-xs tracking-widest text-fg/45 uppercase">{newsWhen(news[0]) ?? news[0].company}</span>

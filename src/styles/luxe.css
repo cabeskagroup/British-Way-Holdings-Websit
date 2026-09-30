@@ -1,27 +1,37 @@
-/* British Way Holdings: "Ivory Heritage" design system
+/* British Way Holdings design system
  *
- * Off-white paper, navy ink, deep heritage gold and a few soft "charm" colours
- * (pearl blue, lotus blush, champagne, sage). Sections that sit on photos or on
- * a navy panel add `.on-dark`, which flips the same tokens to light-on-dark.
+ * Built from the logo: brand blue (#1f3f91) and red (#d3182a) on white that
+ * fades into light blue. Sections that sit on photos or on a navy panel add
+ * `.on-dark`, which flips the same tokens to light-on-navy. The Heritage Hall
+ * pieces add `.heritage-gold` to keep their museum gold.
+ *
+ * Token names: `gold` is the accent colour (icons, lines, active borders) and
+ * `gold-hi` the label colour; both are blue on this theme.
  */
 
 :root {
-  --base: #f7f3ec;
-  --base-2: #efe8dc;
-  --surface: #fffdf9;
-  --fg: #14213f;
-  --muted: #5a6479;
-  --gold: #b08a45;
-  --gold-hi: #8a6222;
-  --gold-grad: linear-gradient(100deg, #7d5518 0%, #b8873a 28%, #93692a 52%, #c99d52 70%, #85601f 100%);
+  --base: #eef4fd;
+  --base-2: #e1ebf9;
+  --surface: #ffffff;
+  --fg: #0e1f45;
+  --muted: #4d5d7b;
+  --gold: #2d5fc4;
+  --gold-hi: #1f3f91;
+  --gold-grad: linear-gradient(90deg, #2d5fc4, #2d5fc4);
 }
 
 .on-dark {
-  --base: #111c3a;
-  --base-2: #0c1530;
-  --surface: #182550;
+  --base: #10224f;
+  --base-2: #0b1a40;
+  --surface: #16295d;
   --fg: #ffffff;
-  --muted: #b3bdd4;
+  --muted: #b9c8e4;
+  --gold: #8fb6f2;
+  --gold-hi: #c3d8f8;
+  --gold-grad: linear-gradient(90deg, #a9c8f6, #a9c8f6);
+}
+
+.heritage-gold {
   --gold: #d8b36a;
   --gold-hi: #f3dca0;
   --gold-grad: linear-gradient(100deg, #9c7a3c 0%, #f3dca0 30%, #d8b36a 55%, #fff4d6 70%, #b8914a 100%);
@@ -35,22 +45,20 @@
   --color-mist: var(--muted);
   --color-gold: var(--gold);
   --color-gold-hi: var(--gold-hi);
-  --color-navy: #14213f;
-  --color-navy-deep: #0c1530;
-  --color-royal: #2a56b8;
-  --color-crimson: #c8283f;
-  --color-maroon: #7c1f33;
-  --color-pearl: #c7d9f2;
-  --color-blush: #f3d3d3;
-  --color-champagne: #eedcb3;
-  --color-sage: #d3e2d4;
+  --color-navy: #13295f;
+  --color-navy-deep: #0b1a40;
+  --color-royal: #1f3f91;
+  --color-sky: #2d5fc4;
+  --color-crimson: #d3182a;
+  --color-maroon: #7a1320;
+  --color-pearl: #cddff6;
   --font-display: 'Poppins', system-ui, sans-serif;
   --font-serif: 'Playfair Display Variable', Georgia, serif;
   --font-body: 'Inter Variable', system-ui, sans-serif;
 }
 
 html {
-  background: #f7f3ec;
+  background: #eef4fd;
   color-scheme: light;
 }
 
@@ -67,50 +75,44 @@ html.lenis body {
   overflow: hidden;
 }
 
+/* White at the top of every screen, easing into light blue further down */
 body {
   font-family: var(--font-body);
-  background:
-    radial-gradient(1100px 700px at 88% -8%, rgba(199, 217, 242, 0.55), transparent 60%),
-    radial-gradient(900px 600px at -10% 18%, rgba(243, 211, 211, 0.4), transparent 60%),
-    #f7f3ec;
-  color: #14213f;
+  background: transparent;
+  color: #0e1f45;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(180deg, #ffffff 0%, #f3f8fe 38%, #e3edfa 100%);
+}
 
 ::selection {
-  background: rgba(216, 179, 106, 0.4);
-  color: #14213f;
+  background: rgba(45, 95, 196, 0.22);
+  color: #0e1f45;
 }
 
 ::-webkit-scrollbar {
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #f7f3ec;
+  background: #eef4fd;
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(#d8b36a, #14213f);
+  background: #9fb7de;
   border-radius: 999px;
-  border: 2px solid #f7f3ec;
+  border: 2px solid #eef4fd;
 }
 
 @layer components {
   .on-dark {
     color: var(--fg);
-  }
-
-  /* Film grain over the whole site for a cinematic finish */
-  .grain::after {
-    content: '';
-    position: fixed;
-    inset: -50%;
-    z-index: 90;
-    pointer-events: none;
-    opacity: 0.035;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    animation: grain 8s steps(10) infinite;
   }
 
   .font-display {
@@ -133,9 +135,9 @@ body {
   }
   .eyebrow::before {
     content: '';
-    width: 2.25rem;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold));
+    width: 1.75rem;
+    height: 2px;
+    background: #d3182a;
   }
 
   .gold-text {
@@ -144,6 +146,9 @@ body {
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+  }
+
+  .heritage-gold .gold-text {
     animation: sheen 6s linear infinite;
   }
 
@@ -153,12 +158,12 @@ body {
     font-family: var(--font-serif);
     font-style: italic;
     font-weight: 500;
-    color: var(--gold-hi);
+    color: var(--gold);
     letter-spacing: -0.01em;
   }
 
   .royal-text {
-    background: linear-gradient(100deg, #2a56b8, #14213f 50%, #c8283f);
+    background: linear-gradient(100deg, #2d5fc4, #1f3f91 50%, #d3182a);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -170,18 +175,18 @@ body {
   }
 
   .glass {
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 253, 249, 0.62));
-    border: 1px solid rgba(20, 33, 63, 0.08);
-    backdrop-filter: blur(18px) saturate(140%);
-    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    background: #ffffff;
+    border: 1px solid #d9e4f3;
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.9),
-      0 24px 60px -30px rgba(20, 33, 63, 0.28);
+      0 1px 2px rgba(14, 31, 69, 0.04),
+      0 14px 34px -22px rgba(14, 31, 69, 0.22);
   }
   .on-dark .glass,
   .glass.on-dark {
     background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
     border-color: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.1),
       0 20px 60px -20px rgba(0, 0, 0, 0.6);
@@ -189,23 +194,25 @@ body {
 
   /* Bright frosted navigation bar that stays readable over any background */
   .nav-pill {
-    background: rgba(255, 255, 255, 0.92);
-    border: 1px solid rgba(20, 33, 63, 0.08);
-    box-shadow: 0 18px 50px -24px rgba(20, 33, 63, 0.35);
+    background: rgba(255, 255, 255, 0.97);
+    border: 1px solid #d9e4f3;
+    box-shadow: 0 14px 40px -24px rgba(14, 31, 69, 0.35);
     backdrop-filter: blur(20px) saturate(160%);
     -webkit-backdrop-filter: blur(20px) saturate(160%);
   }
 
   .glass-strong {
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(250, 246, 239, 0.92));
-    border: 1px solid rgba(20, 33, 63, 0.08);
-    box-shadow: 0 30px 80px -40px rgba(20, 33, 63, 0.3);
-    backdrop-filter: blur(24px) saturate(150%);
-    -webkit-backdrop-filter: blur(24px) saturate(150%);
+    background: #ffffff;
+    border: 1px solid #d9e4f3;
+    box-shadow:
+      0 1px 2px rgba(14, 31, 69, 0.04),
+      0 24px 60px -34px rgba(14, 31, 69, 0.3);
   }
   .on-dark .glass-strong,
   .glass-strong.on-dark {
-    background: linear-gradient(145deg, rgba(24, 37, 80, 0.88), rgba(12, 21, 48, 0.88));
+    background: linear-gradient(145deg, rgba(22, 41, 93, 0.9), rgba(11, 26, 64, 0.9));
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-color: rgba(255, 255, 255, 0.1);
     box-shadow: none;
   }
@@ -220,12 +227,12 @@ body {
     inset: 0;
     border-radius: inherit;
     padding: 1px;
-    background: linear-gradient(140deg, rgba(184, 135, 58, 0.55), rgba(20, 33, 63, 0.05) 35%, rgba(42, 86, 184, 0.28) 70%, rgba(200, 40, 63, 0.3));
+    background: linear-gradient(140deg, rgba(45, 95, 196, 0.5), rgba(45, 95, 196, 0) 40%, rgba(45, 95, 196, 0) 70%, rgba(211, 24, 42, 0.35));
     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     pointer-events: none;
-    opacity: 0.6;
+    opacity: 0;
     transition: opacity 0.5s ease;
   }
   .luxe-border:hover::before {
@@ -243,20 +250,23 @@ body {
     font-weight: 600;
     font-size: 0.9rem;
     letter-spacing: 0.02em;
-    color: #1a1204;
-    background: linear-gradient(120deg, #c49a4f, #f1dca6 45%, #d6ae62 70%, #a8803c);
-    background-size: 200% auto;
-    box-shadow:
-      0 12px 34px -12px rgba(168, 128, 60, 0.7),
-      inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    color: #ffffff;
+    background: #1f3f91;
+    box-shadow: 0 10px 24px -12px rgba(31, 63, 145, 0.7);
     overflow: hidden;
     transition: background-position 0.6s ease, box-shadow 0.4s ease, transform 0.3s ease;
   }
   .btn-luxe:hover {
-    background-position: right center;
-    box-shadow:
-      0 18px 44px -12px rgba(168, 128, 60, 0.9),
-      inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    background: #16306f;
+    box-shadow: 0 14px 30px -12px rgba(31, 63, 145, 0.8);
+  }
+  .on-dark .btn-luxe {
+    color: #0e1f45;
+    background: #ffffff;
+    box-shadow: 0 10px 24px -14px rgba(0, 0, 0, 0.6);
+  }
+  .on-dark .btn-luxe:hover {
+    background: #e3edfa;
   }
 
   .btn-ghost {
@@ -270,8 +280,8 @@ body {
     font-weight: 500;
     font-size: 0.9rem;
     color: var(--fg);
-    background: color-mix(in oklab, var(--surface) 70%, transparent);
-    border: 1px solid color-mix(in oklab, var(--fg) 16%, transparent);
+    background: color-mix(in oklab, var(--surface) 80%, transparent);
+    border: 1px solid color-mix(in oklab, var(--fg) 18%, transparent);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     transition: background 0.4s ease, border-color 0.4s ease;
@@ -287,8 +297,11 @@ body {
     width: 1.9rem;
     height: 1.9rem;
     border-radius: 999px;
-    background: rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.16);
     transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .on-dark .btn-luxe .btn-arrow {
+    background: rgba(14, 31, 69, 0.08);
   }
   .btn-ghost .btn-arrow {
     background: color-mix(in oklab, var(--fg) 8%, transparent);
@@ -299,24 +312,30 @@ body {
   }
 
   .logo-chip {
-    background: radial-gradient(circle at 30% 20%, #ffffff, #eef1f7 70%, #dfe4ee);
+    background: radial-gradient(circle at 30% 20%, #ffffff, #f1f5fb 70%, #e2e9f4);
     box-shadow:
-      0 0 0 1px rgba(20, 33, 63, 0.06),
-      0 18px 40px -18px rgba(20, 33, 63, 0.45),
-      inset 0 -6px 14px rgba(20, 33, 63, 0.06);
+      0 0 0 1px rgba(14, 31, 69, 0.07),
+      0 14px 30px -18px rgba(14, 31, 69, 0.45),
+      inset 0 -6px 14px rgba(14, 31, 69, 0.05);
+  }
+
+  /* Light blue band for alternating sections */
+  .band-blue {
+    background: linear-gradient(180deg, #e7f0fc 0%, #dbe7f8 100%);
   }
 
   .orb {
     position: absolute;
     border-radius: 999px;
-    filter: blur(80px);
+    filter: blur(90px);
+    opacity: 0.8;
     pointer-events: none;
   }
 
   .grid-lines {
     background-image:
-      linear-gradient(color-mix(in oklab, var(--fg) 5%, transparent) 1px, transparent 1px),
-      linear-gradient(90deg, color-mix(in oklab, var(--fg) 5%, transparent) 1px, transparent 1px);
+      linear-gradient(color-mix(in oklab, var(--fg) 3.5%, transparent) 1px, transparent 1px),
+      linear-gradient(90deg, color-mix(in oklab, var(--fg) 3.5%, transparent) 1px, transparent 1px);
     background-size: 64px 64px;
     mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
     -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
@@ -381,15 +400,6 @@ body {
   }
 }
 
-@keyframes grain {
-  0%, 100% { transform: translate(0, 0); }
-  10% { transform: translate(-5%, -10%); }
-  30% { transform: translate(3%, -15%); }
-  50% { transform: translate(12%, 9%); }
-  70% { transform: translate(9%, 4%); }
-  90% { transform: translate(-1%, 7%); }
-}
-
 @keyframes marquee-rtl {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
@@ -410,7 +420,6 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .grain::after,
   .gold-text,
   .marquee-track,
   .spin-slow,

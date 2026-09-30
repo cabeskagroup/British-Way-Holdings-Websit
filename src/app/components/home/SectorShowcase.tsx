@@ -110,7 +110,6 @@ export function SectorShowcase() {
               </div>
               <div className="absolute inset-0 bg-gradient-to-t from-base via-base/70 to-base/10" />
               <div className="absolute inset-0 bg-gradient-to-r from-base/80 to-transparent" />
-              <div className="orb -bottom-20 -left-20 h-80 w-80 opacity-50" style={{ background: s.color }} />
 
               <div className="sector-word pointer-events-none absolute left-0 top-[18%] whitespace-nowrap font-display text-[clamp(4rem,13vw,13rem)] font-extrabold leading-none tracking-[-0.05em] outline-text">
                 {s.word}
@@ -153,7 +152,7 @@ export function SectorShowcase() {
 
       {/* Progress */}
       <div className="absolute inset-x-[6vw] bottom-8 hidden h-px bg-fg/10 lg:block">
-        <div className="sector-progress h-full origin-left scale-x-0 bg-gradient-to-r from-gold via-[#d8b36a] to-crimson" />
+        <div className="sector-progress h-full origin-left scale-x-0 bg-gradient-to-r from-royal via-sky to-crimson" />
       </div>
     </section>
   );

@@ -74,11 +74,11 @@ export function LogoOrbit() {
           className="orbit-path pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
           style={{ width: `${ring.size}%`, height: `${ring.size}%` }}
         >
-          <div className={`absolute inset-0 rounded-full border ${i ? "border-dashed border-gold/35" : "border-[#3d7be0]/40"}`} />
+          <div className={`absolute inset-0 rounded-full border ${i ? "border-dashed border-gold/35" : "border-sky/35"}`} />
           <div
             className={`${i ? "spin-slower" : "spin-slow"} absolute -inset-px rounded-full`}
             style={{
-              background: `conic-gradient(from ${i * 120}deg, transparent 0deg, ${i ? "rgba(243,220,160,0.7)" : "rgba(143,184,255,0.75)"} 40deg, transparent 90deg)`,
+              background: `conic-gradient(from ${i * 120}deg, transparent 0deg, ${i ? "rgba(211,24,42,0.55)" : "rgba(45,95,196,0.7)"} 40deg, transparent 90deg)`,
               mask: "radial-gradient(closest-side, transparent calc(100% - 3px), #000 calc(100% - 2px), #000 100%, transparent 100%)",
               WebkitMask: "radial-gradient(closest-side, transparent calc(100% - 3px), #000 calc(100% - 2px), #000 100%, transparent 100%)",
             }}
@@ -126,7 +126,7 @@ export function LogoOrbit() {
                     <span className="orbit-inner absolute inset-0">
                       <span className="absolute -inset-3 rounded-full opacity-30 blur-xl" style={{ background: c.accent }} />
                       <span
-                        className={`absolute -inset-[3px] rounded-full bg-gradient-to-br from-[#f3dca0] via-[#9c7a3c] to-[#d8b36a] transition-opacity ${
+                        className={`absolute -inset-[3px] rounded-full bg-gradient-to-br from-sky via-royal to-crimson transition-opacity ${
                           hovered === slug ? "opacity-100" : "opacity-70"
                         }`}
                       />

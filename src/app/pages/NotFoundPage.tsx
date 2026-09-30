@@ -29,7 +29,7 @@ export function NotFoundPage() {
     <section ref={root} className="relative flex min-h-[100svh] items-center justify-center overflow-hidden px-6 py-32">
       <div className="grid-lines absolute inset-0" />
       <div className="orb left-1/4 top-1/4 h-[420px] w-[420px] bg-pearl/70" />
-      <div className="orb bottom-1/4 right-1/4 h-[320px] w-[320px] bg-blush/80" />
+      <div className="orb bottom-1/4 right-1/4 h-[320px] w-[320px] bg-pearl/60" />
       <div className="relative flex flex-col items-center text-center" style={{ perspective: 900 }}>
         <div className="nf-digits flex gap-2 font-display text-[clamp(7rem,26vw,18rem)] font-extrabold leading-none tracking-[-0.06em]" style={{ transformStyle: "preserve-3d" }}>
           {["4", "0", "4"].map((d, i) => (

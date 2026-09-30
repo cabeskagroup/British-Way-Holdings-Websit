@@ -39,7 +39,7 @@ export function HeritageTeaser() {
 
   return (
     <section ref={root} className="relative px-4 py-24 md:px-10 md:py-32">
-      <div className="on-dark relative mx-auto max-w-7xl overflow-hidden rounded-[2.5rem] border border-gold/20 bg-[radial-gradient(ellipse_at_top,#3b1420_0%,#12070c_45%,#050308_100%)]">
+      <div className="on-dark heritage-gold relative mx-auto max-w-7xl overflow-hidden rounded-[2.5rem] border border-gold/20 bg-[radial-gradient(ellipse_at_top,#3b1420_0%,#12070c_45%,#050308_100%)]">
         {/* Museum ambience: wainscot stripes, spotlights, carpet glow */}
         <div className="absolute inset-x-0 bottom-0 h-1/3 bg-[repeating-linear-gradient(90deg,rgba(216,179,106,0.06)_0_2px,transparent_2px_120px)]" />
         <div className="absolute inset-x-0 bottom-1/3 h-px bg-gradient-to-r from-transparent via-[#d8b36a]/50 to-transparent" />

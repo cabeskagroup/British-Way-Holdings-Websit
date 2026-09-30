@@ -63,7 +63,7 @@ export function PageHero({ eyebrow, title, description, image, watermark, crumb,
       <div className="grid-lines absolute inset-0 opacity-60" />
       <div className="orb -left-40 top-10 h-[420px] w-[420px] opacity-25" style={{ background: accent }} />
       <div className="orb left-1/3 -top-20 h-[380px] w-[380px] bg-pearl/70" />
-      <div className="orb -right-32 bottom-0 h-[360px] w-[360px] bg-blush/80" />
+      <div className="orb -right-32 bottom-0 h-[360px] w-[360px] bg-pearl/60" />
 
       {lotus && <LotusMandala className="spin-slower pointer-events-none absolute -right-48 top-1/2 h-[760px] w-[760px] -translate-y-1/2 md:-right-24" opacity={0.05} />}
 

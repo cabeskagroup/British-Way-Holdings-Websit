@@ -26,7 +26,7 @@ export const sectors: Sector[] = [
     image: "/logos/opt/bwisschool.jpg",
     companies: ["bwea", "bwis", "british-campus", "thames-college"],
     stat: { value: "4", label: "Institutions, one learning journey" },
-    color: "#3d7be0",
+    color: "#8fb6f2",
   },
   {
     id: "hospitality",
@@ -39,7 +39,7 @@ export const sectors: Sector[] = [
     image: "/logos/opt/hotel.jpg",
     companies: ["pharo-hotel"],
     stat: { value: "Boutique", label: "Luxury stays & events" },
-    color: "#d8b36a",
+    color: "#e2c27e",
   },
   {
     id: "media",
@@ -52,7 +52,7 @@ export const sectors: Sector[] = [
     image: "/logos/opt/emikaproduction.jpg",
     companies: ["emika-productions"],
     stat: { value: "360°", label: "Film, events & digital" },
-    color: "#b04ad8",
+    color: "#f08a5d",
   },
   {
     id: "sports",
@@ -66,7 +66,7 @@ export const sectors: Sector[] = [
     fallbackImage: "/logos/opt/glry05.jpg",
     companies: ["wisdom-cricket-academy"],
     stat: { value: "Pro", label: "Coaching & match play" },
-    color: "#2fbf71",
+    color: "#5cc28f",
   },
   {
     id: "entertainment",
@@ -80,6 +80,6 @@ export const sectors: Sector[] = [
     fallbackImage: "/logos/opt/glry11.jpg",
     companies: ["british-way-entertainment"],
     stat: { value: "8", label: "Brands, one family" },
-    color: "#d7263d",
+    color: "#ef4a5a",
   },
 ];

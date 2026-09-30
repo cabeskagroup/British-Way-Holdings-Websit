@@ -5,7 +5,6 @@ import { Footer } from "./components/Footer";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { SmoothScroll, scrollToTarget, useLenis } from "./components/fx/SmoothScroll";
 import { Preloader } from "./components/fx/Preloader";
-import { CursorGlow } from "./components/fx/CursorGlow";
 import { gsap, ScrollTrigger, prefersReducedMotion } from "./lib/gsap";
 
 /** Resets scroll and plays a curtain wipe whenever the route changes. */
@@ -55,9 +54,8 @@ export function Root() {
 
   return (
     <SmoothScroll>
-      <div className="grain relative min-h-screen font-body text-fg">
+      <div className="relative min-h-screen font-body text-fg">
         <Preloader />
-        <CursorGlow />
         <RouteTransitions />
         <Navbar />
         <main key={location.pathname} className="relative z-[2]">

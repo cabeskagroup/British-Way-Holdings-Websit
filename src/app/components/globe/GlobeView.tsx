@@ -70,7 +70,7 @@ export function GlobeView({ className = "" }: { className?: string }) {
             >
               <span
                 className={`-ml-2 -mt-9 block whitespace-nowrap rounded-full px-3 py-1 font-display text-[11px] font-semibold tracking-wider backdrop-blur ${
-                  home ? "bg-[#d8b36a] text-[#1a1204] shadow-[0_0_30px_rgba(216,179,106,0.7)]" : "border border-fg/15 bg-black/40 text-fg/85"
+                  home ? "bg-crimson text-white shadow-[0_0_24px_rgba(211,24,42,0.6)]" : "border border-fg/15 bg-black/40 text-fg/85"
                 }`}
               >
                 {home ? "Sri Lanka · Home" : p.label}

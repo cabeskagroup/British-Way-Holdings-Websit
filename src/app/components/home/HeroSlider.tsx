@@ -176,8 +176,8 @@ export function HeroSlider() {
       <div className="hero-content relative z-[4] mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-6 pb-10 pt-32 md:px-10 md:pb-12 md:pt-40">
         <div className="hero-fade mb-7 flex items-center gap-3">
           <span className="relative flex h-2.5 w-2.5">
-            <span className="pulse-ring absolute inline-flex h-full w-full rounded-full bg-[#d8b36a]" />
-            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#d8b36a]" />
+            <span className="pulse-ring absolute inline-flex h-full w-full rounded-full bg-crimson" />
+            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-crimson" />
           </span>
           <span className="font-display text-[10px] font-semibold tracking-[0.25em] text-gold-hi uppercase sm:whitespace-nowrap sm:text-[11px] sm:tracking-[0.35em]">{slide.label}</span>
           <span className="hidden h-px w-10 bg-fg/20 sm:block" />
@@ -209,14 +209,14 @@ export function HeroSlider() {
       </div>
 
       {/* Slide index with progress */}
-      <div className="glass absolute right-6 top-1/2 z-[5] hidden -translate-y-1/2 flex-col gap-4 rounded-3xl px-6 py-5 md:right-10 xl:flex">
+      <div className="glass absolute bottom-[230px] right-6 z-[5] hidden flex-col gap-4 rounded-3xl px-6 py-5 md:right-10 xl:flex">
         {slides.map((s, i) => (
           <button key={s.tab} onClick={() => go(i)} className="hero-fade group flex items-center gap-4 text-right" aria-label={`Show ${s.tab}`}>
             <span className={`font-display text-xs tracking-[0.25em] uppercase transition-colors ${i === index ? "text-fg" : "text-fg/35 group-hover:text-fg/70"}`}>
               {s.tab}
             </span>
             <span className="relative h-px w-16 overflow-hidden bg-fg/15">
-              <span data-i={i} className="hero-progress absolute inset-0 origin-left scale-x-0 bg-gradient-to-r from-[#d8b36a] to-[#f3dca0]" />
+              <span data-i={i} className="hero-progress absolute inset-0 origin-left scale-x-0 bg-gradient-to-r from-royal to-sky" />
             </span>
             <span className={`font-display text-xs ${i === index ? "text-gold-hi" : "text-fg/35"}`}>0{i + 1}</span>
           </button>

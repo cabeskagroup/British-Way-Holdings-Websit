@@ -143,7 +143,7 @@ export function LeadershipPage() {
           {principles.map((p, i) => (
             <span key={p} className="flex items-center gap-8 pr-8 font-serif-luxe text-[clamp(1.8rem,4vw,3.2rem)] italic">
               <span className={i % 2 ? "text-fg/25" : "gold-text"}>{p}</span>
-              <span className="h-2 w-2 rotate-45 bg-[#d8b36a]" />
+              <span className="h-2 w-2 rotate-45 bg-crimson" />
             </span>
           ))}
         </Marquee>
@@ -178,7 +178,7 @@ export function LeadershipPage() {
                     <p className="text-[1.05rem] leading-relaxed text-mist">{l.bio}</p>
                     {l.message && (
                       <blockquote className="glass luxe-border relative rounded-[2rem] p-8">
-                        <Quote className="absolute -top-5 left-8 h-10 w-10 rounded-full bg-[#d8b36a] p-2 text-[#1a1204]" />
+                        <Quote className="absolute -top-5 left-8 h-10 w-10 rounded-full bg-royal p-2 text-white" />
                         <p className="font-serif-luxe text-2xl leading-snug text-fg/90 italic">“{l.message}”</p>
                       </blockquote>
                     )}
@@ -210,7 +210,7 @@ export function LeadershipPage() {
 
       {/* Team flip cards */}
       <section className="relative px-6 pb-28 md:px-10">
-        <div className="orb right-0 top-0 h-[420px] w-[420px] bg-blush/80" />
+        <div className="orb right-0 top-0 h-[420px] w-[420px] bg-pearl/60" />
         <div className="relative mx-auto max-w-7xl">
           <SectionHeading
             eyebrow="Management team"
