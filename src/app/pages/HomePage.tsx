@@ -39,7 +39,7 @@ export function HomePage() {
         <Marquee speed={45}>
           {pillars.map((p, i) => (
             <span key={p} className="flex items-center gap-10 pr-10 font-display text-[clamp(2rem,5vw,4.2rem)] font-semibold tracking-[-0.03em]">
-              <span className={i % 2 ? "outline-text" : "text-fg"}>{p}</span>
+              <span className={i % 2 ? "outline-bold" : "text-fg"}>{p}</span>
               <span className="h-2.5 w-2.5 rotate-45 bg-crimson md:h-3 md:w-3" />
             </span>
           ))}

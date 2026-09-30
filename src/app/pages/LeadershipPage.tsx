@@ -142,7 +142,7 @@ export function LeadershipPage() {
         <Marquee speed={50}>
           {principles.map((p, i) => (
             <span key={p} className="flex items-center gap-8 pr-8 font-serif-luxe text-[clamp(1.8rem,4vw,3.2rem)] italic">
-              <span className={i % 2 ? "text-fg/25" : "gold-text"}>{p}</span>
+              <span className={i % 2 ? "text-fg" : "gold-text"}>{p}</span>
               <span className="h-2 w-2 rotate-45 bg-crimson" />
             </span>
           ))}
