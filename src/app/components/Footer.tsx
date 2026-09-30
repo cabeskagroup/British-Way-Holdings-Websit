@@ -63,9 +63,9 @@ export function Footer() {
   );
 
   return (
-    <footer ref={root} className="relative overflow-hidden border-t border-white/5 bg-[#03050b]">
-      <div className="ft-orb orb left-1/4 top-10 h-[420px] w-[420px] bg-[#1b3f8f]/40" />
-      <div className="ft-orb orb right-0 top-1/3 h-[320px] w-[320px] bg-[#d7263d]/15" />
+    <footer ref={root} className="on-dark relative overflow-hidden rounded-t-[2.5rem] bg-gradient-to-b from-navy to-navy-deep md:rounded-t-[3.5rem]">
+      <div className="ft-orb orb left-1/4 top-10 h-[420px] w-[420px] bg-royal/35" />
+      <div className="ft-orb orb right-0 top-1/3 h-[320px] w-[320px] bg-maroon/45" />
       <div className="grid-lines absolute inset-0 opacity-40" />
 
       {/* Closing call to action */}
@@ -73,7 +73,7 @@ export function Footer() {
         <div className="flex flex-col items-start justify-between gap-10 md:flex-row md:items-end">
           <div className="max-w-3xl">
             <span className="eyebrow">Let's talk</span>
-            <SplitHeading className="mt-6 font-display text-[clamp(2.4rem,6vw,5.2rem)] font-semibold leading-[0.98] tracking-[-0.04em] text-white">
+            <SplitHeading className="mt-6 font-display text-[clamp(2.4rem,6vw,5.2rem)] font-semibold leading-[0.98] tracking-[-0.04em] text-fg">
               Ready to build what's <span className="accent">next</span>, together?
             </SplitHeading>
           </div>
@@ -84,7 +84,7 @@ export function Footer() {
       {/* Container cards */}
       <div className="ft-grid relative mx-auto grid max-w-7xl grid-cols-1 gap-4 px-6 md:grid-cols-2 md:px-10 lg:grid-cols-12">
         <div className="ft-card glass luxe-border relative flex flex-col justify-between gap-8 overflow-hidden rounded-[2rem] p-8 lg:col-span-4">
-          <div className="orb -right-16 -top-16 h-48 w-48 bg-[#3d7be0]/40" />
+          <div className="orb -right-16 -top-16 h-48 w-48 bg-royal/30" />
           <div className="relative">
             <BrandLogo height={36} />
             <p className="mt-6 text-sm leading-relaxed text-mist">
@@ -98,7 +98,7 @@ export function Footer() {
                 <a
                   href={s.href}
                   aria-label={s.label}
-                  className="grid h-11 w-11 place-items-center rounded-full border border-white/10 bg-white/5 text-white/70 transition-all duration-300 hover:border-[#f3dca0]/60 hover:bg-[#d8b36a] hover:text-[#1a1204]"
+                  className="grid h-11 w-11 place-items-center rounded-full border border-fg/10 bg-fg/5 text-fg/70 transition-all duration-300 hover:border-gold-hi/60 hover:bg-[#d8b36a] hover:text-[#1a1204]"
                 >
                   <s.icon size={17} />
                 </a>
@@ -108,11 +108,11 @@ export function Footer() {
         </div>
 
         <div className="ft-card glass luxe-border rounded-[2rem] p-8 lg:col-span-2">
-          <h4 className="font-display text-xs font-semibold tracking-[0.3em] text-[#d8b36a] uppercase">Explore</h4>
+          <h4 className="font-display text-xs font-semibold tracking-[0.3em] text-gold uppercase">Explore</h4>
           <ul className="mt-6 flex flex-col gap-3">
             {exploreLinks.map((l) => (
               <li key={l.label}>
-                <Link to={l.to} className="group flex items-center gap-2 text-sm text-white/65 transition-colors hover:text-white">
+                <Link to={l.to} className="group flex items-center gap-2 text-sm text-fg/65 transition-colors hover:text-fg">
                   <span className="h-px w-0 bg-[#d8b36a] transition-all duration-300 group-hover:w-4" />
                   {l.label}
                 </Link>
@@ -122,7 +122,7 @@ export function Footer() {
         </div>
 
         <div className="ft-card glass luxe-border rounded-[2rem] p-8 lg:col-span-3">
-          <h4 className="font-display text-xs font-semibold tracking-[0.3em] text-[#d8b36a] uppercase">Our Companies</h4>
+          <h4 className="font-display text-xs font-semibold tracking-[0.3em] text-gold uppercase">Our Companies</h4>
           <div className="mt-6 grid grid-cols-4 gap-2.5">
             {companies.map((c) => (
               <Link key={c.slug} to={`/companies/${c.slug}`} aria-label={c.name} title={c.name} className="transition-transform duration-300 hover:-translate-y-1 hover:scale-105">
@@ -133,16 +133,16 @@ export function Footer() {
         </div>
 
         <div className="ft-card glass luxe-border flex flex-col gap-5 rounded-[2rem] p-8 md:col-span-2 lg:col-span-3">
-          <h4 className="font-display text-xs font-semibold tracking-[0.3em] text-[#d8b36a] uppercase">Get in touch</h4>
+          <h4 className="font-display text-xs font-semibold tracking-[0.3em] text-gold uppercase">Get in touch</h4>
           {contact.map((c) => {
             const body = (
               <>
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-white/5 text-[#f3dca0]">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-fg/5 text-gold-hi">
                   <c.icon size={16} />
                 </span>
                 <span>
-                  <span className="block text-[11px] tracking-wider text-white/40 uppercase">{c.label}</span>
-                  <span className="text-sm text-white/80">{c.value}</span>
+                  <span className="block text-[11px] tracking-wider text-fg/40 uppercase">{c.label}</span>
+                  <span className="text-sm text-fg/80">{c.value}</span>
                 </span>
               </>
             );
@@ -174,14 +174,14 @@ export function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="relative border-t border-white/5">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-6 text-xs text-white/40 md:flex-row md:px-10">
+      <div className="relative border-t border-fg/5">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-6 text-xs text-fg/40 md:flex-row md:px-10">
           <p>© {new Date().getFullYear()} British Way Holdings (Pvt) Ltd. All rights reserved.</p>
           <div className="flex items-center gap-6">
             <span>Proudly Sri Lankan · Built for the world</span>
             <button
               onClick={() => scrollToTarget(lenis, 0)}
-              className="group flex items-center gap-2 rounded-full border border-white/10 px-4 py-2 text-white/70 transition-colors hover:border-[#d8b36a]/60 hover:text-white"
+              className="group flex items-center gap-2 rounded-full border border-fg/10 px-4 py-2 text-fg/70 transition-colors hover:border-gold/60 hover:text-fg"
             >
               Back to top
               <ArrowUp size={14} className="transition-transform duration-300 group-hover:-translate-y-0.5" />

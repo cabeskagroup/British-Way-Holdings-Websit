@@ -28,17 +28,17 @@ export function NotFoundPage() {
   return (
     <section ref={root} className="relative flex min-h-[100svh] items-center justify-center overflow-hidden px-6 py-32">
       <div className="grid-lines absolute inset-0" />
-      <div className="orb left-1/4 top-1/4 h-[420px] w-[420px] bg-[#1b3f8f]/40" />
-      <div className="orb bottom-1/4 right-1/4 h-[320px] w-[320px] bg-[#d7263d]/20" />
+      <div className="orb left-1/4 top-1/4 h-[420px] w-[420px] bg-pearl/70" />
+      <div className="orb bottom-1/4 right-1/4 h-[320px] w-[320px] bg-blush/80" />
       <div className="relative flex flex-col items-center text-center" style={{ perspective: 900 }}>
         <div className="nf-digits flex gap-2 font-display text-[clamp(7rem,26vw,18rem)] font-extrabold leading-none tracking-[-0.06em]" style={{ transformStyle: "preserve-3d" }}>
           {["4", "0", "4"].map((d, i) => (
-            <span key={i} className={`nf-digit inline-block ${i === 1 ? "gold-text font-serif-luxe italic" : "text-white"}`} style={{ textShadow: i === 1 ? "none" : "0 30px 80px rgba(61,123,224,0.35)" }}>
+            <span key={i} className={`nf-digit inline-block ${i === 1 ? "gold-text font-serif-luxe italic" : "text-fg"}`} style={{ textShadow: i === 1 ? "none" : "0 30px 80px rgba(42,86,184,0.18)" }}>
               {d}
             </span>
           ))}
         </div>
-        <h1 className="nf-fade mt-4 font-display text-3xl font-semibold text-white md:text-4xl">This page has wandered off.</h1>
+        <h1 className="nf-fade mt-4 font-display text-3xl font-semibold text-fg md:text-4xl">This page has wandered off.</h1>
         <p className="nf-fade mt-4 max-w-md text-mist">The page you're looking for doesn't exist or may have been moved. Head home or explore our group companies.</p>
         <div className="nf-fade mt-10 flex flex-wrap justify-center gap-4">
           <LuxeButton to="/">Back to home</LuxeButton>

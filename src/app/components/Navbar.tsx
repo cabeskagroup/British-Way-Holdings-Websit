@@ -58,7 +58,7 @@ export function Navbar() {
       <header ref={barRef} className="fixed inset-x-0 top-0 z-[100] px-4 pt-4 md:px-6">
         <nav
           className={`nav-pill mx-auto flex max-w-7xl items-center justify-between rounded-full pl-5 pr-2.5 transition-all duration-500 md:pl-7 ${
-            scrolled ? "py-2 shadow-[0_18px_50px_-12px_rgba(0,0,0,0.75)]" : "py-2.5 shadow-[0_24px_70px_-20px_rgba(0,0,0,0.6)]"
+            scrolled ? "py-2 shadow-[0_18px_50px_-18px_rgba(20,33,63,0.4)]" : "py-2.5 shadow-[0_24px_60px_-28px_rgba(20,33,63,0.35)]"
           }`}
           onMouseLeave={() => setMegaOpen(false)}
         >
@@ -73,7 +73,7 @@ export function Navbar() {
                   <Link
                     to={link.to}
                     className={`group flex items-center gap-1.5 rounded-full px-4 py-2 font-display text-[13px] font-medium transition-colors ${
-                      megaOpen ? "bg-[#0c1326] text-white" : "text-[#1b2540] hover:bg-[#0c1326]/5"
+                      megaOpen ? "bg-navy text-white" : "text-[#1b2540] hover:bg-navy/5"
                     }`}
                   >
                     {link.label}
@@ -87,7 +87,7 @@ export function Navbar() {
                     end={link.to === "/"}
                     className={({ isActive }) =>
                       `relative rounded-full px-4 py-2 font-display text-[13px] font-medium transition-colors ${
-                        isActive ? "bg-[#0c1326] text-white" : "text-[#1b2540] hover:bg-[#0c1326]/5"
+                        isActive ? "bg-navy text-white" : "text-[#1b2540] hover:bg-navy/5"
                       }`
                     }
                   >
@@ -109,7 +109,7 @@ export function Navbar() {
             </div>
             <button
               onClick={() => setMenuOpen((o) => !o)}
-              className="relative grid h-11 w-11 place-items-center rounded-full bg-[#0c1326] text-white lg:hidden"
+              className="relative grid h-11 w-11 place-items-center rounded-full bg-navy text-white lg:hidden"
               aria-label={menuOpen ? "Close menu" : "Open menu"}
             >
               {menuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -125,24 +125,24 @@ export function Navbar() {
           onMouseEnter={() => setMegaOpen(true)}
           onMouseLeave={() => setMegaOpen(false)}
         >
-          <div className="nav-pill grid grid-cols-[1.1fr_2.4fr] gap-6 rounded-[2rem] p-5 shadow-[0_40px_120px_-30px_rgba(0,0,0,0.9)]">
-            <div className="relative flex flex-col justify-between overflow-hidden rounded-3xl bg-gradient-to-br from-[#1b3f8f] via-[#0c1326] to-[#04060d] p-7">
-              <div className="orb -right-10 -top-10 h-40 w-40 bg-[#d8b36a]/40" />
+          <div className="nav-pill grid grid-cols-[1.1fr_2.4fr] gap-6 rounded-[2rem] p-5 shadow-[0_40px_100px_-40px_rgba(20,33,63,0.5)]">
+            <div className="on-dark relative flex flex-col justify-between overflow-hidden rounded-3xl bg-gradient-to-br from-[#1b3f8f] via-navy to-navy-deep p-7">
+              <div className="orb -right-10 -top-10 h-40 w-40 bg-champagne/40" />
               <div className="relative">
                 <span className="eyebrow">The Group</span>
-                <p className="mt-4 font-display text-2xl font-semibold leading-tight text-white">
+                <p className="mt-4 font-display text-2xl font-semibold leading-tight text-fg">
                   Eight brands. <span className="accent">One legacy.</span>
                 </p>
                 <ul className="mt-5 flex flex-col gap-2">
                   {sectors.map((s) => (
-                    <li key={s.id} className="flex items-center gap-3 text-sm text-white/60">
+                    <li key={s.id} className="flex items-center gap-3 text-sm text-fg/60">
                       <span className="h-1.5 w-1.5 rounded-full" style={{ background: s.color }} />
                       {s.title}
                     </li>
                   ))}
                 </ul>
               </div>
-              <Link to="/about#companies" className="relative mt-6 inline-flex items-center gap-2 font-display text-sm font-semibold text-[#f3dca0]">
+              <Link to="/about#companies" className="relative mt-6 inline-flex items-center gap-2 font-display text-sm font-semibold text-gold-hi">
                 Explore all companies <ArrowUpRight size={16} />
               </Link>
             </div>
@@ -151,7 +151,7 @@ export function Navbar() {
                 <Link
                   key={c.slug}
                   to={`/companies/${c.slug}`}
-                  className="group relative flex flex-col gap-3 overflow-hidden rounded-2xl border border-[#0c1326]/5 bg-[#f3f5fa] p-3 transition-all duration-500 hover:-translate-y-1 hover:bg-white hover:shadow-[0_20px_40px_-20px_rgba(12,19,38,0.45)]"
+                  className="group relative flex flex-col gap-3 overflow-hidden rounded-2xl border border-[#0c1326]/5 bg-base p-3 transition-all duration-500 hover:-translate-y-1 hover:bg-white hover:shadow-[0_20px_40px_-20px_rgba(12,19,38,0.45)]"
                 >
                   <div className="absolute inset-x-0 -bottom-10 h-20 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-30" style={{ background: c.accent }} />
                   <LogoChip company={c} className="h-16 w-full" padding="p-2" />
@@ -168,9 +168,9 @@ export function Navbar() {
 
       {/* Mobile full-screen menu (sits just under the header so the close button stays on top) */}
       {menuOpen && (
-        <div ref={overlayRef} className="fixed inset-0 z-[99] overflow-y-auto bg-[#04060d] lg:hidden" data-lenis-prevent>
-          <div className="orb -left-20 top-20 h-72 w-72 bg-[#3d7be0]/40" />
-          <div className="orb -right-20 bottom-10 h-72 w-72 bg-[#d7263d]/25" />
+        <div ref={overlayRef} className="fixed inset-0 z-[99] overflow-y-auto bg-base lg:hidden" data-lenis-prevent>
+          <div className="orb -left-20 top-20 h-72 w-72 bg-pearl/70" />
+          <div className="orb -right-20 bottom-10 h-72 w-72 bg-blush/80" />
           <div className="relative flex min-h-full flex-col px-6 pb-10 pt-28">
             <ul className="flex flex-col gap-1">
               {navLinks.map((link, i) => (
@@ -179,10 +179,10 @@ export function Navbar() {
                     to={link.to}
                     end={link.to === "/"}
                     className={({ isActive }) =>
-                      `mm-item flex items-baseline gap-4 py-2 font-display text-[2.4rem] font-semibold tracking-tight ${isActive && !link.mega ? "text-[#f3dca0]" : "text-white"}`
+                      `mm-item flex items-baseline gap-4 py-2 font-display text-[2.4rem] font-semibold tracking-tight ${isActive && !link.mega ? "text-gold-hi" : "text-fg"}`
                     }
                   >
-                    <span className="font-display text-xs text-white/30">0{i + 1}</span>
+                    <span className="font-display text-xs text-fg/30">0{i + 1}</span>
                     {link.label}
                   </NavLink>
                 </li>

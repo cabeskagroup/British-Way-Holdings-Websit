@@ -43,8 +43,8 @@ function RouteTransitions() {
   }, [location.pathname, location.hash, lenis]);
 
   return (
-    <div ref={curtain} aria-hidden className="pointer-events-none invisible fixed inset-0 z-[150] flex items-center justify-center bg-[#070b17]">
-      <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#d8b36a] to-transparent" />
+    <div ref={curtain} aria-hidden className="pointer-events-none invisible fixed inset-0 z-[150] flex items-center justify-center bg-base-2">
+      <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-gold to-transparent" />
       <img src="/logos/bwh-mark.png" alt="" className="h-14 w-auto opacity-80" />
     </div>
   );
@@ -55,7 +55,7 @@ export function Root() {
 
   return (
     <SmoothScroll>
-      <div className="grain relative min-h-screen font-body text-snow">
+      <div className="grain relative min-h-screen font-body text-fg">
         <Preloader />
         <CursorGlow />
         <RouteTransitions />

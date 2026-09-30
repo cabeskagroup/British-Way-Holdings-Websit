@@ -35,12 +35,12 @@ export function HomePage() {
       <HeroSlider />
 
       {/* Pillars ticker */}
-      <div className="relative border-y border-white/5 bg-[#070b17]/60 py-7">
+      <div className="relative border-y border-fg/5 bg-base-2/60 py-7">
         <Marquee speed={45}>
           {pillars.map((p, i) => (
             <span key={p} className="flex items-center gap-10 pr-10 font-display text-[clamp(2rem,5vw,4.2rem)] font-semibold tracking-[-0.03em]">
-              <span className={i % 2 ? "outline-text" : "text-white"}>{p}</span>
-              <Sparkles className="h-6 w-6 text-[#d8b36a] md:h-8 md:w-8" />
+              <span className={i % 2 ? "outline-text" : "text-fg"}>{p}</span>
+              <Sparkles className="h-6 w-6 text-gold md:h-8 md:w-8" />
             </span>
           ))}
         </Marquee>
@@ -48,7 +48,7 @@ export function HomePage() {
 
       {/* The group: logo orbit */}
       <section className="relative overflow-hidden px-6 py-24 md:px-10 md:py-36">
-        <div className="orb -left-40 top-20 h-[500px] w-[500px] bg-[#1b3f8f]/35" />
+        <div className="orb -left-40 top-20 h-[500px] w-[500px] bg-pearl/70" />
         <div className="relative mx-auto grid max-w-7xl items-center gap-16 lg:grid-cols-[1fr_1.15fr]">
           <div className="flex flex-col gap-8">
             <SectionHeading
@@ -63,8 +63,8 @@ export function HomePage() {
             <Reveal className="grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4" stagger={0.08}>
               {groupStats.map((s) => (
                 <div key={s.label} className="glass luxe-border rounded-2xl p-5">
-                  <CountUp value={s.value} className="font-display text-3xl font-semibold text-white" />
-                  <p className="mt-1 text-[11px] tracking-[0.2em] text-white/50 uppercase">{s.label}</p>
+                  <CountUp value={s.value} className="font-display text-3xl font-semibold text-fg" />
+                  <p className="mt-1 text-[11px] tracking-[0.2em] text-fg/50 uppercase">{s.label}</p>
                 </div>
               ))}
             </Reveal>
@@ -109,7 +109,7 @@ export function HomePage() {
 
       {/* Leadership */}
       <section className="relative overflow-hidden px-6 py-24 md:px-10 md:py-32">
-        <div className="orb right-0 top-1/3 h-[420px] w-[420px] bg-[#d7263d]/15" />
+        <div className="orb right-0 top-1/3 h-[420px] w-[420px] bg-blush/80" />
         <div className="relative mx-auto max-w-7xl">
           <SectionHeading
             eyebrow="Leadership"
@@ -131,15 +131,15 @@ export function HomePage() {
                   <div className="relative h-96 overflow-hidden sm:h-full sm:min-h-[420px]">
                     <SmartImage src={l.image} alt={l.name} className="absolute inset-0 h-full w-full object-cover object-top grayscale-[0.5] transition-all duration-[1.2s] group-hover:scale-105 group-hover:grayscale-0" />
                     <div className="absolute inset-0 bg-gradient-to-br from-[#1b3f8f]/35 via-transparent to-[#d8b36a]/10 mix-blend-multiply" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a1022] via-transparent to-transparent" />
-                    <div className="absolute inset-0 hidden bg-gradient-to-l from-[#0a1022] via-transparent to-transparent sm:block" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent" />
+                    <div className="absolute inset-0 hidden bg-gradient-to-l from-surface via-transparent to-transparent sm:block" />
                   </div>
                   <div className="flex flex-col justify-between gap-8 p-8 md:p-10">
-                    <Quote className="h-10 w-10 text-[#d8b36a]/60" />
-                    <p className="font-serif-luxe text-xl leading-snug text-white/90 italic md:text-2xl">“{l.message}”</p>
+                    <Quote className="h-10 w-10 text-gold/60" />
+                    <p className="font-serif-luxe text-xl leading-snug text-fg/90 italic md:text-2xl">“{l.message}”</p>
                     <div>
-                      <p className="font-display text-lg font-semibold text-white">{l.name}</p>
-                      <p className="text-sm text-[#f3dca0]">{l.title}</p>
+                      <p className="font-display text-lg font-semibold text-fg">{l.name}</p>
+                      <p className="text-sm text-gold-hi">{l.title}</p>
                     </div>
                   </div>
                 </div>
@@ -190,14 +190,14 @@ export function HomePage() {
           />
           <Reveal className="mt-14 grid gap-5 lg:grid-cols-[1.4fr_1fr]" stagger={0.12} y={60}>
             {news[0] && (
-              <Link to="/news" className="group relative flex min-h-[460px] overflow-hidden rounded-[2rem] border border-white/10">
+              <Link to="/news" className="on-dark group relative flex min-h-[460px] overflow-hidden rounded-[2rem] border border-fg/10">
                 <SmartImage src={news[0].image} alt={news[0].title} className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-[1.6s] group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#04060d] via-[#04060d]/50 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-base via-base/50 to-transparent" />
                 <div className="relative mt-auto flex flex-col gap-4 p-8 md:p-10">
                   <span className="w-fit rounded-full bg-[#d8b36a] px-3 py-1 font-display text-[11px] font-semibold text-[#1a1204]">{news[0].category}</span>
-                  <h3 className="max-w-xl font-display text-2xl font-semibold leading-tight text-white md:text-3xl">{news[0].title}</h3>
-                  <p className="max-w-xl text-sm text-white/65">{news[0].excerpt}</p>
-                  <span className="text-xs tracking-widest text-white/45 uppercase">{newsWhen(news[0]) ?? news[0].company}</span>
+                  <h3 className="max-w-xl font-display text-2xl font-semibold leading-tight text-fg md:text-3xl">{news[0].title}</h3>
+                  <p className="max-w-xl text-sm text-fg/65">{news[0].excerpt}</p>
+                  <span className="text-xs tracking-widest text-fg/45 uppercase">{newsWhen(news[0]) ?? news[0].company}</span>
                 </div>
               </Link>
             )}
@@ -208,10 +208,10 @@ export function HomePage() {
                     <SmartImage src={n.image} alt={n.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
                   </div>
                   <div className="flex flex-col justify-center gap-2 py-2 pr-2">
-                    <span className="text-[11px] font-semibold tracking-[0.2em] text-[#f3dca0] uppercase">{n.category}</span>
-                    <h3 className="font-display text-base font-semibold leading-snug text-white md:text-lg">{n.title}</h3>
-                    <span className="flex items-center gap-1 text-xs text-white/45">
-                      {newsWhen(n) ?? n.company} <ArrowUpRight size={13} className="ml-auto text-[#d8b36a] transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                    <span className="text-[11px] font-semibold tracking-[0.2em] text-gold-hi uppercase">{n.category}</span>
+                    <h3 className="font-display text-base font-semibold leading-snug text-fg md:text-lg">{n.title}</h3>
+                    <span className="flex items-center gap-1 text-xs text-fg/45">
+                      {newsWhen(n) ?? n.company} <ArrowUpRight size={13} className="ml-auto text-gold transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                     </span>
                   </div>
                 </Link>

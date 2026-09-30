@@ -61,7 +61,7 @@ export function GalleryMosaic() {
             className={`gm-card glass luxe-border group flex min-w-0 flex-col rounded-[2rem] p-2.5 text-left ${spans[i]}`}
             aria-label={`View photo: ${p.alt}`}
           >
-            <div className="relative flex-1 overflow-hidden rounded-[1.5rem] bg-[#0a1022]">
+            <div className="relative flex-1 overflow-hidden rounded-[1.5rem] bg-surface">
               <div className="gm-media absolute -inset-y-[8%] inset-x-0">
                 <img
                   src={p.src}
@@ -70,18 +70,18 @@ export function GalleryMosaic() {
                   className="h-full w-full scale-[1.1] object-cover transition-transform duration-[1.4s] ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover:scale-[1.17]"
                 />
               </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-[#04060d]/40 to-transparent" />
-              <span className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-black/35 text-white/85 opacity-0 backdrop-blur-md transition-opacity duration-500 group-hover:opacity-100">
+              <div className="absolute inset-0 bg-gradient-to-t from-base/40 to-transparent" />
+              <span className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full border border-fg/20 bg-black/35 text-fg/85 opacity-0 backdrop-blur-md transition-opacity duration-500 group-hover:opacity-100">
                 <Expand size={15} />
               </span>
             </div>
 
             <div className="gm-copy flex items-end justify-between gap-4 px-3 pb-2 pt-4">
               <div className="min-w-0">
-                <p className="text-[10px] font-semibold tracking-[0.22em] text-[#d8b36a] uppercase">{p.cat}</p>
-                <p className={`mt-1.5 line-clamp-2 font-display font-semibold text-white ${i === 0 ? "text-lg md:text-xl" : "text-[15px]"}`}>{picks[i][1]}</p>
+                <p className="text-[10px] font-semibold tracking-[0.22em] text-gold uppercase">{p.cat}</p>
+                <p className={`mt-1.5 line-clamp-2 font-display font-semibold text-fg ${i === 0 ? "text-lg md:text-xl" : "text-[15px]"}`}>{picks[i][1]}</p>
               </div>
-              <span className="shrink-0 font-display text-xs text-white/35">0{i + 1}</span>
+              <span className="shrink-0 font-display text-xs text-fg/35">0{i + 1}</span>
             </div>
           </button>
         ))}

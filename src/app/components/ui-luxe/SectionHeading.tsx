@@ -20,7 +20,7 @@ export function SectionHeading({ eyebrow, title, description, align = "left", cl
         <Reveal y={20}>
           <span className="eyebrow">{eyebrow}</span>
         </Reveal>
-        <SplitHeading className="font-display text-[clamp(2.1rem,5vw,4rem)] font-semibold leading-[1.02] tracking-[-0.03em] text-white">
+        <SplitHeading className="font-display text-[clamp(2.1rem,5vw,4rem)] font-semibold leading-[1.02] tracking-[-0.03em] text-fg">
           {title}
         </SplitHeading>
         {description && (

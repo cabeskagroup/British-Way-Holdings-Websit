@@ -57,15 +57,15 @@ export function Preloader() {
 
   return (
     <div ref={root} className="fixed inset-0 z-[200]" aria-hidden>
-      <div className="pl-panel absolute inset-0 bg-[#050811]" />
-      <div className="pl-panel absolute inset-0 bg-[#070b17]" style={{ clipPath: "inset(0 0 0 50%)" }} />
+      <div className="pl-panel absolute inset-0 bg-base" />
+      <div className="pl-panel absolute inset-0 bg-base-2" style={{ clipPath: "inset(0 0 0 50%)" }} />
       <div className="pl-content absolute inset-0 flex flex-col items-center justify-center gap-8">
         <div className="relative">
-          <div className="orb -inset-10 bg-[#3d7be0]/30" />
+          <div className="orb -inset-10 bg-pearl/70" />
           <img src="/logos/bwh-mark.png" alt="" className="pl-mark relative h-24 w-auto md:h-28" />
         </div>
         <div className="overflow-hidden">
-          <div className="flex gap-3 font-display text-sm tracking-[0.5em] text-white/80 md:text-base">
+          <div className="flex gap-3 font-display text-sm tracking-[0.5em] text-fg/80 md:text-base">
             {["BRITISH", "WAY", "HOLDINGS"].map((w) => (
               <span key={w} className="pl-word inline-block">
                 {w}
@@ -74,10 +74,10 @@ export function Preloader() {
           </div>
         </div>
         <div className="flex w-56 flex-col items-center gap-3">
-          <div className="h-px w-full overflow-hidden bg-white/10">
+          <div className="h-px w-full overflow-hidden bg-fg/10">
             <div className="pl-bar h-full origin-left scale-x-0 bg-gradient-to-r from-[#9c7a3c] via-[#f3dca0] to-[#d8b36a]" />
           </div>
-          <span ref={countRef} className="font-display text-xs tracking-[0.4em] text-[#d8b36a]">
+          <span ref={countRef} className="font-display text-xs tracking-[0.4em] text-gold">
             000
           </span>
         </div>

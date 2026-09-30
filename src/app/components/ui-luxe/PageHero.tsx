@@ -58,11 +58,12 @@ export function PageHero({ eyebrow, title, description, image, watermark, crumb,
           <SmartImage src={image} alt="" eager className="h-full w-full object-cover opacity-45" />
         </div>
       )}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#04060d]/70 via-[#04060d]/55 to-[#04060d]" />
-      <div className="absolute inset-0 bg-gradient-to-r from-[#04060d] via-[#04060d]/60 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-b from-base/70 via-base/55 to-base" />
+      <div className="absolute inset-0 bg-gradient-to-r from-base via-base/60 to-transparent" />
       <div className="grid-lines absolute inset-0 opacity-60" />
-      <div className="orb -left-40 top-10 h-[420px] w-[420px] opacity-40" style={{ background: accent }} />
-      <div className="orb -right-32 bottom-0 h-[360px] w-[360px] bg-[#d7263d] opacity-20" />
+      <div className="orb -left-40 top-10 h-[420px] w-[420px] opacity-25" style={{ background: accent }} />
+      <div className="orb left-1/3 -top-20 h-[380px] w-[380px] bg-pearl/70" />
+      <div className="orb -right-32 bottom-0 h-[360px] w-[360px] bg-blush/80" />
 
       {lotus && <LotusMandala className="spin-slower pointer-events-none absolute -right-48 top-1/2 h-[760px] w-[760px] -translate-y-1/2 md:-right-24" opacity={0.05} />}
 
@@ -73,19 +74,19 @@ export function PageHero({ eyebrow, title, description, image, watermark, crumb,
       )}
 
       <div className="relative mx-auto w-full max-w-7xl px-6 md:px-10">
-        <nav className="ph-fade mb-8 flex items-center gap-2 font-display text-xs tracking-widest text-white/50 uppercase">
-          <Link to="/" className="transition-colors hover:text-[#f3dca0]">
+        <nav className="ph-fade mb-8 flex items-center gap-2 font-display text-xs tracking-widest text-fg/50 uppercase">
+          <Link to="/" className="transition-colors hover:text-gold-hi">
             Home
           </Link>
           <ChevronRight size={12} />
-          <span className="text-[#d8b36a]">{crumb}</span>
+          <span className="text-gold">{crumb}</span>
         </nav>
         <span className="ph-fade eyebrow mb-6">{eyebrow}</span>
         <SplitHeading
           as="h1"
           trigger="intro"
           delay={0.2}
-          className="mt-6 max-w-5xl font-display text-[clamp(2.8rem,8vw,7.5rem)] font-semibold leading-[0.95] tracking-[-0.045em] text-white"
+          className="mt-6 max-w-5xl font-display text-[clamp(2.8rem,8vw,7.5rem)] font-semibold leading-[0.95] tracking-[-0.045em] text-fg"
         >
           {title}
         </SplitHeading>

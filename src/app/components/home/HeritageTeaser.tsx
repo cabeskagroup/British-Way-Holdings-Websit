@@ -39,7 +39,7 @@ export function HeritageTeaser() {
 
   return (
     <section ref={root} className="relative px-4 py-24 md:px-10 md:py-32">
-      <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[2.5rem] border border-[#d8b36a]/20 bg-[radial-gradient(ellipse_at_top,#3b1420_0%,#12070c_45%,#050308_100%)]">
+      <div className="on-dark relative mx-auto max-w-7xl overflow-hidden rounded-[2.5rem] border border-gold/20 bg-[radial-gradient(ellipse_at_top,#3b1420_0%,#12070c_45%,#050308_100%)]">
         {/* Museum ambience: wainscot stripes, spotlights, carpet glow */}
         <div className="absolute inset-x-0 bottom-0 h-1/3 bg-[repeating-linear-gradient(90deg,rgba(216,179,106,0.06)_0_2px,transparent_2px_120px)]" />
         <div className="absolute inset-x-0 bottom-1/3 h-px bg-gradient-to-r from-transparent via-[#d8b36a]/50 to-transparent" />
@@ -49,7 +49,7 @@ export function HeritageTeaser() {
         <div className="relative grid items-center gap-12 p-8 md:p-14 lg:grid-cols-[1fr_1.1fr] lg:p-20">
           <div className="flex flex-col gap-6">
             <span className="eyebrow">The Heritage Hall</span>
-            <SplitHeading className="font-display text-[clamp(2.2rem,4.6vw,4.2rem)] font-semibold leading-[1] tracking-[-0.035em] text-white">
+            <SplitHeading className="font-display text-[clamp(2.2rem,4.6vw,4.2rem)] font-semibold leading-[1] tracking-[-0.035em] text-fg">
               Step inside our <span className="accent">story</span> in 3D.
             </SplitHeading>
             <Reveal y={24} stagger={0.1} className="flex flex-col gap-6">
@@ -63,8 +63,8 @@ export function HeritageTeaser() {
                   { icon: Trophy, label: "Awards gallery" },
                   { icon: Glasses, label: "VR ready" },
                 ].map((f) => (
-                  <li key={f.label} className="glass flex items-center gap-2 rounded-full px-4 py-2 text-[13px] text-white/80">
-                    <f.icon size={15} className="text-[#f3dca0]" />
+                  <li key={f.label} className="glass flex items-center gap-2 rounded-full px-4 py-2 text-[13px] text-fg/80">
+                    <f.icon size={15} className="text-gold-hi" />
                     {f.label}
                   </li>
                 ))}

@@ -1,27 +1,57 @@
-/* British Way Holdings: "Midnight Royal" design system */
+/* British Way Holdings: "Ivory Heritage" design system
+ *
+ * Off-white paper, navy ink, deep heritage gold and a few soft "charm" colours
+ * (pearl blue, lotus blush, champagne, sage). Sections that sit on photos or on
+ * a navy panel add `.on-dark`, which flips the same tokens to light-on-dark.
+ */
+
+:root {
+  --base: #f7f3ec;
+  --base-2: #efe8dc;
+  --surface: #fffdf9;
+  --fg: #14213f;
+  --muted: #5a6479;
+  --gold: #b08a45;
+  --gold-hi: #8a6222;
+  --gold-grad: linear-gradient(100deg, #7d5518 0%, #b8873a 28%, #93692a 52%, #c99d52 70%, #85601f 100%);
+}
+
+.on-dark {
+  --base: #111c3a;
+  --base-2: #0c1530;
+  --surface: #182550;
+  --fg: #ffffff;
+  --muted: #b3bdd4;
+  --gold: #d8b36a;
+  --gold-hi: #f3dca0;
+  --gold-grad: linear-gradient(100deg, #9c7a3c 0%, #f3dca0 30%, #d8b36a 55%, #fff4d6 70%, #b8914a 100%);
+}
 
 @theme inline {
-  --color-ink-950: #04060d;
-  --color-ink-900: #070b17;
-  --color-ink-800: #0c1326;
-  --color-ink-700: #131c36;
-  --color-ink-600: #1d2848;
-  --color-royal: #3d7be0;
-  --color-royal-deep: #1b3f8f;
-  --color-crimson: #d7263d;
-  --color-gold: #d8b36a;
-  --color-gold-light: #f3dca0;
-  --color-gold-deep: #9c7a3c;
-  --color-mist: #93a0bd;
-  --color-snow: #e9eef8;
+  --color-base: var(--base);
+  --color-base-2: var(--base-2);
+  --color-surface: var(--surface);
+  --color-fg: var(--fg);
+  --color-mist: var(--muted);
+  --color-gold: var(--gold);
+  --color-gold-hi: var(--gold-hi);
+  --color-navy: #14213f;
+  --color-navy-deep: #0c1530;
+  --color-royal: #2a56b8;
+  --color-crimson: #c8283f;
+  --color-maroon: #7c1f33;
+  --color-pearl: #c7d9f2;
+  --color-blush: #f3d3d3;
+  --color-champagne: #eedcb3;
+  --color-sage: #d3e2d4;
   --font-display: 'Poppins', system-ui, sans-serif;
   --font-serif: 'Playfair Display Variable', Georgia, serif;
   --font-body: 'Inter Variable', system-ui, sans-serif;
 }
 
 html {
-  background: #04060d;
-  color-scheme: dark;
+  background: #f7f3ec;
+  color-scheme: light;
 }
 
 html.lenis,
@@ -40,33 +70,37 @@ html.lenis body {
 body {
   font-family: var(--font-body);
   background:
-    radial-gradient(1200px 700px at 85% -10%, rgba(61, 123, 224, 0.12), transparent 60%),
-    radial-gradient(900px 600px at -10% 20%, rgba(215, 38, 61, 0.06), transparent 60%),
-    #04060d;
-  color: #e9eef8;
+    radial-gradient(1100px 700px at 88% -8%, rgba(199, 217, 242, 0.55), transparent 60%),
+    radial-gradient(900px 600px at -10% 18%, rgba(243, 211, 211, 0.4), transparent 60%),
+    #f7f3ec;
+  color: #14213f;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
 ::selection {
-  background: rgba(216, 179, 106, 0.35);
-  color: #fff;
+  background: rgba(216, 179, 106, 0.4);
+  color: #14213f;
 }
 
 ::-webkit-scrollbar {
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #04060d;
+  background: #f7f3ec;
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(#1d2848, #3d7be0);
+  background: linear-gradient(#d8b36a, #14213f);
   border-radius: 999px;
-  border: 2px solid #04060d;
+  border: 2px solid #f7f3ec;
 }
 
 @layer components {
+  .on-dark {
+    color: var(--fg);
+  }
+
   /* Film grain over the whole site for a cinematic finish */
   .grain::after {
     content: '';
@@ -74,7 +108,7 @@ body {
     inset: -50%;
     z-index: 90;
     pointer-events: none;
-    opacity: 0.05;
+    opacity: 0.035;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     animation: grain 8s steps(10) infinite;
   }
@@ -95,17 +129,17 @@ body {
     font-weight: 600;
     letter-spacing: 0.32em;
     text-transform: uppercase;
-    color: #d8b36a;
+    color: var(--gold-hi);
   }
   .eyebrow::before {
     content: '';
     width: 2.25rem;
     height: 1px;
-    background: linear-gradient(90deg, transparent, #d8b36a);
+    background: linear-gradient(90deg, transparent, var(--gold));
   }
 
   .gold-text {
-    background: linear-gradient(100deg, #9c7a3c 0%, #f3dca0 30%, #d8b36a 55%, #fff4d6 70%, #b8914a 100%);
+    background: var(--gold-grad);
     background-size: 200% auto;
     -webkit-background-clip: text;
     background-clip: text;
@@ -119,12 +153,12 @@ body {
     font-family: var(--font-serif);
     font-style: italic;
     font-weight: 500;
-    color: #e4c27e;
+    color: var(--gold-hi);
     letter-spacing: -0.01em;
   }
 
   .royal-text {
-    background: linear-gradient(100deg, #8fb8ff, #3d7be0 50%, #d7263d);
+    background: linear-gradient(100deg, #2a56b8, #14213f 50%, #c8283f);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -132,32 +166,48 @@ body {
 
   .outline-text {
     color: transparent;
-    -webkit-text-stroke: 1px rgba(233, 238, 248, 0.22);
+    -webkit-text-stroke: 1px color-mix(in oklab, var(--fg) 20%, transparent);
   }
 
   .glass {
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.015));
-    border: 1px solid rgba(255, 255, 255, 0.09);
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 253, 249, 0.62));
+    border: 1px solid rgba(20, 33, 63, 0.08);
     backdrop-filter: blur(18px) saturate(140%);
     -webkit-backdrop-filter: blur(18px) saturate(140%);
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9),
+      0 24px 60px -30px rgba(20, 33, 63, 0.28);
+  }
+  .on-dark .glass,
+  .glass.on-dark {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
       0 20px 60px -20px rgba(0, 0, 0, 0.6);
   }
 
   /* Bright frosted navigation bar that stays readable over any background */
   .nav-pill {
-    background: rgba(255, 255, 255, 0.94);
-    border: 1px solid rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(20, 33, 63, 0.08);
+    box-shadow: 0 18px 50px -24px rgba(20, 33, 63, 0.35);
     backdrop-filter: blur(20px) saturate(160%);
     -webkit-backdrop-filter: blur(20px) saturate(160%);
   }
 
   .glass-strong {
-    background: linear-gradient(145deg, rgba(19, 28, 54, 0.85), rgba(7, 11, 23, 0.85));
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(250, 246, 239, 0.92));
+    border: 1px solid rgba(20, 33, 63, 0.08);
+    box-shadow: 0 30px 80px -40px rgba(20, 33, 63, 0.3);
     backdrop-filter: blur(24px) saturate(150%);
     -webkit-backdrop-filter: blur(24px) saturate(150%);
+  }
+  .on-dark .glass-strong,
+  .glass-strong.on-dark {
+    background: linear-gradient(145deg, rgba(24, 37, 80, 0.88), rgba(12, 21, 48, 0.88));
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: none;
   }
 
   /* Hairline gradient border that glows gold on hover */
@@ -170,7 +220,7 @@ body {
     inset: 0;
     border-radius: inherit;
     padding: 1px;
-    background: linear-gradient(140deg, rgba(243, 220, 160, 0.55), rgba(255, 255, 255, 0.06) 35%, rgba(61, 123, 224, 0.35) 70%, rgba(215, 38, 61, 0.35));
+    background: linear-gradient(140deg, rgba(184, 135, 58, 0.55), rgba(20, 33, 63, 0.05) 35%, rgba(42, 86, 184, 0.28) 70%, rgba(200, 40, 63, 0.3));
     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -194,19 +244,19 @@ body {
     font-size: 0.9rem;
     letter-spacing: 0.02em;
     color: #1a1204;
-    background: linear-gradient(120deg, #b8914a, #f3dca0 45%, #d8b36a 70%, #9c7a3c);
+    background: linear-gradient(120deg, #c49a4f, #f1dca6 45%, #d6ae62 70%, #a8803c);
     background-size: 200% auto;
     box-shadow:
-      0 10px 40px -10px rgba(216, 179, 106, 0.6),
-      inset 0 1px 0 rgba(255, 255, 255, 0.5);
+      0 12px 34px -12px rgba(168, 128, 60, 0.7),
+      inset 0 1px 0 rgba(255, 255, 255, 0.6);
     overflow: hidden;
     transition: background-position 0.6s ease, box-shadow 0.4s ease, transform 0.3s ease;
   }
   .btn-luxe:hover {
     background-position: right center;
     box-shadow:
-      0 16px 50px -10px rgba(216, 179, 106, 0.85),
-      inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      0 18px 44px -12px rgba(168, 128, 60, 0.9),
+      inset 0 1px 0 rgba(255, 255, 255, 0.7);
   }
 
   .btn-ghost {
@@ -219,16 +269,16 @@ body {
     font-family: var(--font-display);
     font-weight: 500;
     font-size: 0.9rem;
-    color: #e9eef8;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.16);
+    color: var(--fg);
+    background: color-mix(in oklab, var(--surface) 70%, transparent);
+    border: 1px solid color-mix(in oklab, var(--fg) 16%, transparent);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     transition: background 0.4s ease, border-color 0.4s ease;
   }
   .btn-ghost:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(243, 220, 160, 0.5);
+    background: color-mix(in oklab, var(--surface) 95%, transparent);
+    border-color: var(--gold);
   }
 
   .btn-arrow {
@@ -241,7 +291,7 @@ body {
     transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
   }
   .btn-ghost .btn-arrow {
-    background: rgba(255, 255, 255, 0.1);
+    background: color-mix(in oklab, var(--fg) 8%, transparent);
   }
   .btn-luxe:hover .btn-arrow,
   .btn-ghost:hover .btn-arrow {
@@ -251,9 +301,9 @@ body {
   .logo-chip {
     background: radial-gradient(circle at 30% 20%, #ffffff, #eef1f7 70%, #dfe4ee);
     box-shadow:
-      0 0 0 1px rgba(255, 255, 255, 0.6),
-      0 20px 50px -15px rgba(0, 0, 0, 0.7),
-      inset 0 -6px 14px rgba(0, 0, 0, 0.08);
+      0 0 0 1px rgba(20, 33, 63, 0.06),
+      0 18px 40px -18px rgba(20, 33, 63, 0.45),
+      inset 0 -6px 14px rgba(20, 33, 63, 0.06);
   }
 
   .orb {
@@ -265,8 +315,8 @@ body {
 
   .grid-lines {
     background-image:
-      linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+      linear-gradient(color-mix(in oklab, var(--fg) 5%, transparent) 1px, transparent 1px),
+      linear-gradient(90deg, color-mix(in oklab, var(--fg) 5%, transparent) 1px, transparent 1px);
     background-size: 64px 64px;
     mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
     -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
@@ -283,7 +333,7 @@ body {
     left: -150%;
     width: 60%;
     height: 100%;
-    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.45), transparent);
     transform: skewX(-20deg);
     transition: left 0.9s ease;
     pointer-events: none;

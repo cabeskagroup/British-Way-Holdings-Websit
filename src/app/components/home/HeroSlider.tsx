@@ -169,8 +169,8 @@ export function HeroSlider() {
       </div>
 
       {/* Atmosphere */}
-      <div className="pointer-events-none absolute inset-0 z-[3] bg-gradient-to-r from-[#04060d] via-[#04060d]/75 to-transparent md:via-[#04060d]/45" />
-      <div className="pointer-events-none absolute inset-0 z-[3] bg-gradient-to-t from-[#04060d] via-transparent to-[#04060d]/60" />
+      <div className="pointer-events-none absolute inset-0 z-[3] bg-gradient-to-r from-base via-base/75 to-transparent md:via-base/45" />
+      <div className="pointer-events-none absolute inset-0 z-[3] bg-gradient-to-t from-base via-transparent to-base/60" />
       <div className="grid-lines pointer-events-none absolute inset-0 z-[3] opacity-50" />
 
       <div className="hero-content relative z-[4] mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-6 pb-10 pt-32 md:px-10 md:pb-12 md:pt-40">
@@ -179,12 +179,12 @@ export function HeroSlider() {
             <span className="pulse-ring absolute inline-flex h-full w-full rounded-full bg-[#d8b36a]" />
             <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#d8b36a]" />
           </span>
-          <span className="font-display text-[10px] font-semibold tracking-[0.25em] text-[#f3dca0] uppercase sm:whitespace-nowrap sm:text-[11px] sm:tracking-[0.35em]">{slide.label}</span>
-          <span className="hidden h-px w-10 bg-white/20 sm:block" />
-          <span className="hidden whitespace-nowrap font-display text-[11px] tracking-[0.3em] text-white/50 uppercase sm:inline">British Way Holdings</span>
+          <span className="font-display text-[10px] font-semibold tracking-[0.25em] text-gold-hi uppercase sm:whitespace-nowrap sm:text-[11px] sm:tracking-[0.35em]">{slide.label}</span>
+          <span className="hidden h-px w-10 bg-fg/20 sm:block" />
+          <span className="hidden whitespace-nowrap font-display text-[11px] tracking-[0.3em] text-fg/50 uppercase sm:inline">British Way Holdings</span>
         </div>
 
-        <h1 key={index} className="max-w-4xl font-display text-[clamp(2.7rem,7vw,6.6rem)] font-semibold leading-[0.95] tracking-[-0.045em] text-white">
+        <h1 key={index} className="max-w-4xl font-display text-[clamp(2.7rem,7vw,6.6rem)] font-semibold leading-[0.95] tracking-[-0.045em] text-fg">
           {slide.title.map((w, i) => {
             const accent = w.startsWith("*");
             return (
@@ -196,7 +196,7 @@ export function HeroSlider() {
           })}
         </h1>
 
-        <p key={`s${index}`} className="hero-sub mt-7 max-w-xl text-base leading-relaxed text-white/70 md:text-lg">
+        <p key={`s${index}`} className="hero-sub mt-7 max-w-xl text-base leading-relaxed text-fg/70 md:text-lg">
           {slide.subtitle}
         </p>
 
@@ -209,16 +209,16 @@ export function HeroSlider() {
       </div>
 
       {/* Slide index with progress */}
-      <div className="absolute right-6 top-1/2 z-[5] hidden -translate-y-1/2 flex-col gap-4 md:right-10 xl:flex">
+      <div className="glass absolute right-6 top-1/2 z-[5] hidden -translate-y-1/2 flex-col gap-4 rounded-3xl px-6 py-5 md:right-10 xl:flex">
         {slides.map((s, i) => (
           <button key={s.tab} onClick={() => go(i)} className="hero-fade group flex items-center gap-4 text-right" aria-label={`Show ${s.tab}`}>
-            <span className={`font-display text-xs tracking-[0.25em] uppercase transition-colors ${i === index ? "text-white" : "text-white/35 group-hover:text-white/70"}`}>
+            <span className={`font-display text-xs tracking-[0.25em] uppercase transition-colors ${i === index ? "text-fg" : "text-fg/35 group-hover:text-fg/70"}`}>
               {s.tab}
             </span>
-            <span className="relative h-px w-16 overflow-hidden bg-white/15">
+            <span className="relative h-px w-16 overflow-hidden bg-fg/15">
               <span data-i={i} className="hero-progress absolute inset-0 origin-left scale-x-0 bg-gradient-to-r from-[#d8b36a] to-[#f3dca0]" />
             </span>
-            <span className={`font-display text-xs ${i === index ? "text-[#f3dca0]" : "text-white/35"}`}>0{i + 1}</span>
+            <span className={`font-display text-xs ${i === index ? "text-gold-hi" : "text-fg/35"}`}>0{i + 1}</span>
           </button>
         ))}
       </div>
@@ -227,9 +227,9 @@ export function HeroSlider() {
       <div className="relative z-[5] px-4 pb-5 md:px-10 md:pb-8">
         <div className="glass mx-auto grid max-w-7xl grid-cols-2 overflow-hidden rounded-3xl md:grid-cols-4">
           {stats.map((s, i) => (
-            <div key={s.label} className={`hero-stat flex flex-col gap-1 px-5 py-4 md:px-8 md:py-6 ${i > 0 ? "md:border-l md:border-white/10" : ""} ${i % 2 ? "border-l border-white/10 md:border-l" : ""} ${i > 1 ? "border-t border-white/10 md:border-t-0" : ""}`}>
-              <CountUp value={s.value} className="font-display text-2xl font-semibold text-white md:text-4xl" />
-              <span className="text-[11px] tracking-[0.2em] text-white/50 uppercase">{s.label}</span>
+            <div key={s.label} className={`hero-stat flex flex-col gap-1 px-5 py-4 md:px-8 md:py-6 ${i > 0 ? "md:border-l md:border-fg/10" : ""} ${i % 2 ? "border-l border-fg/10 md:border-l" : ""} ${i > 1 ? "border-t border-fg/10 md:border-t-0" : ""}`}>
+              <CountUp value={s.value} className="font-display text-2xl font-semibold text-fg md:text-4xl" />
+              <span className="text-[11px] tracking-[0.2em] text-fg/50 uppercase">{s.label}</span>
             </div>
           ))}
         </div>

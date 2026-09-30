@@ -80,7 +80,7 @@ export function GalleryHelix({ photos, onOpen }: { photos: GalleryPhoto[]; onOpe
   );
 
   return (
-    <section ref={root} className="relative h-[100svh] overflow-hidden bg-[radial-gradient(ellipse_at_center,#10204a_0%,#04060d_65%)]">
+    <section ref={root} className="relative h-[100svh] overflow-hidden bg-[radial-gradient(ellipse_at_center,#e3ecf8_0%,#f7f3ec_65%)]">
       <LotusMandala className="spin-slower pointer-events-none absolute left-1/2 top-1/2 h-[900px] w-[900px] -translate-x-1/2 -translate-y-1/2" opacity={0.04} />
       <div className="grid-lines absolute inset-0 opacity-40" />
       <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap font-display text-[20vw] font-extrabold leading-none tracking-tighter outline-text">
@@ -94,13 +94,13 @@ export function GalleryHelix({ photos, onOpen }: { photos: GalleryPhoto[]; onOpe
               key={p.id}
               data-helix
               onClick={() => onOpen(i)}
-              className="group absolute left-0 top-0 overflow-hidden rounded-[1.25rem] border border-white/15 bg-[#0c1326] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.9)]"
+              className="group absolute left-0 top-0 overflow-hidden rounded-[1.25rem] border border-white bg-surface shadow-[0_30px_70px_-30px_rgba(20,33,63,0.55)]"
               style={{ backfaceVisibility: "hidden" }}
               aria-label={`Open ${p.alt}`}
             >
               <img src={p.src} alt={p.alt} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
               <span className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-              <span className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-[#d8b36a] via-[#f3dca0] to-[#d7263d]" />
+              <span className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-[#d8b36a] via-gold to-crimson" />
             </button>
           ))}
         </div>
@@ -109,14 +109,14 @@ export function GalleryHelix({ photos, onOpen }: { photos: GalleryPhoto[]; onOpe
       {/* Caption for the photo facing front */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between gap-6 p-6 md:p-12">
         <div className="hx-caption max-w-md">
-          <span ref={captionIndex} className="block font-display text-sm tabular-nums text-[#f3dca0]" />
-          <p ref={captionCat} className="mt-2 text-[11px] font-semibold tracking-[0.25em] text-white/50 uppercase" />
-          <p ref={captionTitle} className="mt-1 font-display text-xl font-semibold text-white md:text-3xl" />
+          <span ref={captionIndex} className="block font-display text-sm tabular-nums text-gold-hi" />
+          <p ref={captionCat} className="mt-2 text-[11px] font-semibold tracking-[0.25em] text-fg/50 uppercase" />
+          <p ref={captionTitle} className="mt-1 font-display text-xl font-semibold text-fg md:text-3xl" />
         </div>
         <div className="hidden items-center gap-3 md:flex">
-          <span className="font-display text-xs tracking-[0.3em] text-white/45 uppercase">Scroll to turn</span>
-          <div className="relative h-24 w-px overflow-hidden bg-white/15">
-            <div ref={progressBar} className="absolute inset-0 origin-top bg-gradient-to-b from-[#f3dca0] to-[#d7263d]" style={{ transform: "scaleY(0)" }} />
+          <span className="font-display text-xs tracking-[0.3em] text-fg/45 uppercase">Scroll to turn</span>
+          <div className="relative h-24 w-px overflow-hidden bg-fg/15">
+            <div ref={progressBar} className="absolute inset-0 origin-top bg-gradient-to-b from-gold to-crimson" style={{ transform: "scaleY(0)" }} />
           </div>
         </div>
       </div>

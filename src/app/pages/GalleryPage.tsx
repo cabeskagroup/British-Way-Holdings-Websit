@@ -29,7 +29,7 @@ function CollectionCard({ name, items, onOpen }: { name: string; items: GalleryP
           return (
             <div
               key={p.id}
-              className="absolute inset-x-8 inset-y-2 overflow-hidden rounded-[1.5rem] border border-white/15 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.9)] transition-transform duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)] [transform:rotate(var(--r))_translateX(var(--x))] group-hover:[transform:rotate(var(--rh))_translateX(var(--xh))_translateY(-10px)]"
+              className="absolute inset-x-8 inset-y-2 overflow-hidden rounded-[1.5rem] border-4 border-white shadow-[0_30px_60px_-28px_rgba(20,33,63,0.6)] transition-transform duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)] [transform:rotate(var(--r))_translateX(var(--x))] group-hover:[transform:rotate(var(--rh))_translateX(var(--xh))_translateY(-10px)]"
               style={
                 {
                   zIndex: 10 - Math.abs(pos),
@@ -41,17 +41,17 @@ function CollectionCard({ name, items, onOpen }: { name: string; items: GalleryP
               }
             >
               <img src={p.src} alt="" loading="lazy" className="h-full w-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent" />
             </div>
           );
         })}
       </div>
-      <div className="flex items-end justify-between gap-4 border-t border-white/10 pt-5">
+      <div className="flex items-end justify-between gap-4 border-t border-fg/10 pt-5">
         <div>
-          <p className="font-display text-xl font-semibold text-white">{name}</p>
+          <p className="font-display text-xl font-semibold text-fg">{name}</p>
           <p className="mt-1 text-sm text-mist">{blurbs[name]}</p>
         </div>
-        <span className="flex shrink-0 items-center gap-2 rounded-full border border-white/15 px-3 py-1.5 font-display text-xs text-white/70 transition-colors group-hover:border-[#d8b36a] group-hover:text-[#f3dca0]">
+        <span className="flex shrink-0 items-center gap-2 rounded-full border border-fg/15 px-3 py-1.5 font-display text-xs text-fg/70 transition-colors group-hover:border-gold group-hover:text-gold-hi">
           {items.length} photos <ArrowUpRight size={13} />
         </span>
       </div>

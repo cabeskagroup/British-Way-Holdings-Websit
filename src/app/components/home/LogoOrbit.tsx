@@ -67,14 +67,14 @@ export function LogoOrbit() {
   return (
     <div ref={root} className="relative mx-auto aspect-square w-full max-w-[600px] select-none">
       {/* Glow and orbit paths */}
-      <div className="orb inset-[18%] bg-[#1b3f8f]/45" />
+      <div className="orb inset-[18%] bg-pearl/70" />
       {rings.map((ring, i) => (
         <div
           key={i}
           className="orbit-path pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
           style={{ width: `${ring.size}%`, height: `${ring.size}%` }}
         >
-          <div className={`absolute inset-0 rounded-full border ${i ? "border-dashed border-[#d8b36a]/35" : "border-[#3d7be0]/40"}`} />
+          <div className={`absolute inset-0 rounded-full border ${i ? "border-dashed border-gold/35" : "border-[#3d7be0]/40"}`} />
           <div
             className={`${i ? "spin-slower" : "spin-slow"} absolute -inset-px rounded-full`}
             style={{
@@ -88,7 +88,7 @@ export function LogoOrbit() {
 
       {/* Core emblem */}
       <div className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2">
-        <div className="pulse-ring absolute inset-0 rounded-full border border-[#d8b36a]/60" />
+        <div className="pulse-ring absolute inset-0 rounded-full border border-gold/60" />
         <div className="pulse-ring absolute inset-0 rounded-full border border-[#3d7be0]/50" style={{ animationDelay: "1.3s" }} />
         <div className="logo-chip relative grid h-[88px] w-[88px] place-items-center rounded-full sm:h-28 sm:w-28 md:h-32 md:w-32">
           <img src="/logos/bwh-mark.png" alt="British Way Holdings" className="w-[62%] drop-shadow-[0_2px_2px_rgba(0,0,0,0.25)]" style={{ filter: "brightness(0.95)" }} />
@@ -124,7 +124,7 @@ export function LogoOrbit() {
                   >
                     {/* Intro pop is animated on this wrapper so it never fights the hover zoom */}
                     <span className="orbit-inner absolute inset-0">
-                      <span className="absolute -inset-3 rounded-full opacity-70 blur-xl" style={{ background: c.accent }} />
+                      <span className="absolute -inset-3 rounded-full opacity-30 blur-xl" style={{ background: c.accent }} />
                       <span
                         className={`absolute -inset-[3px] rounded-full bg-gradient-to-br from-[#f3dca0] via-[#9c7a3c] to-[#d8b36a] transition-opacity ${
                           hovered === slug ? "opacity-100" : "opacity-70"
@@ -146,8 +146,8 @@ export function LogoOrbit() {
           active ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
         }`}
       >
-        <p className="font-display text-sm font-semibold text-white">{active?.name ?? " "}</p>
-        <p className="text-xs text-[#f3dca0]">{active?.cat ?? " "}</p>
+        <p className="font-display text-sm font-semibold text-fg">{active?.name ?? " "}</p>
+        <p className="text-xs text-gold-hi">{active?.cat ?? " "}</p>
       </div>
     </div>
   );

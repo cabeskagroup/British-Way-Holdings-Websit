@@ -32,7 +32,7 @@ export function CursorGlow() {
       ref={glowRef}
       aria-hidden
       className="pointer-events-none fixed left-0 top-0 z-[1] h-[520px] w-[520px] rounded-full opacity-0"
-      style={{ background: "radial-gradient(circle, rgba(61,123,224,0.12), rgba(216,179,106,0.05) 40%, transparent 70%)" }}
+      style={{ background: "radial-gradient(circle, rgba(199,217,242,0.45), rgba(238,220,179,0.25) 40%, transparent 70%)" }}
     />
   );
 }

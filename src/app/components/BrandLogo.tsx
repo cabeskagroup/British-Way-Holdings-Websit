@@ -18,7 +18,7 @@ export function BrandLogo({ height = 40, className = "", src = HOLDINGS_LOGO_PAT
 
   if (failed) {
     return (
-      <span className={`font-display font-bold tracking-[0.2em] text-white ${className}`} style={{ fontSize: height * 0.4 }}>
+      <span className={`font-display font-bold tracking-[0.2em] text-fg ${className}`} style={{ fontSize: height * 0.4 }}>
         BRITISH WAY
       </span>
     );

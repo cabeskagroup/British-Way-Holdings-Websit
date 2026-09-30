@@ -30,28 +30,28 @@ function FlipCard({ name, title, bio, image }: { name: string; title: string; bi
         }`}
       >
         {/* Front */}
-        <div className="absolute inset-0 overflow-hidden rounded-[2rem] border border-white/10 bg-[#0c1326] [backface-visibility:hidden]">
+        <div className="on-dark absolute inset-0 overflow-hidden rounded-[2rem] border border-fg/10 bg-surface [backface-visibility:hidden]">
           <SmartImage src={image} alt={name} className="h-full w-full object-cover object-top grayscale-[0.35] transition-all duration-700 group-hover:grayscale-0" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#070b17] via-[#070b17]/10 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-base-2 via-base-2/10 to-transparent" />
           <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-6">
             <div>
-              <p className="text-[11px] font-semibold tracking-[0.25em] text-[#f3dca0] uppercase">{title}</p>
-              <h3 className="mt-1 font-display text-xl font-semibold text-white">{name}</h3>
+              <p className="text-[11px] font-semibold tracking-[0.25em] text-gold-hi uppercase">{title}</p>
+              <h3 className="mt-1 font-display text-xl font-semibold text-fg">{name}</h3>
             </div>
-            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-white/20 bg-black/30 text-white backdrop-blur">
+            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-fg/20 bg-black/30 text-fg backdrop-blur">
               <RotateCw size={15} />
             </span>
           </div>
         </div>
         {/* Back */}
-        <div className="absolute inset-0 flex flex-col justify-between overflow-hidden rounded-[2rem] border border-[#d8b36a]/50 bg-gradient-to-br from-[#1b3f8f] via-[#0c1326] to-[#04060d] p-7 [backface-visibility:hidden] [transform:rotateY(180deg)]">
+        <div className="on-dark absolute inset-0 flex flex-col justify-between overflow-hidden rounded-[2rem] border border-gold/50 bg-gradient-to-br from-[#1b3f8f] via-navy to-navy-deep p-7 [backface-visibility:hidden] [transform:rotateY(180deg)]">
           <LotusMandala className="absolute -right-24 -top-24 h-72 w-72" opacity={0.06} />
           <div className="relative">
-            <p className="text-[11px] font-semibold tracking-[0.25em] text-[#f3dca0] uppercase">{title}</p>
-            <h3 className="mt-2 font-display text-2xl font-semibold text-white">{name}</h3>
+            <p className="text-[11px] font-semibold tracking-[0.25em] text-gold-hi uppercase">{title}</p>
+            <h3 className="mt-2 font-display text-2xl font-semibold text-fg">{name}</h3>
           </div>
-          <p className="relative text-[15px] leading-relaxed text-white/80">{bio}</p>
-          <span className="relative flex items-center gap-2 text-xs text-white/50">
+          <p className="relative text-[15px] leading-relaxed text-fg/80">{bio}</p>
+          <span className="relative flex items-center gap-2 text-xs text-fg/50">
             <RotateCw size={13} /> Tap to flip back
           </span>
         </div>
@@ -90,18 +90,18 @@ export function LeadershipPage() {
       <section className="relative overflow-hidden pb-20 pt-36 md:pb-28 md:pt-44">
         <LotusMandala className="spin-slower pointer-events-none absolute -right-60 -top-40 h-[820px] w-[820px]" opacity={0.04} />
         <div className="grid-lines absolute inset-0 opacity-50" />
-        <div className="orb -left-40 top-20 h-[420px] w-[420px] bg-[#1b3f8f]/40" />
+        <div className="orb -left-40 top-20 h-[420px] w-[420px] bg-pearl/70" />
         <div className="relative mx-auto grid max-w-7xl items-center gap-16 px-6 md:px-10 lg:grid-cols-[1fr_1.1fr]">
           <div className="flex flex-col gap-7">
-            <nav className="lh-fade flex items-center gap-2 font-display text-xs tracking-widest text-white/50 uppercase">
-              <Link to="/" className="hover:text-[#f3dca0]">
+            <nav className="lh-fade flex items-center gap-2 font-display text-xs tracking-widest text-fg/50 uppercase">
+              <Link to="/" className="hover:text-gold-hi">
                 Home
               </Link>
               <ChevronRight size={12} />
-              <span className="text-[#d8b36a]">Leadership</span>
+              <span className="text-gold">Leadership</span>
             </nav>
             <span className="lh-fade eyebrow">Leadership</span>
-            <SplitHeading as="h1" trigger="intro" delay={0.2} className="font-display text-[clamp(2.8rem,7vw,6.4rem)] font-semibold leading-[0.95] tracking-[-0.045em] text-white">
+            <SplitHeading as="h1" trigger="intro" delay={0.2} className="font-display text-[clamp(2.8rem,7vw,6.4rem)] font-semibold leading-[0.95] tracking-[-0.045em] text-fg">
               Guided by <span className="accent">visionaries.</span>
             </SplitHeading>
             <p className="lh-fade max-w-xl text-lg leading-relaxed text-mist">
@@ -122,13 +122,13 @@ export function LeadershipPage() {
                 style={{ transform: `translate(-50%, -50%) translateX(${(i - 1) * 62}%) rotate(${(i - 1) * 7}deg) translateY(${i === 1 ? -10 : 16}px)`, zIndex: i === 1 ? 3 : 1 }}
               >
                 <div className="lh-card">
-                  <div className="group relative overflow-hidden rounded-[2rem] border border-white/15 bg-[#0c1326] shadow-[0_40px_90px_-30px_rgba(0,0,0,0.95)] transition-transform duration-700 hover:-translate-y-4">
+                  <div className="on-dark group relative overflow-hidden rounded-[2rem] border border-white/40 bg-surface shadow-[0_40px_80px_-34px_rgba(20,33,63,0.6)] transition-transform duration-700 hover:-translate-y-4">
                     <div className="aspect-[3/4] overflow-hidden">
                       <SmartImage src={l.image} alt={l.name} eager className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
                     </div>
-                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#070b17] to-transparent p-4 pt-12">
-                      <p className="font-display text-sm font-semibold text-white">{l.name}</p>
-                      <p className="text-[10px] tracking-[0.2em] text-[#f3dca0] uppercase">{l.title}</p>
+                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-base-2 to-transparent p-4 pt-12">
+                      <p className="font-display text-sm font-semibold text-fg">{l.name}</p>
+                      <p className="text-[10px] tracking-[0.2em] text-gold-hi uppercase">{l.title}</p>
                     </div>
                   </div>
                 </div>
@@ -138,11 +138,11 @@ export function LeadershipPage() {
         </div>
       </section>
 
-      <div className="border-y border-white/5 bg-[#070b17]/60 py-6">
+      <div className="border-y border-fg/5 bg-base-2/60 py-6">
         <Marquee speed={50}>
           {principles.map((p, i) => (
             <span key={p} className="flex items-center gap-8 pr-8 font-serif-luxe text-[clamp(1.8rem,4vw,3.2rem)] italic">
-              <span className={i % 2 ? "text-white/25" : "gold-text"}>{p}</span>
+              <span className={i % 2 ? "text-fg/25" : "gold-text"}>{p}</span>
               <span className="h-2 w-2 rotate-45 bg-[#d8b36a]" />
             </span>
           ))}
@@ -157,21 +157,21 @@ export function LeadershipPage() {
             return (
               <article key={l.name} className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
                 <div className={`relative mx-auto w-full max-w-md ${flip ? "lg:order-2" : ""}`}>
-                  <div className="ld-ring absolute -inset-6 rounded-t-full rounded-b-[3rem] border border-dashed border-[#d8b36a]/35" />
-                  <div className="orb -inset-10 bg-[#1b3f8f]/40" />
-                  <div className="ld-portrait relative aspect-[4/5] overflow-hidden rounded-t-full rounded-b-[2.5rem] border border-white/10 bg-[#0c1326]">
+                  <div className="ld-ring absolute -inset-6 rounded-t-full rounded-b-[3rem] border border-dashed border-gold/35" />
+                  <div className="orb -inset-10 bg-pearl/70" />
+                  <div className="ld-portrait relative aspect-[4/5] overflow-hidden rounded-t-full rounded-b-[2.5rem] border border-fg/10 bg-surface">
                     <SmartImage src={l.image} alt={l.name} className="h-full w-full object-cover object-top" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#04060d]/80 via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-base/80 via-transparent to-transparent" />
                   </div>
                   <div className="glass-strong absolute -bottom-6 left-1/2 w-max -translate-x-1/2 rounded-full px-6 py-3 text-center">
-                    <p className="font-display text-xs font-semibold tracking-[0.3em] text-[#f3dca0] uppercase">{l.title}</p>
+                    <p className="font-display text-xs font-semibold tracking-[0.3em] text-gold-hi uppercase">{l.title}</p>
                   </div>
                 </div>
                 <div className={`flex flex-col gap-7 ${flip ? "lg:order-1" : ""}`}>
                   <span className="eyebrow">
                     0{i + 1} · {l.title}
                   </span>
-                  <SplitHeading className="font-display text-[clamp(2.4rem,5vw,4.4rem)] font-semibold leading-[0.98] tracking-[-0.04em] text-white">
+                  <SplitHeading className="font-display text-[clamp(2.4rem,5vw,4.4rem)] font-semibold leading-[0.98] tracking-[-0.04em] text-fg">
                     {l.name}
                   </SplitHeading>
                   <Reveal className="flex flex-col gap-7" stagger={0.12} y={30}>
@@ -179,7 +179,7 @@ export function LeadershipPage() {
                     {l.message && (
                       <blockquote className="glass luxe-border relative rounded-[2rem] p-8">
                         <Quote className="absolute -top-5 left-8 h-10 w-10 rounded-full bg-[#d8b36a] p-2 text-[#1a1204]" />
-                        <p className="font-serif-luxe text-2xl leading-snug text-white/90 italic">“{l.message}”</p>
+                        <p className="font-serif-luxe text-2xl leading-snug text-fg/90 italic">“{l.message}”</p>
                       </blockquote>
                     )}
                   </Reveal>
@@ -210,7 +210,7 @@ export function LeadershipPage() {
 
       {/* Team flip cards */}
       <section className="relative px-6 pb-28 md:px-10">
-        <div className="orb right-0 top-0 h-[420px] w-[420px] bg-[#d7263d]/15" />
+        <div className="orb right-0 top-0 h-[420px] w-[420px] bg-blush/80" />
         <div className="relative mx-auto max-w-7xl">
           <SectionHeading
             eyebrow="Management team"

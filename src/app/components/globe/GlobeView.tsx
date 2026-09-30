@@ -54,8 +54,8 @@ export function GlobeView({ className = "" }: { className?: string }) {
 
   return (
     <div className={`relative aspect-square w-full ${className}`}>
-      <div className="orb inset-[15%] bg-[#1b3f8f]/50" />
-      <div className={`absolute inset-0 rounded-full border border-white/5 transition-opacity duration-1000 ${ready ? "opacity-0" : "opacity-100"}`} />
+      <div className="orb inset-[15%] bg-royal/40" />
+      <div className={`absolute inset-0 rounded-full border border-fg/5 transition-opacity duration-1000 ${ready ? "opacity-0" : "opacity-100"}`} />
       <div ref={stage} className="absolute inset-0" aria-label="Globe showing Sri Lanka connected to the world" role="img" />
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         {labels.map((p) => {
@@ -70,7 +70,7 @@ export function GlobeView({ className = "" }: { className?: string }) {
             >
               <span
                 className={`-ml-2 -mt-9 block whitespace-nowrap rounded-full px-3 py-1 font-display text-[11px] font-semibold tracking-wider backdrop-blur ${
-                  home ? "bg-[#d8b36a] text-[#1a1204] shadow-[0_0_30px_rgba(216,179,106,0.7)]" : "border border-white/15 bg-black/40 text-white/85"
+                  home ? "bg-[#d8b36a] text-[#1a1204] shadow-[0_0_30px_rgba(216,179,106,0.7)]" : "border border-fg/15 bg-black/40 text-fg/85"
                 }`}
               >
                 {home ? "Sri Lanka · Home" : p.label}

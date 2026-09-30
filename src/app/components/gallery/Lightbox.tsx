@@ -46,12 +46,12 @@ export function Lightbox({ photos, index, onIndex, onClose }: LightboxProps) {
   if (!photo) return null;
 
   return createPortal(
-    <div ref={root} className="fixed inset-0 z-[160] flex flex-col bg-[#04060d]/95 backdrop-blur-xl" role="dialog" aria-modal="true" aria-label={photo.alt}>
+    <div ref={root} className="on-dark fixed inset-0 z-[160] flex flex-col bg-base/95 backdrop-blur-xl" role="dialog" aria-modal="true" aria-label={photo.alt}>
       <div className="flex items-center justify-between p-4 md:p-6">
-        <span className="font-display text-sm tabular-nums text-white/60">
+        <span className="font-display text-sm tabular-nums text-fg/60">
           {String(index + 1).padStart(2, "0")} / {String(photos.length).padStart(2, "0")}
         </span>
-        <button onClick={onClose} className="glass grid h-12 w-12 place-items-center rounded-full text-white hover:bg-white/10" aria-label="Close">
+        <button onClick={onClose} className="glass grid h-12 w-12 place-items-center rounded-full text-fg hover:bg-fg/10" aria-label="Close">
           <X size={20} />
         </button>
       </div>
@@ -68,7 +68,7 @@ export function Lightbox({ photos, index, onIndex, onClose }: LightboxProps) {
             e.stopPropagation();
             go(-1);
           }}
-          className="glass absolute left-3 top-1/2 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full text-white hover:bg-white/10 md:left-8"
+          className="glass absolute left-3 top-1/2 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full text-fg hover:bg-fg/10 md:left-8"
           aria-label="Previous photo"
         >
           <ChevronLeft size={22} />
@@ -78,22 +78,22 @@ export function Lightbox({ photos, index, onIndex, onClose }: LightboxProps) {
             e.stopPropagation();
             go(1);
           }}
-          className="glass absolute right-3 top-1/2 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full text-white hover:bg-white/10 md:right-8"
+          className="glass absolute right-3 top-1/2 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full text-fg hover:bg-fg/10 md:right-8"
           aria-label="Next photo"
         >
           <ChevronRight size={22} />
         </button>
       </div>
       <div className="lb-caption p-5 text-center">
-        <p className="text-[11px] font-semibold tracking-[0.25em] text-[#f3dca0] uppercase">{photo.cat}</p>
-        <p className="mt-2 font-display text-lg text-white">{photo.alt}</p>
+        <p className="text-[11px] font-semibold tracking-[0.25em] text-gold-hi uppercase">{photo.cat}</p>
+        <p className="mt-2 font-display text-lg text-fg">{photo.alt}</p>
       </div>
       <div className="flex justify-center gap-2 overflow-x-auto px-4 pb-6" data-lenis-prevent>
         {photos.map((p, i) => (
           <button
             key={p.id}
             onClick={() => onIndex(i)}
-            className={`h-14 w-14 shrink-0 overflow-hidden rounded-xl border-2 transition-all ${i === index ? "border-[#d8b36a] opacity-100" : "border-transparent opacity-40 hover:opacity-80"}`}
+            className={`h-14 w-14 shrink-0 overflow-hidden rounded-xl border-2 transition-all ${i === index ? "border-gold opacity-100" : "border-transparent opacity-40 hover:opacity-80"}`}
             aria-label={p.alt}
           >
             <img src={p.src} alt="" className="h-full w-full object-cover" />

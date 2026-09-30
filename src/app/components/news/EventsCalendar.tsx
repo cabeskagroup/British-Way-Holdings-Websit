@@ -8,12 +8,12 @@ const WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 export const categoryColors: Record<string, string> = {
-  Milestone: "#f3dca0",
-  Community: "#ff8a9a",
-  Achievement: "#2fbf71",
-  Event: "#b98bff",
-  Programme: "#8fb8ff",
-  Corporate: "#4ac0d8",
+  Milestone: "#a8772a",
+  Community: "#c8283f",
+  Achievement: "#2f8f5b",
+  Event: "#7a4fc7",
+  Programme: "#2a56b8",
+  Corporate: "#1f8aa3",
 };
 
 const dated = newsItems.filter((n) => n.date).sort((a, b) => (a.date! < b.date! ? 1 : -1));
@@ -85,19 +85,19 @@ export function EventsCalendar({ onOpen }: { onOpen?: (n: NewsItem) => void }) {
     <div ref={root} className="grid gap-6 lg:grid-cols-[1.05fr_1fr]">
       {/* Calendar */}
       <div className="glass-strong luxe-border relative overflow-hidden rounded-[2rem] p-5 md:p-8">
-        <div className="orb -right-20 -top-20 h-56 w-56 bg-[#3d7be0]/30" />
+        <div className="orb -right-20 -top-20 h-56 w-56 bg-pearl/70" />
         <div className="relative flex items-center justify-between">
           <div>
             <p className="eyebrow">Events calendar</p>
-            <p className="mt-3 font-display text-3xl font-semibold text-white md:text-4xl">
+            <p className="mt-3 font-display text-3xl font-semibold text-fg md:text-4xl">
               {MONTHS[view.m]} <span className="accent">{view.y}</span>
             </p>
           </div>
           <div className="flex gap-2">
-            <button onClick={() => shift(-1)} className="grid h-11 w-11 place-items-center rounded-full border border-white/15 text-white hover:bg-white/10" aria-label="Previous month">
+            <button onClick={() => shift(-1)} className="grid h-11 w-11 place-items-center rounded-full border border-fg/15 text-fg hover:bg-fg/10" aria-label="Previous month">
               <ChevronLeft size={18} />
             </button>
-            <button onClick={() => shift(1)} className="grid h-11 w-11 place-items-center rounded-full border border-white/15 text-white hover:bg-white/10" aria-label="Next month">
+            <button onClick={() => shift(1)} className="grid h-11 w-11 place-items-center rounded-full border border-fg/15 text-fg hover:bg-fg/10" aria-label="Next month">
               <ChevronRight size={18} />
             </button>
           </div>
@@ -105,7 +105,7 @@ export function EventsCalendar({ onOpen }: { onOpen?: (n: NewsItem) => void }) {
 
         <div className="relative mt-8 grid grid-cols-7 gap-1.5 md:gap-2">
           {WEEKDAYS.map((w) => (
-            <span key={w} className="pb-2 text-center font-display text-[10px] font-semibold tracking-[0.2em] text-white/40 uppercase md:text-[11px]">
+            <span key={w} className="pb-2 text-center font-display text-[10px] font-semibold tracking-[0.2em] text-fg/40 uppercase md:text-[11px]">
               {w}
             </span>
           ))}
@@ -123,10 +123,10 @@ export function EventsCalendar({ onOpen }: { onOpen?: (n: NewsItem) => void }) {
                     : events
                       ? isSel
                         ? "bg-gradient-to-br from-[#f3dca0] to-[#b8914a] font-semibold text-[#1a1204] shadow-[0_10px_30px_-8px_rgba(216,179,106,0.8)]"
-                        : "border border-[#d8b36a]/60 bg-[#d8b36a]/10 font-semibold text-[#f3dca0] hover:bg-[#d8b36a]/20"
+                        : "border border-gold/60 bg-[#d8b36a]/10 font-semibold text-gold-hi hover:bg-[#d8b36a]/20"
                       : isSel
-                        ? "bg-white/15 text-white"
-                        : "text-white/55 hover:bg-white/5 hover:text-white"
+                        ? "bg-fg/15 text-fg"
+                        : "text-fg/55 hover:bg-fg/5 hover:text-fg"
                 }`}
                 aria-label={day ? `${day} ${MONTHS[view.m]}${events ? `: ${events.map((e) => e.title).join(", ")}` : ""}` : undefined}
               >
@@ -139,7 +139,7 @@ export function EventsCalendar({ onOpen }: { onOpen?: (n: NewsItem) => void }) {
                   </span>
                 )}
                 {events && (
-                  <span className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-2 hidden w-48 -translate-x-1/2 rounded-xl bg-[#0c1326] p-2.5 text-left text-[11px] leading-snug text-white shadow-xl group-hover:block">
+                  <span className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-2 hidden w-48 -translate-x-1/2 rounded-xl bg-surface p-2.5 text-left text-[11px] leading-snug text-fg shadow-xl group-hover:block">
                     {events[0].title}
                   </span>
                 )}
@@ -148,9 +148,9 @@ export function EventsCalendar({ onOpen }: { onOpen?: (n: NewsItem) => void }) {
           })}
         </div>
 
-        <div className="relative mt-6 flex flex-wrap gap-3 border-t border-white/10 pt-5">
+        <div className="relative mt-6 flex flex-wrap gap-3 border-t border-fg/10 pt-5">
           {Object.entries(categoryColors).map(([c, color]) => (
-            <span key={c} className="flex items-center gap-1.5 text-[11px] text-white/55">
+            <span key={c} className="flex items-center gap-1.5 text-[11px] text-fg/55">
               <span className="h-2 w-2 rounded-full" style={{ background: color }} />
               {c}
             </span>
@@ -161,8 +161,8 @@ export function EventsCalendar({ onOpen }: { onOpen?: (n: NewsItem) => void }) {
       {/* Agenda */}
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-3 px-1">
-          <CalendarDays size={18} className="text-[#d8b36a]" />
-          <p className="font-display text-sm font-semibold tracking-[0.2em] text-white/70 uppercase">
+          <CalendarDays size={18} className="text-gold" />
+          <p className="font-display text-sm font-semibold tracking-[0.2em] text-fg/70 uppercase">
             Agenda · {MONTHS[view.m]} {view.y}
           </p>
         </div>
@@ -178,7 +178,7 @@ export function EventsCalendar({ onOpen }: { onOpen?: (n: NewsItem) => void }) {
                   onOpen?.(n);
                 }}
                 className={`agenda-item group flex gap-4 overflow-hidden rounded-[1.75rem] border p-3 text-left transition-all duration-500 md:gap-5 ${
-                  active ? "border-[#d8b36a]/70 bg-[#d8b36a]/10 shadow-[0_20px_60px_-30px_rgba(216,179,106,0.8)]" : "border-white/10 bg-white/[0.03] hover:border-white/25"
+                  active ? "border-gold/70 bg-[#d8b36a]/10 shadow-[0_20px_60px_-30px_rgba(216,179,106,0.8)]" : "border-fg/10 bg-surface/60 hover:border-fg/25"
                 }`}
               >
                 <div className="relative w-28 shrink-0 overflow-hidden rounded-2xl md:w-36">
@@ -193,16 +193,16 @@ export function EventsCalendar({ onOpen }: { onOpen?: (n: NewsItem) => void }) {
                   <span className="text-[11px] font-semibold tracking-[0.2em] uppercase" style={{ color: categoryColors[n.category] }}>
                     {n.category}
                   </span>
-                  <h3 className="font-display text-base font-semibold leading-snug text-white md:text-lg">{n.title}</h3>
-                  <div className="flex flex-col gap-1 text-xs text-white/55">
+                  <h3 className="font-display text-base font-semibold leading-snug text-fg md:text-lg">{n.title}</h3>
+                  <div className="flex flex-col gap-1 text-xs text-fg/55">
                     {n.time && (
                       <span className="flex items-center gap-1.5">
-                        <Clock size={12} className="text-[#d8b36a]" /> {n.time}
+                        <Clock size={12} className="text-gold" /> {n.time}
                       </span>
                     )}
                     {n.place && (
                       <span className="flex items-center gap-1.5">
-                        <MapPin size={12} className="text-[#d8b36a]" /> {n.place}
+                        <MapPin size={12} className="text-gold" /> {n.place}
                       </span>
                     )}
                   </div>
@@ -212,7 +212,7 @@ export function EventsCalendar({ onOpen }: { onOpen?: (n: NewsItem) => void }) {
           })
         ) : (
           <div className="agenda-item glass flex flex-col items-start gap-4 rounded-[1.75rem] p-7">
-            <p className="font-display text-lg text-white">No dated events this month.</p>
+            <p className="font-display text-lg text-fg">No dated events this month.</p>
             <button onClick={jumpToNearest} className="btn-ghost !py-2.5">
               Jump to latest events
             </button>
@@ -220,15 +220,15 @@ export function EventsCalendar({ onOpen }: { onOpen?: (n: NewsItem) => void }) {
         )}
 
         <div className="glass mt-2 rounded-[1.75rem] p-6">
-          <p className="font-display text-xs font-semibold tracking-[0.25em] text-[#d8b36a] uppercase">Also this year</p>
+          <p className="font-display text-xs font-semibold tracking-[0.25em] text-gold uppercase">Also this year</p>
           <ul className="mt-4 flex flex-col gap-3">
             {newsItems
               .filter((n) => !n.date && n.year)
               .map((n) => (
                 <li key={n.id} className="flex items-start gap-3 text-sm">
                   <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full" style={{ background: categoryColors[n.category] }} />
-                  <button onClick={() => onOpen?.(n)} className="text-left text-white/75 transition-colors hover:text-white">
-                    {n.title} <span className="text-white/35">· {newsWhen(n)}</span>
+                  <button onClick={() => onOpen?.(n)} className="text-left text-fg/75 transition-colors hover:text-fg">
+                    {n.title} <span className="text-fg/35">· {newsWhen(n)}</span>
                   </button>
                 </li>
               ))}

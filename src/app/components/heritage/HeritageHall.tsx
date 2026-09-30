@@ -96,7 +96,7 @@ export function HeritageHall() {
   return (
     <div
       ref={shell}
-      className={`relative overflow-hidden border border-[#d8b36a]/25 bg-[#0b0608] shadow-[0_60px_160px_-40px_rgba(122,16,34,0.55)] ${
+      className={`on-dark relative overflow-hidden border border-gold/25 bg-[#0b0608] shadow-[0_60px_160px_-40px_rgba(122,16,34,0.55)] ${
         fullscreen ? "h-screen w-screen rounded-none" : "h-[78vh] min-h-[560px] rounded-[2rem] md:rounded-[2.5rem]"
       }`}
     >
@@ -135,9 +135,9 @@ export function HeritageHall() {
               </linearGradient>
             </defs>
           </svg>
-          <span className="absolute inset-0 grid place-items-center font-display text-sm text-[#f3dca0]">{Math.round(progress * 100)}%</span>
+          <span className="absolute inset-0 grid place-items-center font-display text-sm text-gold-hi">{Math.round(progress * 100)}%</span>
         </div>
-        <p className="font-display text-xs tracking-[0.4em] text-white/60 uppercase">
+        <p className="font-display text-xs tracking-[0.4em] text-fg/60 uppercase">
           {failed ? "3D view unavailable on this device" : "Preparing the Heritage Hall"}
         </p>
       </div>
@@ -151,15 +151,15 @@ export function HeritageHall() {
                 <span className="pulse-ring absolute inline-flex h-full w-full rounded-full bg-[#d7263d]" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-[#d7263d]" />
               </span>
-              <span className="font-display text-[11px] font-semibold tracking-[0.3em] text-white uppercase">Heritage Hall · 3D</span>
+              <span className="font-display text-[11px] font-semibold tracking-[0.3em] text-fg uppercase">Heritage Hall · 3D</span>
             </div>
             <div className="pointer-events-auto flex gap-2">
               {vr.supported && (
-                <button onClick={() => museum.current?.enterVR()} className="glass flex items-center gap-2 rounded-full px-4 py-2 text-sm text-white hover:bg-white/10">
-                  <Glasses size={16} className="text-[#f3dca0]" /> {vr.active ? "In VR" : "Enter VR"}
+                <button onClick={() => museum.current?.enterVR()} className="glass flex items-center gap-2 rounded-full px-4 py-2 text-sm text-fg hover:bg-fg/10">
+                  <Glasses size={16} className="text-gold-hi" /> {vr.active ? "In VR" : "Enter VR"}
                 </button>
               )}
-              <button onClick={toggleFullscreen} className="glass grid h-10 w-10 place-items-center rounded-full text-white hover:bg-white/10" aria-label={fullscreen ? "Exit full screen" : "Full screen"}>
+              <button onClick={toggleFullscreen} className="glass grid h-10 w-10 place-items-center rounded-full text-fg hover:bg-fg/10" aria-label={fullscreen ? "Exit full screen" : "Full screen"}>
                 {fullscreen ? <Shrink size={16} /> : <Expand size={16} />}
               </button>
             </div>
@@ -169,24 +169,24 @@ export function HeritageHall() {
           {stop && (
             <div className="pointer-events-none absolute bottom-24 left-4 z-20 max-w-[calc(100%-2rem)] md:bottom-6 md:left-6 md:max-w-md">
               <div key={current} className="hh-caption glass-strong flex flex-col gap-2 rounded-3xl p-5 md:p-6">
-                <span className="font-serif-luxe text-2xl text-[#f3dca0] italic md:text-3xl">{stop.kicker}</span>
-                <h3 className="font-display text-lg font-semibold leading-tight text-white md:text-xl">{stop.title}</h3>
-                <p className="text-sm leading-relaxed text-white/65">{stop.text}</p>
+                <span className="font-serif-luxe text-2xl text-gold-hi italic md:text-3xl">{stop.kicker}</span>
+                <h3 className="font-display text-lg font-semibold leading-tight text-fg md:text-xl">{stop.title}</h3>
+                <p className="text-sm leading-relaxed text-fg/65">{stop.text}</p>
               </div>
             </div>
           )}
 
           {/* Tour controls */}
           <div className="absolute bottom-4 right-4 z-20 flex items-center gap-2 md:bottom-6 md:right-6">
-            <button onClick={() => museum.current?.prev()} className="glass-strong grid h-12 w-12 place-items-center rounded-full text-white hover:bg-white/10" aria-label="Previous exhibit">
+            <button onClick={() => museum.current?.prev()} className="glass-strong grid h-12 w-12 place-items-center rounded-full text-fg hover:bg-fg/10" aria-label="Previous exhibit">
               <ChevronLeft size={20} />
             </button>
             <div className="glass-strong flex items-center gap-3 rounded-full px-4 py-3">
-              <span className="font-display text-sm tabular-nums text-white">
+              <span className="font-display text-sm tabular-nums text-fg">
                 {String(current + 1).padStart(2, "0")}
-                <span className="text-white/35"> / {String(stops.length).padStart(2, "0")}</span>
+                <span className="text-fg/35"> / {String(stops.length).padStart(2, "0")}</span>
               </span>
-              <button onClick={() => setTouring((t) => !t)} className="flex items-center gap-1.5 border-l border-white/15 pl-3 text-xs font-semibold tracking-wider text-[#f3dca0] uppercase" aria-label={touring ? "Pause tour" : "Play guided tour"}>
+              <button onClick={() => setTouring((t) => !t)} className="flex items-center gap-1.5 border-l border-fg/15 pl-3 text-xs font-semibold tracking-wider text-gold-hi uppercase" aria-label={touring ? "Pause tour" : "Play guided tour"}>
                 {touring ? <Pause size={14} /> : <Play size={14} />}
                 {touring ? "Pause" : "Tour"}
               </button>
@@ -197,8 +197,8 @@ export function HeritageHall() {
           </div>
 
           {/* How to move */}
-          <div className="pointer-events-none absolute left-1/2 top-20 z-20 hidden -translate-x-1/2 items-center gap-2 rounded-full bg-black/40 px-4 py-2 text-xs text-white/70 backdrop-blur md:top-6 lg:flex">
-            <Hand size={14} className="text-[#f3dca0]" /> Drag to look · W A S D to walk · Click a frame or case to visit it
+          <div className="pointer-events-none absolute left-1/2 top-20 z-20 hidden -translate-x-1/2 items-center gap-2 rounded-full bg-black/40 px-4 py-2 text-xs text-fg/70 backdrop-blur md:top-6 lg:flex">
+            <Hand size={14} className="text-gold-hi" /> Drag to look · W A S D to walk · Click a frame or case to visit it
           </div>
         </>
       )}

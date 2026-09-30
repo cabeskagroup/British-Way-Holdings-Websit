@@ -20,9 +20,9 @@ const contactItems = [
 ];
 
 const fieldClass =
-  "peer w-full rounded-2xl border border-white/10 bg-white/[0.04] px-5 pb-3 pt-6 text-[15px] text-white placeholder-transparent transition-colors focus:border-[#d8b36a]/70 focus:bg-white/[0.07] focus:outline-none";
+  "peer w-full rounded-2xl border border-fg/10 bg-fg/[0.04] px-5 pb-3 pt-6 text-[15px] text-fg placeholder-transparent transition-colors focus:border-gold/70 focus:bg-fg/[0.07] focus:outline-none";
 const labelClass =
-  "pointer-events-none absolute left-5 top-2 text-[11px] font-semibold tracking-[0.15em] text-[#f3dca0] uppercase transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:tracking-normal peer-placeholder-shown:normal-case peer-placeholder-shown:text-white/45 peer-focus:top-2 peer-focus:text-[11px] peer-focus:tracking-[0.15em] peer-focus:uppercase peer-focus:text-[#f3dca0]";
+  "pointer-events-none absolute left-5 top-2 text-[11px] font-semibold tracking-[0.15em] text-gold-hi uppercase transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:tracking-normal peer-placeholder-shown:normal-case peer-placeholder-shown:text-fg/45 peer-focus:top-2 peer-focus:text-[11px] peer-focus:tracking-[0.15em] peer-focus:uppercase peer-focus:text-gold-hi";
 
 export function ContactPage() {
   const [form, setForm] = useState({ name: "", email: "", company: "", subject: "", message: "" });
@@ -79,8 +79,8 @@ export function ContactPage() {
                 <span className="grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-[#f3dca0] to-[#9c7a3c] text-[#1a1204]">
                   <c.icon size={20} />
                 </span>
-                <span className="text-[11px] font-semibold tracking-[0.2em] text-white/45 uppercase">{c.label}</span>
-                <span className="text-[15px] leading-relaxed text-white">{c.value}</span>
+                <span className="text-[11px] font-semibold tracking-[0.2em] text-fg/45 uppercase">{c.label}</span>
+                <span className="text-[15px] leading-relaxed text-fg">{c.value}</span>
               </div>
             );
             return (
@@ -99,12 +99,14 @@ export function ContactPage() {
       </section>
 
       {/* Island to world */}
-      <section className="relative overflow-hidden px-6 pt-24 md:px-10 md:pt-32">
-        <div className="relative mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.1fr_1fr]">
-          <Reveal y={50} scale={0.92}>
+      <section className="relative px-4 pt-24 md:px-10 md:pt-32">
+        <div className="on-dark relative mx-auto grid max-w-7xl items-center gap-12 overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-navy via-[#172a5c] to-navy-deep px-6 py-12 md:p-14 lg:grid-cols-[1.1fr_1fr]">
+          <div className="orb -right-24 -top-24 h-80 w-80 bg-royal/40" />
+          <div className="orb -bottom-24 left-1/4 h-72 w-72 bg-maroon/40" />
+          <Reveal y={50} scale={0.92} className="relative">
             <GlobeView className="mx-auto max-w-[560px]" />
           </Reveal>
-          <div className="flex flex-col gap-8">
+          <div className="relative flex flex-col gap-8">
             <SectionHeading
               eyebrow="Rooted in Colombo · Reaching everywhere"
               title={
@@ -122,8 +124,8 @@ export function ContactPage() {
                 { k: "We reply", v: "Monday to Saturday" },
               ].map((i) => (
                 <div key={i.k} className="glass rounded-2xl p-4">
-                  <p className="text-[11px] tracking-[0.2em] text-white/45 uppercase">{i.k}</p>
-                  <p className="mt-1 font-display text-base font-semibold text-white">{i.v}</p>
+                  <p className="text-[11px] tracking-[0.2em] text-fg/45 uppercase">{i.k}</p>
+                  <p className="mt-1 font-display text-base font-semibold text-fg">{i.v}</p>
                 </div>
               ))}
             </Reveal>
@@ -134,12 +136,12 @@ export function ContactPage() {
 
       {/* Form + map */}
       <section className="relative px-6 py-24 md:px-10 md:py-32">
-        <div className="orb left-0 top-1/3 h-[420px] w-[420px] bg-[#1b3f8f]/30" />
+        <div className="orb left-0 top-1/3 h-[420px] w-[420px] bg-pearl/70" />
         <div className="relative mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1.15fr_1fr]">
           <Reveal y={60}>
             <div className="glass-strong luxe-border rounded-[2.25rem] p-7 md:p-10">
               <span className="eyebrow">Send a message</span>
-              <h2 className="mt-4 font-display text-3xl font-semibold text-white md:text-4xl">How can we help?</h2>
+              <h2 className="mt-4 font-display text-3xl font-semibold text-fg md:text-4xl">How can we help?</h2>
               <p className="mt-3 text-sm text-mist">Fill in the form and your email app will open with the message ready to send to our team.</p>
               <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-4">
                 <div className="grid gap-4 sm:grid-cols-2">
@@ -166,7 +168,7 @@ export function ContactPage() {
                     <Send size={16} /> Send message
                   </button>
                   {opened && (
-                    <p className="text-sm text-[#f3dca0]">
+                    <p className="text-sm text-gold-hi">
                       Your email app should now be open. If it isn't, write to us at{" "}
                       <a href={`mailto:${GROUP_EMAIL}`} className="underline">
                         {GROUP_EMAIL}
@@ -180,7 +182,7 @@ export function ContactPage() {
           </Reveal>
 
           <Reveal y={60} className="flex flex-col gap-6">
-            <div className="relative min-h-[380px] flex-1 overflow-hidden rounded-[2.25rem] border border-white/10">
+            <div className="relative min-h-[380px] flex-1 overflow-hidden rounded-[2.25rem] border border-fg/10">
               <iframe
                 title="British Way Holdings head office map"
                 src="https://maps.google.com/maps?q=Galle+Road+Colombo+03+Sri+Lanka&output=embed"
@@ -193,8 +195,8 @@ export function ContactPage() {
                   <MapPin size={18} />
                 </span>
                 <div>
-                  <p className="font-display text-sm font-semibold text-white">British Way Holdings Head Office</p>
-                  <p className="text-xs text-white/60">No. 123, Galle Road, Colombo 03</p>
+                  <p className="font-display text-sm font-semibold text-fg">British Way Holdings Head Office</p>
+                  <p className="text-xs text-fg/60">No. 123, Galle Road, Colombo 03</p>
                 </div>
               </div>
             </div>
